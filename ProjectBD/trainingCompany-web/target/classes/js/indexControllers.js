@@ -5,7 +5,7 @@ indexControllers.controller('RegistrationController',['$scope','IndexService', f
     $scope.message = "Registration form";
     $scope.myUser={};
     $scope.send = function(){
-        IndexService.postGret({id:$scope.gret.id},$scope.gret);
+        IndexService.postGret({id:8},$scope.gret);
     }
     $scope.gret = {};
 

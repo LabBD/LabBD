@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/trainingCompany.iml" filepath="$PROJECT_DIR$/trainingCompany.iml" />
+      <module fileurl="file://$PROJECT_DIR$/trainingCompany-model/trainingCompany-model.iml" filepath="$PROJECT_DIR$/trainingCompany-model/trainingCompany-model.iml" />
+      <module fileurl="file://$PROJECT_DIR$/trainingCompany-repo/trainingCompany-repo.iml" filepath="$PROJECT_DIR$/trainingCompany-repo/trainingCompany-repo.iml" />
+      <module fileurl="file://$PROJECT_DIR$/trainingCompany-service/trainingCompany-service.iml" filepath="$PROJECT_DIR$/trainingCompany-service/trainingCompany-service.iml" />
+      <module fileurl="file://$PROJECT_DIR$/trainingCompany-web/trainingCompany-web.iml" filepath="$PROJECT_DIR$/trainingCompany-web/trainingCompany-web.iml" />
+    </modules>
+  </component>
+</project>
