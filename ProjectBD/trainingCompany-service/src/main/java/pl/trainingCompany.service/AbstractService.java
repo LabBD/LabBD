@@ -7,6 +7,7 @@ import org.springframework.data.repository.CrudRepository;
 /**
  * Created by Kamil S on 2016-03-16.
  */
+//<Klasa DBO, Klasa DTO, Repository>
 abstract public class AbstractService<DBO,DTO,R extends CrudRepository<DBO,Long>,M extends AbstractMapper<DBO,DTO>> {
 
     @Autowired
