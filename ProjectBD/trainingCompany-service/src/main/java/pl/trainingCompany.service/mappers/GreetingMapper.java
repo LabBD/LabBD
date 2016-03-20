@@ -7,7 +7,7 @@ import pl.trainingCompany.model.dbo.Greeting;
  * Created by Kamil S on 2016-03-17.
  */
 @Component
-public class GreetingMapper implements AbstractMapper<Greeting,Greeting> {
+public class GreetingMapper implements MapperInterface<Greeting,Greeting> {
 
     @Override
     public Greeting convertToDBO(Greeting greeting) {

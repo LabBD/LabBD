@@ -3,7 +3,7 @@ package pl.trainingCompany.service.mappers;
 /**
  * Created by Kamil S on 2016-03-17.
  */
-public interface AbstractMapper<DBO,DTO> {
+public interface MapperInterface<DBO,DTO> {
 
     public DBO convertToDBO(DTO dto);
 

@@ -26,4 +26,5 @@ indexControllers.controller('NewController',['$scope','IndexService', function($
 
     $scope.inst =IndexService.getGret({id: 2});
 
+
 }]);

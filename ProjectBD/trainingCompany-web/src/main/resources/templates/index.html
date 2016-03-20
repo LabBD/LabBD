@@ -3,22 +3,41 @@
 <head lang="en">
     <meta charset="UTF-8"/>
 
+    <!--Local repo
 
-    <!-- Angular Js -->
+    <script th:src="@{/js/bower_components/angular/angular.min.js}"></script>
+    <script th:src="@{/js/bower_components/angular-route/angular-route.min.js}"></script>
+    <script th:src="@{/js/bower_components/angular-resource/angular-resource.min.js}"></script>
+
+
+
+    <link rel="stylesheet" th:href="@{/js/bower_components/bootstrap/dist/css/bootstrap.min.css}"/>
+    <script th:src="@{/js/bower_components/jquery/dist/jquery.min.js}"></script>
+    <script th:src="@{/js/bower_components/bootstrap/dist/js/bootstrap.min.js}"></script>
+
+    Local repo -->
+
+    <!--Global repo-->
+
     <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.3.14/angular.js"></script>
     <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.3.14/angular-route.js"></script>
     <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.3.14/angular-resource.js"></script>
 
-    <!-- Bootstrap -->
+
+
     <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css"/>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
     <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
 
+    <!--Global repo -->
 
+    <script type="text/javascript" th:src="@{/js/photoServices.js}"/>
     <script type="text/javascript" th:src="@{/js/routeProvider.js}"/>
     <script type="text/javascript" th:src="@{/js/indexControllers.js}"/>
     <script type="text/javascript" th:src="@{/js/indexServices.js}"/>
- <!-- -->
+    <script type="text/javascript" th:src="@{/js/photoControllers.js}"/>
+
+    <!-- -->
 </head>
 <body>
 <nav class="navbar navbar-inverse">
@@ -31,17 +50,16 @@
             <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">Page 1 <span
                     class="caret"></span></a>
                 <ul class="dropdown-menu">
-                    <li><a href="#registration">Page 1-1 works</a></li>
+                    <li><a href="#registration">Registration</a></li>
                     <li><a href="#">Page 1-2</a></li>
                     <li><a href="#">Page 1-3</a></li>
                 </ul>
             </li>
             <li><a href="#viewStudents">Page 2 works</a></li>
-            <li><a href="#">Page 3</a></li>
+            <li><a href="#photoDemo">photoDemo</a></li>
         </ul>
     </div>
 </nav>
-elo
 <div ng-app="mainApp">
 
 

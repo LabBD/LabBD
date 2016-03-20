@@ -12,8 +12,8 @@ import org.springframework.context.annotation.ComponentScan;
  * Created by Kamil S on 2016-03-03.
  */
 @SpringBootApplication
-@ComponentScan(basePackages = "pl.trainingCompany")
-public class Application extends SpringBootServletInitializer {
+ @ComponentScan(basePackages = "pl.trainingCompany")
+ public class Application extends SpringBootServletInitializer {
 
     private static final Logger log = LoggerFactory.getLogger(Application.class);
 

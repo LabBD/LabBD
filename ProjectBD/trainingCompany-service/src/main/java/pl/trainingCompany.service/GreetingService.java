@@ -1,6 +1,5 @@
 package pl.trainingCompany.service;
 
-import pl.trainingCompany.service.mappers.AbstractMapper;
 import org.springframework.stereotype.Service;
 import pl.trainingCompany.model.dbo.Greeting;
 import pl.trainingCompany.repo.GreetingRepo;

@@ -1,6 +1,6 @@
 package pl.trainingCompany.web.controller;
 
-import pl.trainingCompany.service.mappers.AbstractMapper;
+import pl.trainingCompany.service.mappers.MapperInterface;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -13,7 +13,7 @@ import pl.trainingCompany.service.AbstractService;
  * Created by Kamil S on 2016-03-16.
  */
 //<Klasa DBO, Klasa DTO, Service>
-abstract public class AbstractController<DBO, DTO, S extends AbstractService<DBO, DTO, ? extends CrudRepository<DBO, Long>, ? extends AbstractMapper<DBO, DTO>>> {
+abstract public class AbstractController<DBO, DTO, S extends AbstractService<DBO, DTO, ? extends CrudRepository<DBO, Long>, ? extends MapperInterface<DBO, DTO>>> {
 
     @Autowired
     S service;

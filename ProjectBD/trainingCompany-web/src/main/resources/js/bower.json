@@ -1,0 +1,25 @@
+{
+  "name": "trainingCompany",
+  "homepage": "https://github.com/LabBD/LabBD",
+  "authors": [
+    "LabBD <gorfion1@gmail.com>"
+  ],
+  "description": "bower file with dependency",
+  "main": "index.html",
+  "moduleType": [],
+  "license": "MIT",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "angular": "1.5.2",
+    "angular-route": "1.5.2",
+    "angular-resource": "1.5.2",
+    "bootstrap": "^3.3.6"
+  }
+}
