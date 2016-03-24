@@ -17,14 +17,14 @@ public class Controller {
     @Autowired
     private GreetingRepo repo;
 
-    @RequestMapping("/user/{id}")
+    @RequestMapping("/users/{id}")
     public Greeting get(@PathVariable("id") int id) {
 
         System.out.print(id);
         return repo.findOne(1L);
     }
 
-    @RequestMapping(value = "/user", method = RequestMethod.POST)
+    @RequestMapping(value = "/users", method = RequestMethod.POST)
     public void post(@RequestBody User user) {
 
 

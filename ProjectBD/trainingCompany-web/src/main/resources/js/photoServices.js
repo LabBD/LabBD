@@ -17,7 +17,7 @@ PhotoServices.factory('PhotoService', [
 
             getPhotos: {
                 method: 'GET',
-                url: '../photo/all',
+                url: '../attachment/all',
                 isArray:true
             },
 

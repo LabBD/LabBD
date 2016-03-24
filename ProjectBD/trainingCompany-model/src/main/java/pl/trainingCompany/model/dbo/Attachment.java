@@ -1,15 +1,14 @@
 package pl.trainingCompany.model.dbo;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.ManyToOne;
+import pl.trainingCompany.model.AttachmentType;
+
+import javax.persistence.*;
 
 /**
  * Created by Kamil S on 2016-03-20.
  */
 @Entity
-public class Photo {
+public class Attachment {
 
     @Id
     @GeneratedValue
@@ -17,7 +16,10 @@ public class Photo {
 
     private String name;
 
+    private AttachmentType attachmentType;
+
     @ManyToOne
+    @JoinColumn(name = "offer_id")
     private Offer offer;
 
     public long getId() {
@@ -42,5 +44,13 @@ public class Photo {
 
     public void setOffer(Offer offer) {
         this.offer = offer;
+    }
+
+    public AttachmentType getAttachmentType() {
+        return attachmentType;
+    }
+
+    public void setAttachmentType(AttachmentType attachmentType) {
+        this.attachmentType = attachmentType;
     }
 }

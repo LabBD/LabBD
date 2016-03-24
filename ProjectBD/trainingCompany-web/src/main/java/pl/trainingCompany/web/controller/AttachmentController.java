@@ -1,33 +1,29 @@
 package pl.trainingCompany.web.controller;
 
 import org.apache.tomcat.util.http.fileupload.IOUtils;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.util.FileCopyUtils;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-import pl.trainingCompany.model.dbo.Photo;
-import pl.trainingCompany.model.dto.DtoPhoto;
-import pl.trainingCompany.service.PhotoService;
+import pl.trainingCompany.model.dbo.Attachment;
+import pl.trainingCompany.model.dto.DtoAttachment;
+import pl.trainingCompany.service.AttachmentService;
 
 import javax.servlet.http.HttpServletResponse;
 import java.io.*;
-import java.util.Arrays;
-import java.util.Comparator;
-import java.util.List;
-import java.util.stream.Collectors;
 
 /**
  * Created by Kamil S on 2016-03-20.
  */
 @RestController
-@RequestMapping("/photo")
-public class PhotoController extends AbstractController<Photo, DtoPhoto, PhotoService> {
+@RequestMapping("/attachment")
+public class AttachmentController extends AbstractController<Attachment, DtoAttachment, AttachmentService> {
 
     @RequestMapping(method = RequestMethod.POST, value = "/upload")
     public ModelAndView handleFileUpload(@RequestParam("name") String name,
+                                         @RequestParam("attachmentType") String attachmentType,
+                                         @RequestParam("offerID") Long offerID,
                                          @RequestParam("file") MultipartFile file,
                                          RedirectAttributes redirectAttributes) {
         if (name.contains("/")) {
@@ -41,14 +37,17 @@ public class PhotoController extends AbstractController<Photo, DtoPhoto, PhotoSe
 
         if (!file.isEmpty()) {
             try {
-
+                service.save(name, attachmentType, offerID);
+                File dbFile = new File("FILE/"+offerID);
+                if(!dbFile.exists())
+                    dbFile.mkdirs();
+                dbFile = new File("FILE/"+offerID+"/"+name);
                 BufferedOutputStream stream = new BufferedOutputStream(
-                        new FileOutputStream(new File(name)));
+                        new FileOutputStream(dbFile));
+
                 FileCopyUtils.copy(file.getInputStream(), stream);
                 stream.close();
-                DtoPhoto dtoPhoto = new DtoPhoto();
-                dtoPhoto.setName(name);
-                service.save(dtoPhoto);
+
                 redirectAttributes.addFlashAttribute("message",
                         "You successfully uploaded " + name + "!");
             } catch (Exception e) {
@@ -64,14 +63,15 @@ public class PhotoController extends AbstractController<Photo, DtoPhoto, PhotoSe
     }
 
 
-    @RequestMapping(value = "/files/{file_name}", method = RequestMethod.GET)
+    @RequestMapping(value = "/files/{offerId}/{file_name}", method = RequestMethod.GET)
     public void getFile(
             @PathVariable("file_name") String fileName,
+            @PathVariable("offerId") String offerId,
             HttpServletResponse response) {
         if (!(fileName.contains("{") || fileName.contains("}"))) {
             try {
                 // get your file as InputStream
-                BufferedInputStream is = new BufferedInputStream(new FileInputStream(new File(fileName)));
+                BufferedInputStream is = new BufferedInputStream(new FileInputStream(new File("FILE/"+offerId+"/"+fileName)));
                 // copy it to response's OutputStream
                 try {
                     IOUtils.copy(is, response.getOutputStream());

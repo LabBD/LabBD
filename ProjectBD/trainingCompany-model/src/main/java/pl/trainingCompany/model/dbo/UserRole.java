@@ -10,8 +10,8 @@ import static javax.persistence.GenerationType.IDENTITY;
 @Entity
 @Table(name = "user_roles",
         uniqueConstraints = @UniqueConstraint(
-                columnNames = { "role", "username" }))
-public class UserRole{
+                columnNames = {"role", "username"}))
+public class UserRole {
 
     private Integer userRoleId;
     private User user;

@@ -1,6 +1,9 @@
 package pl.trainingCompany.model.dto;
 
 
+import pl.trainingCompany.model.dbo.OfferCategory;
+
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -14,7 +17,13 @@ public class DtoOffer {
 
     private String description;
 
-    private List<String> photosNames;
+    private Double price;
+
+    private Long quantity;
+
+    private Date endDate;
+
+    private String offerCategoryName;
 
     public long getId() {
         return id;
@@ -40,11 +49,35 @@ public class DtoOffer {
         this.description = description;
     }
 
-    public List<String> getPhotosNames() {
-        return photosNames;
+    public Double getPrice() {
+        return price;
     }
 
-    public void setPhotosNames(List<String> photosNames) {
-        this.photosNames = photosNames;
+    public void setPrice(Double price) {
+        this.price = price;
+    }
+
+    public Long getQuantity() {
+        return quantity;
+    }
+
+    public void setQuantity(Long quantity) {
+        this.quantity = quantity;
+    }
+
+    public Date getEndDate() {
+        return endDate;
+    }
+
+    public void setEndDate(Date endDate) {
+        this.endDate = endDate;
+    }
+
+    public String getOfferCategoryName() {
+        return offerCategoryName;
+    }
+
+    public void setOfferCategoryName(String offerCategoryName) {
+        this.offerCategoryName = offerCategoryName;
     }
 }

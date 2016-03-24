@@ -15,6 +15,7 @@ public class User {
     private String username;
     private String password;
     private boolean enabled;
+    private String email;
     private Set<UserRole> userRole = new HashSet<UserRole>(0);
 
     public User() {
@@ -73,4 +74,19 @@ public class User {
         this.userRole = userRole;
     }
 
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
 }

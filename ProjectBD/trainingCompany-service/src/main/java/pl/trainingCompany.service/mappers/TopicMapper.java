@@ -45,7 +45,7 @@ public class TopicMapper implements MapperInterface<Topic, DtoTopic> {
 
     @Override
     public Iterable<Topic> convertToDBO(Iterable<DtoTopic> dto) {
-        List<Topic> topics = new ArrayList<>();
+        List<Topic> topics = new ArrayList<Topic>();
         for (DtoTopic dtoTopic : dto) {
             topics.add(convertToDBO(dtoTopic));
         }
@@ -54,7 +54,7 @@ public class TopicMapper implements MapperInterface<Topic, DtoTopic> {
 
     @Override
     public Iterable<DtoTopic> convertToDTO(Iterable<Topic> dbo) {
-        List<DtoTopic> dtoTopics = new ArrayList<>();
+        List<DtoTopic> dtoTopics = new ArrayList<DtoTopic>();
         for (Topic topic : dbo) {
             dtoTopics.add(convertToDTO(topic));
         }

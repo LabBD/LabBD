@@ -1,9 +1,7 @@
 package pl.trainingCompany.model.dbo;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
+import javax.persistence.*;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -20,8 +18,18 @@ public class Offer {
 
     private String description;
 
+    private Double price;
+
+    private Long quantity;
+
+    private Date endDate;
+
     @OneToMany(mappedBy = "offer")
-    private List<Photo> photos;
+    private List<Attachment> attachments;
+
+    @ManyToOne
+    @JoinColumn(name = "offer_category_id")
+    private OfferCategory offerCategory;
 
     public long getId() {
         return id;
@@ -47,11 +55,43 @@ public class Offer {
         this.description = description;
     }
 
-    public List<Photo> getPhotos() {
-        return photos;
+    public List<Attachment> getAttachments() {
+        return attachments;
     }
 
-    public void setPhotos(List<Photo> photos) {
-        this.photos = photos;
+    public void setAttachments(List<Attachment> attachments) {
+        this.attachments = attachments;
+    }
+
+    public Double getPrice() {
+        return price;
+    }
+
+    public void setPrice(Double price) {
+        this.price = price;
+    }
+
+    public Long getQuantity() {
+        return quantity;
+    }
+
+    public void setQuantity(Long quantity) {
+        this.quantity = quantity;
+    }
+
+    public Date getEndDate() {
+        return endDate;
+    }
+
+    public void setEndDate(Date endDate) {
+        this.endDate = endDate;
+    }
+
+    public OfferCategory getOfferCategory() {
+        return offerCategory;
+    }
+
+    public void setOfferCategory(OfferCategory offerCategory) {
+        this.offerCategory = offerCategory;
     }
 }

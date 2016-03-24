@@ -33,7 +33,7 @@ public class SectionMapper implements MapperInterface<Section, DtoSection> {
 
     @Override
     public Iterable<Section> convertToDBO(Iterable<DtoSection> dto) {
-        List<Section> sections = new ArrayList<>();
+        List<Section> sections = new ArrayList<Section>();
         for (DtoSection dtoSection : dto) {
             sections.add(convertToDBO(dtoSection));
         }
@@ -42,7 +42,7 @@ public class SectionMapper implements MapperInterface<Section, DtoSection> {
 
     @Override
     public Iterable<DtoSection> convertToDTO(Iterable<Section> dbo) {
-        List<DtoSection> dtoSections = new ArrayList<>();
+        List<DtoSection> dtoSections = new ArrayList<DtoSection>();
         for (Section section : dbo) {
             dtoSections.add(convertToDTO(section));
         }

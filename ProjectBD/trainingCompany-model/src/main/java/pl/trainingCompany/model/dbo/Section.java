@@ -3,6 +3,8 @@ package pl.trainingCompany.model.dbo;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import java.util.List;
 
 /**
  * Created by Pawel on 24-Mar-16.
@@ -15,6 +17,9 @@ public class Section {
 
     private String name;
     private String description;
+
+    @OneToMany(mappedBy = "section")
+    private List<Topic> topicList;
 
     public long getId() {
         return id;
@@ -38,5 +43,13 @@ public class Section {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public List<Topic> getTopicList() {
+        return topicList;
+    }
+
+    public void setTopicList(List<Topic> topicList) {
+        this.topicList = topicList;
     }
 }
