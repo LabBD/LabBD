@@ -16,7 +16,6 @@ public class OfferCategory {
 
     private String name;
     private String description;
-    private long idFk;              // przy tym daliśmy pytajnik więc pole do przemyślenia :)
 
     public long getId() {
         return id;
@@ -42,11 +41,4 @@ public class OfferCategory {
         this.description = description;
     }
 
-    public long getIdFk() {
-        return idFk;
-    }
-
-    public void setIdFk(long idFk) {
-        this.idFk = idFk;
-    }
 }
