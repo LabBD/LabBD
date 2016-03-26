@@ -16,6 +16,7 @@ public class Section {
     private long id;
 
     private String name;
+
     private String description;
 
     @OneToMany(mappedBy = "section")

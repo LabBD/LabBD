@@ -11,4 +11,5 @@ import pl.trainingCompany.service.mappers.OfferMapper;
  */
 @Service
 public class OfferService extends AbstractService<Offer,DtoOffer,OfferRepo,OfferMapper> {
+
 }

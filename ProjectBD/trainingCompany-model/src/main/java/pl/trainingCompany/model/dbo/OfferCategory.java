@@ -1,8 +1,6 @@
 package pl.trainingCompany.model.dbo;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 /**
  * Created by Mateusz on 2016-03-24.
@@ -16,6 +14,10 @@ public class OfferCategory {
 
     private String name;
     private String description;
+
+    @ManyToOne
+    @JoinColumn(name = "parent_category_id")
+    private OfferCategory offerCategoryParent;
 
     public long getId() {
         return id;
@@ -41,4 +43,11 @@ public class OfferCategory {
         this.description = description;
     }
 
+    public OfferCategory getOfferCategoryParent() {
+        return offerCategoryParent;
+    }
+
+    public void setOfferCategoryParent(OfferCategory offerCategoryParent) {
+        this.offerCategoryParent = offerCategoryParent;
+    }
 }

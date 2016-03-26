@@ -7,9 +7,9 @@ import pl.trainingCompany.repo.OfferCategoryRepo;
 import pl.trainingCompany.service.mappers.OfferCategoryMapper;
 
 /**
- * Created by Mateusz on 2016-03-26.
+ * Created by Se obastiann 2016-03-26.
  */
 @Service
-public class OfferCategoryService extends AbstractService<OfferCategory, DtoOfferCategory, OfferCategoryRepo, OfferCategoryMapper>{
+public class OfferCategoryService extends AbstractService<OfferCategory,DtoOfferCategory,OfferCategoryRepo,OfferCategoryMapper> {
 
 }

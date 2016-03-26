@@ -1,7 +1,5 @@
 package pl.trainingCompany.model.dto;
 
-import java.util.List;
-
 /**
  * Created by Pawel on 24-Mar-16.
  */
@@ -11,16 +9,6 @@ public class DtoSection {
     private String name;
 
     private String description;
-
-    private List<String> topicNamesList;
-
-    public List<String> getTopicNamesList() {
-        return topicNamesList;
-    }
-
-    public void setTopicNamesList(List<String> topicNamesList) {
-        this.topicNamesList = topicNamesList;
-    }
 
     public long getId() {
         return id;

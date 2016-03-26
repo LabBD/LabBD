@@ -15,7 +15,6 @@ import java.util.List;
  * Created by Pawel on 24-Mar-16.
  */
 @Component
-
 public class TopicMapper implements MapperInterface<Topic, DtoTopic> {
 
     @Autowired

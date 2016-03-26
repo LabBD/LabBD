@@ -8,6 +8,7 @@ public class DtoOfferCategory {
 
     private String name;
     private String description;
+    private Long parentCategoryId;              // przy tym daliśmy pytajnik więc pole do przemyślenia :)
 
     public long getId() {
         return id;
@@ -31,5 +32,13 @@ public class DtoOfferCategory {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public Long getParentCategoryId() {
+        return parentCategoryId;
+    }
+
+    public void setParentCategoryId(Long parentCategoryId) {
+        this.parentCategoryId = parentCategoryId;
     }
 }

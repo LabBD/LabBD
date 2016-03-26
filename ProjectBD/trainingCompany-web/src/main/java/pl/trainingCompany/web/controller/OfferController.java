@@ -12,4 +12,5 @@ import pl.trainingCompany.service.OfferService;
 @RestController
 @RequestMapping("/offer")
 public class OfferController extends AbstractController<Offer,DtoOffer,OfferService> {
+
 }

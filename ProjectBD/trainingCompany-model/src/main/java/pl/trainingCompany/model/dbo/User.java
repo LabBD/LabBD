@@ -17,6 +17,9 @@ public class User {
     private boolean enabled;
     private String email;
     private Set<UserRole> userRole = new HashSet<UserRole>(0);
+//    @OneToOne
+//    @JoinColumn(name = "basket_id")
+//    private Basket basket;
 
     public User() {
     }
@@ -89,4 +92,12 @@ public class User {
     public void setEmail(String email) {
         this.email = email;
     }
+
+//    public Basket getBasket() {
+//        return basket;
+//    }
+//
+//    public void setBasket(Basket basket) {
+//        this.basket = basket;
+//    }
 }

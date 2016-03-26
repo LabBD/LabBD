@@ -8,6 +8,7 @@ public class DtoUser {
     private String password;
     private String username;
     private String email;
+//    private Long basketId;
 
     public Long getId() {
         return id;
@@ -40,4 +41,12 @@ public class DtoUser {
     public void setPassword(String password) {
         this.password = password;
     }
+//
+//    public Long getBasketId() {
+//        return basketId;
+//    }
+//
+//    public void setBasketId(Long basketId) {
+//        this.basketId = basketId;
+//    }
 }

@@ -10,10 +10,13 @@ public class Topic {
     @Id
     @GeneratedValue
     private long id;
+
     private String name;
+
     @ManyToOne
-    @JoinColumn(name = "sectionId")
+    @JoinColumn(name = "section_id") //powinno byc IMO section_id
     private Section section;
+
     @ManyToOne
     private User author;
 

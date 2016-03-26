@@ -27,6 +27,12 @@ public class Offer {
     @OneToMany(mappedBy = "offer")
     private List<Attachment> attachments;
 
+    @OneToMany(mappedBy = "offer")
+    private List<Order> orders;
+
+    @OneToMany(mappedBy = "offer")
+    private List<Guest> guests;
+
     @ManyToOne
     @JoinColumn(name = "offer_category_id")
     private OfferCategory offerCategory;
@@ -61,6 +67,22 @@ public class Offer {
 
     public void setAttachments(List<Attachment> attachments) {
         this.attachments = attachments;
+    }
+
+    public List<Order> getOrders() {
+        return orders;
+    }
+
+    public void setOrders(List<Order> orders) {
+        this.orders = orders;
+    }
+
+    public List<Guest> getGuests() {
+        return guests;
+    }
+
+    public void setGuests(List<Guest> guests) {
+        this.guests = guests;
     }
 
     public Double getPrice() {
