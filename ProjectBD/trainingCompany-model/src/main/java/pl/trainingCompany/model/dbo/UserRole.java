@@ -10,7 +10,7 @@ import static javax.persistence.GenerationType.IDENTITY;
 @Entity
 @Table(name = "user_roles",
         uniqueConstraints = @UniqueConstraint(
-                columnNames = {"role", "username"}))
+                columnNames = {"role", "user_id"}))
 public class UserRole {
 
     private Integer userRoleId;
@@ -39,7 +39,7 @@ public class UserRole {
 
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "username", nullable = false)
+    @JoinColumn(name = "user_id", nullable = false)
     public User getUser() {
         return this.user;
     }

@@ -8,18 +8,20 @@ import java.util.Set;
  * Created by Kamil S on 2016-03-05.
  */
 @Entity
-@Table(name = "users")
 public class User {
 
     private Long id;
+
     private String username;
+
     private String password;
+
     private boolean enabled;
+
     private String email;
+
     private Set<UserRole> userRole = new HashSet<UserRole>(0);
-//    @OneToOne
-//    @JoinColumn(name = "basket_id")
-//    private Basket basket;
+
 
     public User() {
     }
@@ -38,7 +40,7 @@ public class User {
         this.userRole = userRole;
     }
 
-    @Id
+
     @Column(name = "username", unique = true,
             nullable = false, length = 45)
     public String getUsername() {
@@ -77,6 +79,9 @@ public class User {
         this.userRole = userRole;
     }
 
+
+    @Id
+    @GeneratedValue
     public Long getId() {
         return id;
     }
@@ -93,11 +98,5 @@ public class User {
         this.email = email;
     }
 
-//    public Basket getBasket() {
-//        return basket;
-//    }
-//
-//    public void setBasket(Basket basket) {
-//        this.basket = basket;
-//    }
+
 }
