@@ -2,6 +2,7 @@ package pl.trainingCompany.model.dbo;
 
 import javax.persistence.*;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 /**
@@ -21,6 +22,9 @@ public class User {
     private String email;
 
     private Set<UserRole> userRole = new HashSet<UserRole>(0);
+
+    @OneToMany(mappedBy = "company")
+    private List<Order> companies;
 
 
     public User() {
@@ -98,5 +102,11 @@ public class User {
         this.email = email;
     }
 
+    public List<Order> getCompanies() {
+        return companies;
+    }
 
+    public void setCompanies(List<Order> companies) {
+        this.companies = companies;
+    }
 }

@@ -4,19 +4,11 @@ package pl.trainingCompany.model.dto;
  * Created by Mateusz on 2016-03-24.
  */
 public class DtoCompany {
-    private long companyId;
-
     private long id;
+
+    private Long userId;
     private String nameCompany;
     private String description;
-
-    public long getCompanyId() {
-        return companyId;
-    }
-
-    public void setCompanyId(long companyId) {
-        this.companyId = companyId;
-    }
 
     public long getId() {
         return id;
@@ -24,6 +16,14 @@ public class DtoCompany {
 
     public void setId(long id) {
         this.id = id;
+    }
+
+    public Long getUserId() {
+        return userId;
+    }
+
+    public void setUserId(long userId) {
+        this.userId = userId;
     }
 
     public String getNameCompany() {
@@ -41,5 +41,4 @@ public class DtoCompany {
     public void setDescription(String description) {
         this.description = description;
     }
-
 }

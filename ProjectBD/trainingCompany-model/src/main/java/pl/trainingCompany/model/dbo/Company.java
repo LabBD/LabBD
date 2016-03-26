@@ -1,8 +1,6 @@
 package pl.trainingCompany.model.dbo;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 /**
  * Created by Mateusz on 2016-03-24.
@@ -12,19 +10,14 @@ public class Company {
 
     @Id
     @GeneratedValue
-    private long companyId;
-
     private long id;
+
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private User user;
+
     private String nameCompany;
     private String description;
-
-    public long getCompanyId() {
-        return companyId;
-    }
-
-    public void setCompanyId(long companyId) {
-        this.companyId = companyId;
-    }
 
     public long getId() {
         return id;
@@ -32,6 +25,14 @@ public class Company {
 
     public void setId(long id) {
         this.id = id;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 
     public String getNameCompany() {
