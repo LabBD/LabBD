@@ -5,7 +5,7 @@ import java.util.Date;
 
 /**
  * Created by PM on 27.03.2016.
- * Trzeba zmienic basket!!
+ * Trzeba zmienic basket!
  */
 @Entity
 public class PostInTopic {
