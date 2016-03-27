@@ -23,9 +23,6 @@ public class User {
 
     private Set<UserRole> userRole = new HashSet<UserRole>(0);
 
-    @OneToMany(mappedBy = "company")
-    private List<Order> companies;
-
 
     public User() {
     }
@@ -102,11 +99,4 @@ public class User {
         this.email = email;
     }
 
-    public List<Order> getCompanies() {
-        return companies;
-    }
-
-    public void setCompanies(List<Order> companies) {
-        this.companies = companies;
-    }
 }
