@@ -15,8 +15,8 @@ public class Topic {
     private String name;
 
     @ManyToOne
-    @JoinColumn(name = "section_id") //powinno byc IMO section_id
-    private Section section;            //jeden chuj bo i tak się samo podmienia
+    @JoinColumn(name = "section_id")
+    private Section section;
 
     @OneToMany(mappedBy = "topic")
     private List<PostInTopic> posts;
