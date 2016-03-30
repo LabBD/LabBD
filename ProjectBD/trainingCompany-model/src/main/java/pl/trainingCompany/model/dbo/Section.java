@@ -20,7 +20,7 @@ public class Section {
     private String description;
 
     @OneToMany(mappedBy = "section")
-    private List<Topic> topicList;
+    private List<Topic> topics;
 
     public long getId() {
         return id;
@@ -46,11 +46,11 @@ public class Section {
         this.description = description;
     }
 
-    public List<Topic> getTopicList() {
-        return topicList;
+    public List<Topic> getTopics() {
+        return topics;
     }
 
-    public void setTopicList(List<Topic> topicList) {
-        this.topicList = topicList;
+    public void setTopics(List<Topic> topics) {
+        this.topics = topics;
     }
 }

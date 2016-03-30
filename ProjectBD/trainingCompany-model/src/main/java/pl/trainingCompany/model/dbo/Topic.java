@@ -1,6 +1,7 @@
 package pl.trainingCompany.model.dbo;
 
 import javax.persistence.*;
+import java.util.List;
 
 /**
  * Created by Pawel on 24-Mar-16.
@@ -15,10 +16,21 @@ public class Topic {
 
     @ManyToOne
     @JoinColumn(name = "section_id") //powinno byc IMO section_id
-    private Section section;
+    private Section section;            //jeden chuj bo i tak się samo podmienia
+
+    @OneToMany(mappedBy = "topic")
+    private List<PostInTopic> posts;
 
     @ManyToOne
     private User author;
+
+    public List<PostInTopic> getPosts() {
+        return posts;
+    }
+
+    public void setPosts(List<PostInTopic> posts) {
+        this.posts = posts;
+    }
 
     public long getId() {
         return id;
