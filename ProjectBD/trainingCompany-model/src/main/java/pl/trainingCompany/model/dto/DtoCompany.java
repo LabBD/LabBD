@@ -6,7 +6,7 @@ package pl.trainingCompany.model.dto;
 public class DtoCompany {
     private long id;
 
-    private Long userId;
+    private Long accountId;
     private String nameCompany;
     private String description;
 
@@ -18,12 +18,12 @@ public class DtoCompany {
         this.id = id;
     }
 
-    public Long getUserId() {
-        return userId;
+    public Long getAccountId() {
+        return accountId;
     }
 
-    public void setUserId(long userId) {
-        this.userId = userId;
+    public void setAccountId(long accountId) {
+        this.accountId = accountId;
     }
 
     public String getNameCompany() {

@@ -6,8 +6,8 @@ import java.util.List;
 import java.util.Set;
 
 /**
- * Created by Kamil S on 2016-03-05.
- */
+* Created by Kamil S on 2016-03-05.
+*/
 @Entity
 public class User {
 
