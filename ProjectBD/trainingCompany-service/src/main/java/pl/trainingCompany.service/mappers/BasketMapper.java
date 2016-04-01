@@ -2,9 +2,11 @@ package pl.trainingCompany.service.mappers;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import pl.trainingCompany.model.dbo.Account;
 import pl.trainingCompany.model.dbo.Basket;
 import pl.trainingCompany.model.dbo.User;
 import pl.trainingCompany.model.dto.DtoBasket;
+import pl.trainingCompany.repo.AccountRepo;
 import pl.trainingCompany.repo.UserRepo;
 
 import java.util.ArrayList;
@@ -17,16 +19,16 @@ import java.util.List;
 public class BasketMapper implements MapperInterface<Basket, DtoBasket> {
 
     @Autowired
-    UserRepo userRepo;
+    AccountRepo accountRepo;
 
     @Override
     public Basket convertToDBO(DtoBasket dtoBasket) {
         Basket basket = new Basket();
         basket.setId(dtoBasket.getId());
-        if(dtoBasket.getUserId() != null) {
-            User user = userRepo.findOne(dtoBasket.getUserId());
-            if(user != null) {
-                basket.setUser(user);
+        if(dtoBasket.getAccountId() != null) {
+            Account account = accountRepo.findOne(dtoBasket.getAccountId());
+            if(account != null) {
+                basket.setAccount(account);
             }else {
                 //ToDo
             }
@@ -38,8 +40,8 @@ public class BasketMapper implements MapperInterface<Basket, DtoBasket> {
     public DtoBasket convertToDTO(Basket basket) {
         DtoBasket dtoBasket = new DtoBasket();
         dtoBasket.setId(basket.getId());
-        if(basket.getUser() != null) {
-            dtoBasket.setUserId(basket.getUser().getId());
+        if(basket.getAccount() != null) {
+            dtoBasket.setAccountId(basket.getAccount().getId());
         }
         return dtoBasket;
     }

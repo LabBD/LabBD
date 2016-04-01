@@ -13,10 +13,10 @@ public class Company {
     private long id;
 
     @ManyToOne
-    @JoinColumn(name = "user_id")
-    private User user;
+    @JoinColumn(name = "account_id")
+    private Account account;
 
-    private String nameCompany;
+    private String companyName;
     private String description;
 
     public long getId() {
@@ -27,20 +27,20 @@ public class Company {
         this.id = id;
     }
 
-    public User getUser() {
-        return user;
+    public Account getAccount() {
+        return account;
     }
 
-    public void setUser(User user) {
-        this.user = user;
+    public void setAccount(Account account) {
+        this.account = account;
     }
 
-    public String getNameCompany() {
-        return nameCompany;
+    public String getCompanyName() {
+        return companyName;
     }
 
-    public void setNameCompany(String nameCompany) {
-        this.nameCompany = nameCompany;
+    public void setCompanyName(String companyName) {
+        this.companyName = companyName;
     }
 
     public String getDescription() {

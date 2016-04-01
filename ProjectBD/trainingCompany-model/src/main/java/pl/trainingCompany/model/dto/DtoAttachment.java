@@ -14,6 +14,8 @@ public class DtoAttachment {
 
     private String attachmentType;
 
+    private Long postInTopicId;
+
     public long getId() {
         return id;
     }
@@ -44,5 +46,13 @@ public class DtoAttachment {
 
     public void setAttachmentType(String attachmentType) {
         this.attachmentType = attachmentType;
+    }
+
+    public Long getPostInTopicId() {
+        return postInTopicId;
+    }
+
+    public void setPostInTopicId(Long postInTopicId) {
+        this.postInTopicId = postInTopicId;
     }
 }

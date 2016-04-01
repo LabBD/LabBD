@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import pl.trainingCompany.model.dbo.Topic;
 import pl.trainingCompany.model.dto.DtoTopic;
+import pl.trainingCompany.repo.AccountRepo;
 import pl.trainingCompany.repo.SectionRepo;
 import pl.trainingCompany.repo.UserRepo;
 
@@ -18,7 +19,8 @@ import java.util.List;
 public class TopicMapper implements MapperInterface<Topic, DtoTopic> {
 
     @Autowired
-    UserRepo userRepo;
+    AccountRepo accountRepo;
+
     @Autowired
     SectionRepo sectionRepo;
 
@@ -27,7 +29,7 @@ public class TopicMapper implements MapperInterface<Topic, DtoTopic> {
         Topic topic = new Topic();
         topic.setId(dtoTopic.getId());
         topic.setName(dtoTopic.getName());
-        topic.setAuthor(userRepo.findByusername(dtoTopic.getAuthorName()));
+        topic.setAuthor(accountRepo.findByUsername(dtoTopic.getAuthorName()));
         topic.setSection(sectionRepo.findByName(dtoTopic.getSectionName()));
         return topic;
     }

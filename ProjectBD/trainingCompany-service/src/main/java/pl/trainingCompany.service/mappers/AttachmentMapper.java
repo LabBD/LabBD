@@ -26,7 +26,7 @@ public class AttachmentMapper implements MapperInterface<Attachment, DtoAttachme
         attachment.setId(dtoAttachment.getId());
         attachment.setName(dtoAttachment.getName());
         attachment.setAttachmentType(AttachmentType.valueOf(dtoAttachment.getAttachmentType()));
-        if(dtoAttachment.getOfferId()!= null) {
+        if (dtoAttachment.getOfferId() != null) {
             Offer offer = offerRepo.findOne(dtoAttachment.getOfferId());
             if (offer != null) {
                 attachment.setOffer(offer);
@@ -44,8 +44,10 @@ public class AttachmentMapper implements MapperInterface<Attachment, DtoAttachme
         dtoAttachment.setId(attachment.getId());
         dtoAttachment.setName(attachment.getName());
         dtoAttachment.setAttachmentType(attachment.getAttachmentType().toString());
-        if(attachment.getOffer()!=null)
-        dtoAttachment.setOfferId(attachment.getOffer().getId());
+        if (attachment.getOffer() != null)
+            dtoAttachment.setOfferId(attachment.getOffer().getId());
+        else if(attachment.getPostInTopic() !=null)
+            dtoAttachment.setPostInTopicId(attachment.getPostInTopic().getId());
         return dtoAttachment;
     }
 

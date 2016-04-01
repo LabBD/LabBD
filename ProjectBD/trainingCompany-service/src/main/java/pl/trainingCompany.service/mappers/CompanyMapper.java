@@ -3,9 +3,11 @@ package pl.trainingCompany.service.mappers;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import pl.trainingCompany.model.dbo.Account;
 import pl.trainingCompany.model.dbo.Company;
 import pl.trainingCompany.model.dbo.User;
 import pl.trainingCompany.model.dto.DtoCompany;
+import pl.trainingCompany.repo.AccountRepo;
 import pl.trainingCompany.repo.UserRepo;
 
 import java.util.ArrayList;
@@ -18,18 +20,18 @@ import java.util.List;
 public class CompanyMapper implements MapperInterface<Company, DtoCompany> {
 
     @Autowired
-    UserRepo userRepo;
+    AccountRepo accountRepo;
 
     @Override
     public Company convertToDBO(DtoCompany dtoCompany){
         Company company = new Company();
         company.setId(dtoCompany.getId());
-        company.setNameCompany(dtoCompany.getNameCompany());
+        company.setCompanyName(dtoCompany.getNameCompany());
         company.setDescription(dtoCompany.getDescription());
-        if(dtoCompany.getUserId() != null) {
-            User user = userRepo.findOne(dtoCompany.getUserId());
-            if(user != null) {
-                company.setUser(user);
+        if(dtoCompany.getAccountId() != null) {
+            Account account = accountRepo.findOne(dtoCompany.getAccountId());
+            if(account != null) {
+                company.setAccount(account);
             } else {
                 //ToDo
             }
@@ -42,10 +44,10 @@ public class CompanyMapper implements MapperInterface<Company, DtoCompany> {
     public DtoCompany convertToDTO(Company company) {
         DtoCompany dtoCompany = new DtoCompany();
         dtoCompany.setId(company.getId());
-        dtoCompany.setNameCompany(company.getNameCompany());
+        dtoCompany.setNameCompany(company.getCompanyName());
         dtoCompany.setDescription(company.getDescription());
-        if(company.getUser() != null){
-            dtoCompany.setUserId(company.getUser().getId());
+        if(company.getAccount() != null){
+            dtoCompany.setAccountId(company.getAccount().getId());
         }
 
         return dtoCompany;

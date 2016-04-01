@@ -22,7 +22,8 @@ public class Topic {
     private List<PostInTopic> posts;
 
     @ManyToOne
-    private User author;
+    @JoinColumn(name = "account_id")
+    private Account author;
 
     public List<PostInTopic> getPosts() {
         return posts;
@@ -56,11 +57,11 @@ public class Topic {
         this.section = section;
     }
 
-    public User getAuthor() {
+    public Account getAuthor() {
         return author;
     }
 
-    public void setAuthor(User author) {
+    public void setAuthor(Account author) {
         this.author = author;
     }
 }
