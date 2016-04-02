@@ -2,10 +2,7 @@ package pl.trainingCompany.service.mappers;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import pl.trainingCompany.model.dbo.Attachment;
-import pl.trainingCompany.model.dbo.Basket;
 import pl.trainingCompany.model.dbo.User;
-import pl.trainingCompany.model.dto.DtoAttachment;
 import pl.trainingCompany.model.dto.DtoUser;
 import pl.trainingCompany.repo.BasketRepo;
 

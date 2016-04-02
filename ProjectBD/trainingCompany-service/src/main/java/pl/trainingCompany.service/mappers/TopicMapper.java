@@ -7,7 +7,6 @@ import pl.trainingCompany.model.dbo.Topic;
 import pl.trainingCompany.model.dto.DtoTopic;
 import pl.trainingCompany.repo.AccountRepo;
 import pl.trainingCompany.repo.SectionRepo;
-import pl.trainingCompany.repo.UserRepo;
 
 import java.util.ArrayList;
 import java.util.List;

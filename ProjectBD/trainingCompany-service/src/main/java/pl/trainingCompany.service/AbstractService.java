@@ -1,8 +1,8 @@
 package pl.trainingCompany.service;
 
-import pl.trainingCompany.service.mappers.MapperInterface;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.repository.CrudRepository;
+import pl.trainingCompany.service.mappers.MapperInterface;
 
 /**
  * Created by Kamil S on 2016-03-16.

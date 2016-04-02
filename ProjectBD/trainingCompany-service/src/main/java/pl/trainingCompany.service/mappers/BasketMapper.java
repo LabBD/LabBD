@@ -4,10 +4,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import pl.trainingCompany.model.dbo.Account;
 import pl.trainingCompany.model.dbo.Basket;
-import pl.trainingCompany.model.dbo.User;
 import pl.trainingCompany.model.dto.DtoBasket;
 import pl.trainingCompany.repo.AccountRepo;
-import pl.trainingCompany.repo.UserRepo;
 
 import java.util.ArrayList;
 import java.util.List;

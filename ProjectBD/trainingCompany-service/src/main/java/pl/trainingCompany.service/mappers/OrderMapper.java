@@ -1,12 +1,10 @@
 package pl.trainingCompany.service.mappers;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.access.method.P;
 import org.springframework.stereotype.Component;
 import pl.trainingCompany.model.dbo.Basket;
 import pl.trainingCompany.model.dbo.Offer;
 import pl.trainingCompany.model.dbo.Order;
-import pl.trainingCompany.model.dto.DtoOffer;
 import pl.trainingCompany.model.dto.DtoOrder;
 import pl.trainingCompany.repo.BasketRepo;
 import pl.trainingCompany.repo.OfferRepo;

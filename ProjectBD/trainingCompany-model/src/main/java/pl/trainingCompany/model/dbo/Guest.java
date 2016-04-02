@@ -3,8 +3,6 @@ package pl.trainingCompany.model.dbo;
 import javax.persistence.*;
 import java.util.Date;
 
-import static javax.persistence.GenerationType.IDENTITY;
-
 /**
  * Created by Sebastian on 2016-03-25.
  */

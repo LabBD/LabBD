@@ -2,7 +2,6 @@ package pl.trainingCompany.model.dbo;
 
 import javax.persistence.*;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 /**
@@ -35,9 +34,7 @@ public class User {
 
     public User(String username, String password,
                 boolean enabled, Set<UserRole> userRole) {
-        this.username = username;
-        this.password = password;
-        this.enabled = enabled;
+       this(username,password,enabled);
         this.userRole = userRole;
     }
 

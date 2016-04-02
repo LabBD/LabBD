@@ -1,10 +1,7 @@
 package pl.trainingCompany.model.dto;
 
 
-import pl.trainingCompany.model.dbo.OfferCategory;
-
 import java.util.Date;
-import java.util.List;
 
 /**
  * Created by Kamil S on 2016-03-20.

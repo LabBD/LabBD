@@ -1,9 +1,8 @@
 package pl.trainingCompany.service.mappers;
 
+import org.springframework.stereotype.Component;
 import pl.trainingCompany.model.dbo.PostInTopic;
 import pl.trainingCompany.model.dto.DtoPostInTopic;
-
-import org.springframework.stereotype.Component;
 
 /**
  * Created by PM on 28.03.2016.
