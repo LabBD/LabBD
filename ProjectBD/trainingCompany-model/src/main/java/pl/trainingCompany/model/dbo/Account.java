@@ -26,8 +26,8 @@ public class Account {
     @OneToOne(mappedBy = "account")
     private Basket basket;
 
-    @OneToMany(mappedBy = "account")
-    private List<Company> companies;
+    @OneToOne(mappedBy = "account")
+    private Company company;
 
     public Long getId() {
         return id;
@@ -77,11 +77,11 @@ public class Account {
         this.basket = basket;
     }
 
-    public List<Company> getCompanies() {
-        return companies;
+    public Company getCompany() {
+        return company;
     }
 
-    public void setCompanies(List<Company> companies) {
-        this.companies = companies;
+    public void setCompany(Company company) {
+        this.company = company;
     }
 }
