@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Bootstrap Example</title>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css"/>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+</head>
+<body>
+
+<style>
+    #inputs {
+        margin-left: 5%;
+        margin-top: 5%;
+        margin-right: 0%;
+    }
+    #input-title {
+        width: 40%;
+        padding 0;
+    }
+    #category {
+        padding 0;
+    }
+    #input-price {
+        width: 8%;
+        padding 0;
+    }
+    #input-quantity {
+        width: 6%;
+        padding 0;
+    }
+    #desc {
+        width: 85%;
+        height: 250px;
+    }
+    #preview-button {
+        margin-left: 70%;
+    }
+    #add-button {
+        margin-left: 80%;
+    }
+    .buttons {
+        margin-left: 75%;
+    }
+    .container {
+        width: 60%;
+        border-radius: 10px 10px 10px 10px;
+        border-style: solid;
+        border-width: thin;
+        border-color: #4e8f55;
+     }
+    .header {
+        font-family: "Georgia";
+        color: #4cae4c;
+        margin-top:10%;
+        margin-left: 21%;
+    }
+
+
+
+</style>
+<i class="fa fa-plus-circle"></i>
+<div class="header">
+    <h3>Fill offer details</h3>
+</div>
+<div class="container">
+    <div id="inputs">
+        <div id="input-title">
+            <h4>Offer title:</h4>
+            <input type="text" class="form-control" aria-describedby="basic-addon2">
+        </div>
+        <div class="dropdown">
+        <div id="category">
+            <h4>Category:</h4>
+            <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown"
+                    aria-haspopup="true" aria-expanded="true">
+                -------
+                <span class="caret"></span>
+            </button>
+            <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+                <li><a href="#">IT</a></li>
+                <li><a href="#">Finance</a></li>
+                <li><a href="#">Managment</a></li>
+            </ul>
+        </div>
+            </div>
+        <div id="input-price">
+            <h4>Price:</h4>
+            <input type="number" class="form-control" aria-describedby="basic-addon2">
+        </div>
+        <div id="input-quantity">
+            <h4>Quantity:</h4>
+            <input type="number" class="form-control" min="0" step="1" data-bind="value:replyNumber"
+                   aria-describedby="basic-addon2">
+        </div>
+        <h4>End date:</h4>
+        <div class="row">
+            <div class='col-sm-6'>
+                <div class="form-group">
+                    <div class='input-group date' id='datetimepicker2'>
+                        <input type='text' class="form-control"/>
+                    <span class="input-group-addon">
+                        <span class="glyphicon glyphicon-calendar"></span>
+                    </span>
+                    </div>
+                </div>
+            </div>
+            <script type="text/javascript">
+            $(function () {
+                $('#datetimepicker2').datetimepicker({
+                    locale: 'ru'
+                });
+            });
+
+            </script>
+        </div>
+        <h4>Description:</h4>
+        <input type="text" id="desc" class="form-control" min="0" step="1" data-bind="value:replyNumber"
+               aria-describedby="basic-addon2">
+        <div class="form-group">
+            <label for="exampleInputFile"><h4>Attachement</h4></label>
+            <input type="file" id="exampleInputFile">
+            <p class="help-block">Choose attachement, which will be included in your offer.</p>
+        </div>
+    </div>
+    <div class="buttons">
+        <button type="button" class="btn btn-success" data-toggle="modal" data-target="#myModal">Preview</button>
+        <button type="button" class="btn btn-success">Add offer</button>
+        <br><br>
+    </div>
+</div>
+<div class="modal fade" id="myModal" role="dialog">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Offer preview</h4>
+            </div>
+            <div class="modal-body">
+                <p>Jebać żydów.</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+<br><br>
+</body>
+</html>
