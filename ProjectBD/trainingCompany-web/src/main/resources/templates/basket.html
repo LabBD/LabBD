@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Bootstrap Example</title>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css"/>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+</head>
+<body>
+
+<style>
+    input[type=checkbox]
+    {
+        margin-right: 10px;
+        transform: scale(2);
+        -webkit-transform: scale(2);
+        padding: 2%;
+    }
+    input[type=number]
+    {
+        padding: 0%;
+        text-align: center;
+        color: black;
+        width: 80%;
+        font-size: 14px;
+    }
+    .table>thead>tr>th
+    {
+        border-color:#4cae4c;
+        font-size: 15px;
+        padding: 2%;
+    }
+    .table>tbody>tr>td
+    {
+        border-color: #4cae4c;
+        padding: 2%;
+    }
+    .table>tfoot>tr>th
+    {
+        border-color:#4cae4c;
+        font-size: 15px;
+        padding: 2%;
+    }
+    .text-align-center
+    {
+        text-align: center;
+        color: #4cae4c;
+    }
+    .text-align-left
+    {
+        text-align: left;
+        color: #4cae4c;
+    }
+    .text-align-right
+    {
+        text-align: right;
+        color: #4cae4c;
+    }
+    .button {
+        background-color: #ffffff;
+        border: none;
+        color: black;
+        text-align: center;
+        font-size: 120%;
+        padding: 0%;
+        -webkit-transition-duration: 0.3s; /* Safari */
+        transition-duration: 0.3s;
+    }
+    .button:hover {
+        background-color: rgba(255, 251, 199, 1);
+        color: black;
+    }
+    .button1 {
+        border-radius: 10px 10px 10px 10px;
+        width: 20%;
+        display: inline-block;
+        padding-top: 1%;
+        padding-bottom: 1%;
+        background-color: rgba(255, 251, 199, 1);
+        color: black;
+        border: 2px solid #4CAF50;
+    }
+    .button1:hover {
+        box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);
+        background-color: #4CAF50;
+        color: white;
+    }
+    .panel
+    {
+        padding: 0%;
+        margin: 0%;
+        color: black;
+    }
+    .panel-body
+    {
+        padding-bottom: 0%;
+        padding-top: 0%;
+    }
+</style>
+
+<div class="container">
+    <h1 class="text-align-center">YOUR BASKET</h1>
+    <br>
+    <br>
+
+
+    <table class="table">
+        <thead>
+        <tr>
+            <th width="15%" class="text-align-left">
+                <input type="checkbox" value=""> CHECK ALL
+            </th>
+            <th class="text-align-center">OFFER NAME</th>
+            <th class="text-align-center" width="10%">AMOUNT</th>
+            <th class="text-align-center">COST</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr class="text-align-center">
+            <td class="text-align-left">
+                <input type="checkbox" value="">
+            </td>
+            <td class="text-align-left">
+                <button class="button">Przykładowa nazwa oferty... Szkolenie oferowane przez firme szkoleniowa ;D</button>
+            </td>
+            <td>
+                <input type="number" value="1" min="1"/>
+            </td>
+            <td>
+                <div class="panel panel-default">
+                    <div class="panel-body">100zł</div>
+                </div>
+            </td>
+        </tr>
+        <tr class="text-align-center">
+            <td class="text-align-left">
+                <input type="checkbox" value="">
+            </td>
+            <td class="text-align-left">
+                <button class="button">Przykładowa nazwa oferty... Szkolenie oferowane przez firme szkoleniowa ;D</button>
+            </td>
+            <td>
+                <input type="number" value="1" min="1"/>
+            </td>
+            <td>
+                <div class="panel panel-default">
+                    <div class="panel-body">100zł</div>
+                </div>
+            </td>
+        </tr>
+        <tr class="text-align-center">
+            <td class="text-align-left">
+                <input type="checkbox" value="">
+            </td>
+            <td class="text-align-left">
+                <button class="button">Przykładowa nazwa oferty... Szkolenie oferowane przez firme szkoleniowa ;D</button>
+            </td>
+            <td>
+                <input type="number" value="1" min="1"/>
+            </td>
+            <td>
+                <div class="panel panel-default">
+                    <div class="panel panel-body">100zł</div>
+                </div>
+            </td>
+        </tr>
+        <tr class="text-align-center">
+            <td class="text-align-left">
+                <input type="checkbox" value="">
+            </td>
+            <td class="text-align-left">
+                <button class="button">Przykładowa nazwa oferty... Szkolenie oferowane przez firme szkoleniowa ;D</button>
+            </td>
+            <td>
+                <input type="number" value="1" min="1"/>
+            </td>
+            <td>
+                <div class="panel panel-default">
+                    <div class="panel-body">100zł</div>
+                </div>
+            </td>
+        </tr>
+        </tbody>
+        <tfoot>
+        <th class="text-align-left">
+            <input type="checkbox" value=""> CHECK ALL
+        </th>
+        <th colspan="3" style="padding: 1%;" class="text-align-right">
+            <button class="button button1">DELETE</button>
+            <button class="button button1">PAY</button>
+        </th>
+        </tfoot>
+    </table>
+
+
+</div>
+
+</body>
+</html>
