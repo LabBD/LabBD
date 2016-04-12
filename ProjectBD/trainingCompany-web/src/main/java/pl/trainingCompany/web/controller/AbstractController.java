@@ -12,6 +12,7 @@ import pl.trainingCompany.service.AbstractService;
 /**
  * Created by Kamil S on 2016-03-16.
  */
+@RequestMapping("/abstract")
 //<Klasa DBO, Klasa DTO, Service>
 abstract public class AbstractController<DBO, DTO, S extends AbstractService<DBO, DTO, ? extends CrudRepository<DBO, Long>, ? extends MapperInterface<DBO, DTO>>> {
 

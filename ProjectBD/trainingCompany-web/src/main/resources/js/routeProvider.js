@@ -1,15 +1,11 @@
-var mainApp = angular.module("mainApp", ['ngRoute', 'IndexControllers', 'IndexServices','PhotoControllers','PhotoServices']);
+var mainApp = angular.module("mainApp", ['ngRoute', 'IndexControllers', 'IndexServices','PhotoControllers'
+    ,'PhotoServices','AngularDemoControllers','AngularDemoServices']);
 mainApp.config(['$routeProvider', function ($routeProvider) {
     $routeProvider.
 
-        when('/registration', {
-            templateUrl: '/registration.html',
-            controller: 'RegistrationController'
-        }).
-
-        when('/url', {
-            templateUrl: '/url.html',
-            controller: 'NewController'
+        when('/angularDemo/:param', {
+            templateUrl: '/angularDemo.html',
+            controller: 'AngularDemoController'
         }).
 
         when('/photoDemo', {
@@ -17,8 +13,20 @@ mainApp.config(['$routeProvider', function ($routeProvider) {
             controller: 'PhotoController'
         }).
 
+        when('/search', {
+            templateUrl: '/searchPage.html'
+        }).
+
+        when('/addOffer', {
+            templateUrl: '/addOffer.html'
+        }).
+
+        when('/basket', {
+            templateUrl: '/basket.html'
+        }).
+
         otherwise({
-            templateUrl: '/mainPage.html',
+            templateUrl: '/main.html',
             controller: 'MainPageController'
         });
 }]);

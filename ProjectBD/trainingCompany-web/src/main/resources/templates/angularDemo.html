@@ -1,0 +1,17 @@
+<h2>Angular demo</h2>
+<br><label>Wypisywanie zmiennych z controllera: {{demo}}</label></br>
+
+<br><label>Zmienna html(ng-model):{{zmiennaHtml}} <input type="text" ng-model="zmiennaHtml"/> </label></br>
+
+<br><label>Ng-show:
+    <button ng-show="show">Show={{show}}</button>
+    <input type="checkbox" ng-model="show"/> </label></br>
+
+<br><label>Ng-hide:
+    <button ng-hide="hide">Hide={{hide}}</button>
+    <input type="checkbox" ng-model="hide"/> </label></br>
+
+<br><label>Route param:{{param}} </label></br>
+
+<br><label>Zadanie do backendu:<input type="text" ng-model="sectionId"/> <button ng-click="getSection(sectionId);">send</button> </label></br>
+<br><label>Odpowiedz: {{section}} </label></br>
