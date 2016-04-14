@@ -24,6 +24,8 @@ public class AccountMapper implements MapperInterface<Account,DTOAccount> {
 
     @Override
     public DTOAccount convertToDTO(Account account) {
+        if(account==null)
+            return null;
         DTOAccount dtoAccount = new DTOAccount();
         dtoAccount.setId(account.getId());
         dtoAccount.setUsername(account.getUsername());

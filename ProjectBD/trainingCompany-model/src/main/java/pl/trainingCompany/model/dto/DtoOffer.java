@@ -22,6 +22,8 @@ public class DtoOffer {
 
     private String offerCategoryName;
 
+    private String mainPhoto;
+
     public long getId() {
         return id;
     }
@@ -76,5 +78,13 @@ public class DtoOffer {
 
     public void setOfferCategoryName(String offerCategoryName) {
         this.offerCategoryName = offerCategoryName;
+    }
+
+    public String getMainPhoto() {
+        return mainPhoto;
+    }
+
+    public void setMainPhoto(String mainPhoto) {
+        this.mainPhoto = mainPhoto;
     }
 }

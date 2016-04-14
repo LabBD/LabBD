@@ -17,24 +17,23 @@ import pl.trainingCompany.service.CompanyService;
  */
 @RestController
 @RequestMapping("/account")
-public class AccountController extends AbstractController<Account,DTOAccount,AccountService> {
+public class AccountController extends AbstractController<Account, DTOAccount, AccountService> {
 
     @Autowired
     CompanyService companyService;
 
     @RequestMapping(value = "/register", method = RequestMethod.POST, consumes = "application/x-www-form-urlencoded")
-    public ModelAndView register(@RequestBody final MultiValueMap<String, String > data) {
+    public ModelAndView register(@RequestBody final MultiValueMap<String, String> data) {
 
-        if(!data.isEmpty()) {
-            if(service.findAccountIdByName(data.getFirst("username")) > 0){
+        if (!data.isEmpty()) {
+            if (service.findAccountIdByName(data.getFirst("username")) != null) {
                 //uzytkownik o podanym username juz istnieje, redirect do jakiejs strony z informacja o bledzie
-            }
-            else {
+            } else {
                 service.save(data);
 
-                if(!data.getFirst("companyName").isEmpty() && !data.getFirst("companyDesc").isEmpty()) {
+                if (!data.getFirst("companyName").isEmpty() && !data.getFirst("companyDesc").isEmpty()) {
                     Long accountId = service.findAccountIdByName(data.getFirst("username"));
-                    if(accountId != -1L) {
+                    if (accountId != null) {
                         companyService.save(accountId, data.getFirst("companyName"), data.getFirst("companyDesc"));
                     } else {
                         //To Do  nie odnaleziono uzytkownika o podanym username (nie udalo sie wyzej zapisac uzytkownika do bazy)

@@ -1,5 +1,5 @@
 var mainApp = angular.module("mainApp", ['ngRoute', 'IndexControllers', 'IndexServices','PhotoControllers'
-    ,'PhotoServices','AngularDemoControllers','AngularDemoServices']);
+    ,'PhotoServices','AngularDemoControllers','AngularDemoServices','SearchServices','SearchControllers']);
 mainApp.config(['$routeProvider', function ($routeProvider) {
     $routeProvider.
 
@@ -14,7 +14,13 @@ mainApp.config(['$routeProvider', function ($routeProvider) {
         }).
 
         when('/search', {
-            templateUrl: '/searchPage.html'
+            templateUrl: '/searchPage.html',
+            controller: 'SearchController'
+        }).
+
+        when('/search/:pageNumber', {
+            templateUrl: '/searchPage.html',
+            controller: 'SearchController'
         }).
 
         when('/addOffer', {

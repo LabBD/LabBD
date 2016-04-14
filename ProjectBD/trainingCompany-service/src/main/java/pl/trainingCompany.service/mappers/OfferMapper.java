@@ -37,6 +37,9 @@ public class OfferMapper implements MapperInterface<Offer, DtoOffer> {
         dtoOffer.setPrice(offer.getPrice());
         dtoOffer.setQuantity(offer.getQuantity());
         dtoOffer.setEndDate(offer.getEndDate());
+        if(offer.getAttachments()!=null && offer.getAttachments().size()>0 ){
+            dtoOffer.setMainPhoto(offer.getId()+"/"+offer.getAttachments().get(0).getName());
+        }
         return dtoOffer;
     }
 
