@@ -6,9 +6,18 @@ var basketControllers = angular.module(
 
 basketControllers.controller('BasketController',
     ['$scope','$routeParams','BasketService', function($scope, $routeParams, BasketService) {
-            
-        $scope.amount = 1;
-            
+
+        $scope.selectAll = function () {
+            if ($scope.checkAll) {
+                    $scope.checkAll = true;
+            } else {
+                    $scope.checkdAll = false;
+            }
+                angular.forEach($scope.allOrders, function (order) {
+                        order.check = $scope.checkAll;
+                });
+        };
+
         $scope.allOrders = BasketService.getAllOrders();
             
         $scope.totalCost = function(price) {
