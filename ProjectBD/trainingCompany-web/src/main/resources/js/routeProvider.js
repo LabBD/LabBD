@@ -1,6 +1,5 @@
 var mainApp = angular.module("mainApp", ['ngRoute', 'IndexControllers', 'IndexServices','PhotoControllers'
-    ,'PhotoServices','AngularDemoControllers','AngularDemoServices','SearchServices','SearchControllers']);
-mainApp.config(['$routeProvider', function ($routeProvider) {
+    ,'PhotoServices','AngularDemoControllers','AngularDemoServices','BasketControllers','BasketServices','SearchServices','SearchControllers']);mainApp.config(['$routeProvider', function ($routeProvider) {
     $routeProvider.
 
         when('/angularDemo/:param', {
@@ -28,7 +27,8 @@ mainApp.config(['$routeProvider', function ($routeProvider) {
         }).
 
         when('/basket', {
-            templateUrl: '/basket.html'
+            templateUrl: '/basket.html',
+            controller: 'BasketController'
         }).
 
         otherwise({

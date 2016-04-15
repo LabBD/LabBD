@@ -1,4 +1,5 @@
-<!--<!DOCTYPE html>
+<!--
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <title>Bootstrap Example</title>
@@ -67,10 +68,15 @@
         padding: 0%;
         -webkit-transition-duration: 0.3s; /* Safari */
         transition-duration: 0.3s;
+        max-lines: 1;
     }
     .button:hover {
         background-color: rgba(255, 251, 199, 1);
         color: black;
+    }
+    .btn-success
+    {
+        width: 10%;
     }
     .button1 {
         border-radius: 10px 10px 10px 10px;
@@ -118,78 +124,39 @@
         </tr>
         </thead>
         <tbody>
-        <tr class="text-align-center">
+
+        <tr class="text-align-center" ng-repeat="order in allOrders">
             <td class="text-align-left">
                 <input type="checkbox" value="">
             </td>
             <td class="text-align-left">
-                <button class="button">Przykładowa nazwa oferty... Szkolenie oferowane przez firme szkoleniowa ;D</button>
+                <button class="button">{{order.offerDescription}}</button>
             </td>
             <td>
-                <input type="number" value="1" min="1"/>
+                <input type="number" value="1" min="1" max="{{order.offerQuantity}}" ng-model="order.amount">
             </td>
             <td>
-                <div class="panel panel-default">
-                    <div class="panel-body">100zł</div>
-                </div>
+                <label style="color: black">{{order.offerPrice*order.amount}} zł</label>
             </td>
         </tr>
-        <tr class="text-align-center">
-            <td class="text-align-left">
-                <input type="checkbox" value="">
+
+        <tr class="text-align-right">
+            <td colspan="2">
+                <label style="color: black">Suma zamówień: 4</label>
             </td>
-            <td class="text-align-left">
-                <button class="button">Przykładowa nazwa oferty... Szkolenie oferowane przez firme szkoleniowa ;D</button>
-            </td>
-            <td>
-                <input type="number" value="1" min="1"/>
-            </td>
-            <td>
-                <div class="panel panel-default">
-                    <div class="panel-body">100zł</div>
-                </div>
+            <td colspan="2">
+                <label style="color: black">Do zapłaty: 400 zł</label>
             </td>
         </tr>
-        <tr class="text-align-center">
-            <td class="text-align-left">
-                <input type="checkbox" value="">
-            </td>
-            <td class="text-align-left">
-                <button class="button">Przykładowa nazwa oferty... Szkolenie oferowane przez firme szkoleniowa ;D</button>
-            </td>
-            <td>
-                <input type="number" value="1" min="1"/>
-            </td>
-            <td>
-                <div class="panel panel-default">
-                    <div class="panel panel-body">100zł</div>
-                </div>
-            </td>
-        </tr>
-        <tr class="text-align-center">
-            <td class="text-align-left">
-                <input type="checkbox" value="">
-            </td>
-            <td class="text-align-left">
-                <button class="button">Przykładowa nazwa oferty... Szkolenie oferowane przez firme szkoleniowa ;D</button>
-            </td>
-            <td>
-                <input type="number" value="1" min="1"/>
-            </td>
-            <td>
-                <div class="panel panel-default">
-                    <div class="panel-body">100zł</div>
-                </div>
-            </td>
-        </tr>
+
         </tbody>
         <tfoot>
         <th class="text-align-left">
             <input type="checkbox" value=""> CHECK ALL
         </th>
         <th colspan="3" style="padding: 1%;" class="text-align-right">
-            <button class="button button1">DELETE</button>
-            <button class="button button1">PAY</button>
+            <button class="btn btn-success">DELETE</button>
+            <button class="btn btn-success">PAY</button>
         </th>
         </tfoot>
     </table>

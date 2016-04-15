@@ -11,6 +11,46 @@ public class DtoOrder {
 
     private Long offerId;
 
+    private String offerDescription;
+
+    private Double offerPrice;
+
+    private Long offerQuantity;
+
+    private Long amount;
+
+    public Long getAmount() {
+        return amount;
+    }
+
+    public void setAmount(Long amount) {
+        this.amount = amount;
+    }
+
+    public Long getOfferQuantity() {
+        return offerQuantity;
+    }
+
+    public void setOfferQuantity(Long offerQuantity) {
+        this.offerQuantity = offerQuantity;
+    }
+
+    public Double getOfferPrice() {
+        return offerPrice;
+    }
+
+    public void setOfferPrice(Double offerPrice) {
+        this.offerPrice = offerPrice;
+    }
+
+    public String getOfferDescription() {
+        return offerDescription;
+    }
+
+    public void setOfferDescription(String offerDescription) {
+        this.offerDescription = offerDescription;
+    }
+
     public Long getId() {
         return id;
     }

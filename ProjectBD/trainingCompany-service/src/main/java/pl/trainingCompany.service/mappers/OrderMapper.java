@@ -50,6 +50,10 @@ public class OrderMapper implements MapperInterface<Order,DtoOrder> {
     public DtoOrder convertToDTO(Order order) {
         DtoOrder dtoOrder = new DtoOrder();
         dtoOrder.setId(order.getId());
+        dtoOrder.setOfferDescription(order.getOffer().getDescription());
+        dtoOrder.setOfferPrice(order.getOffer().getPrice());
+        dtoOrder.setOfferQuantity(order.getOffer().getQuantity());
+        dtoOrder.setAmount(order.getAmount());
         if(order.getBasket() != null) {
             dtoOrder.setBasketId(order.getBasket().getId());
         }

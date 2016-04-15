@@ -21,6 +21,16 @@ public class Order {
     @JoinColumn(name = "offer_id")
     private Offer offer;
 
+    private Long amount;
+
+    public Long getAmount() {
+        return amount;
+    }
+
+    public void setAmount(Long amount) {
+        this.amount = amount;
+    }
+
     public long getId() {
         return id;
     }
