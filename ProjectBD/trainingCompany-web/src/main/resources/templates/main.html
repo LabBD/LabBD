@@ -65,16 +65,16 @@
 </style>
 
 <div id="logo" style="text-align:center ; margin-top:10% ; margin-bottom:2%">
-	<img src="../image/logo.png" style="width:60%; max-width:350px; alt="Seller" />
+	<img src="../image/logo.png" style="width:60%; max-width:350px;" alt="Seller" />
 </div>
 
 <div class="container">
 	<div class="row">
         <div id="custom-search-input" >
-            <div class="input-group col-md-12" >
-                <input type="text" class="  search-query form-control" placeholder="Czego szukasz?" />
+            <div class="input-group col-md-12" ng-controller="MainPageController">
+                <input type="text" class="search-query form-control" placeholder="I'm searching for..." ng-model="phrase" ng-keypress="$event.keyCode == 13 && searchPhrase()"/>
                 <span class="input-group-btn">
-                    <button class="btn btn-danger" type="button">
+                    <button class="btn btn-danger" type="button" ng-click="searchPhrase()">
 						<span class=" glyphicon glyphicon-search"></span>
                     </button>
                 </span>
