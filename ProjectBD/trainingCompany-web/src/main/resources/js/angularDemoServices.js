@@ -13,6 +13,10 @@ angularDemoServices.factory('AngularDemoService', [
                 method: 'POST',
                 url: '../section/delete/:id'
             },
+            logout: {
+                method: 'GET',
+                url: '/logout'
+            },
 
             getPhotos: {
                 method: 'GET',

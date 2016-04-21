@@ -74,5 +74,8 @@ searchControllers.controller('SearchController', ['$scope', '$routeParams', 'Sea
         $scope.reloadPage(null,null);
     }
 
+    $scope.redirectToOfferPage = function(offer){
+        $location.path('/offer/'+ offer.id);
+    }
 
 }]);

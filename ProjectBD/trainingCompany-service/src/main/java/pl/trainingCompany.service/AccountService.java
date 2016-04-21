@@ -1,5 +1,7 @@
 package pl.trainingCompany.service;
 
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.util.MultiValueMap;
 import pl.trainingCompany.model.dbo.Account;
@@ -26,5 +28,20 @@ public class AccountService extends AbstractService<Account, DTOAccount, Account
         Long id = repo.getIdByUsername(username);
         return id;
 
+    }
+
+    public String getLoggedAccountName(){
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        String name = auth.getName(); //get logged in username
+        if("anonymousUser".equals(name))
+            return null;
+        return name;
+    }
+
+    public Account getLoggedAccount(){
+        String username = getLoggedAccountName();
+        if(username==null)
+            return null;
+        return repo.findByUsername(username);
     }
 }

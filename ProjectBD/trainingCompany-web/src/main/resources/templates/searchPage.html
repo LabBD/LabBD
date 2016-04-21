@@ -103,7 +103,7 @@
         <label style="width: 70%;" ng-init="home='element-with-border-radius'" ng-class="home"
                ng-mouseenter="home='element-with-border-radius-medium'"
                ng-mouseleave="home='element-with-border-radius'"
-               ng-click="home=''" ng-repeat="offer in offers">
+               ng-click="redirectToOfferPage(offer)" ng-repeat="offer in offers">
             <div class="col-sm-5">
                 <img src="attachment/files/{{offer.mainPhoto}}" ng-if="offer.mainPhoto!==null"
                      style="width: 90%; height: 90%; margin: 10px">

@@ -23,15 +23,7 @@ public class UserMapper implements MapperInterface<User,DtoUser> {
         User user = new User();
         user.setUsername(dtoUser.getUsername());
         user.setPassword(dtoUser.getPassword());
-        user.setEmail(dtoUser.getEmail());
-//        if(dtoUser.getBasketId() != null) {
-//            Basket basket = basketRepo.findOne(dtoUser.getBasketId());
-//            if(basket != null) {
-//                user.setBasket(basket);
-//            } else {
-//                //ToDo
-//            }
-//        }
+
         return user;
     }
 
@@ -40,7 +32,6 @@ public class UserMapper implements MapperInterface<User,DtoUser> {
         DtoUser dtoUser = new DtoUser();
         dtoUser.setUsername(user.getUsername());
         dtoUser.setPassword(user.getPassword());
-        dtoUser.setEmail(user.getEmail());
 //        if(user.getBasket() != null) {
 //            dtoUser.setBasketId(user.getBasket().getId());
 //        }

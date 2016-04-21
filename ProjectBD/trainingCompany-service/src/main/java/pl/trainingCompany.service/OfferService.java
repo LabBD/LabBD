@@ -37,13 +37,13 @@ public class OfferService extends AbstractService<Offer, DtoOffer, OfferRepo, Of
         if (pageNumber < 0)
             return null;
         PageRequest pageRequest = new PageRequest(pageNumber, NUMBER_OFFER_ON_PAGE);
-        Specification<Offer> offerSpecification = new OfferRequestSpecification(selectedDtoOfferCategory,namedQuery);
+        Specification<Offer> offerSpecification = new OfferRequestSpecification(selectedDtoOfferCategory, namedQuery);
         Iterable<Offer> offers = repo.findAll(offerSpecification, pageRequest);
         return mapper.convertToDTO(offers);
     }
 
-    public Long getOfferPageCount(String namedQuery,  List<DtoOfferCategory> selectedDtoOfferCategory) {
-        Specification<Offer> offerSpecification = new OfferRequestSpecification(selectedDtoOfferCategory,namedQuery);
+    public Long getOfferPageCount(String namedQuery, List<DtoOfferCategory> selectedDtoOfferCategory) {
+        Specification<Offer> offerSpecification = new OfferRequestSpecification(selectedDtoOfferCategory, namedQuery);
         Long offersNumber = repo.count(offerSpecification);
         Long pageNmber = offersNumber / NUMBER_OFFER_ON_PAGE;
         if (offersNumber % NUMBER_OFFER_ON_PAGE != 0)
@@ -51,7 +51,13 @@ public class OfferService extends AbstractService<Offer, DtoOffer, OfferRepo, Of
         return pageNmber;
     }
 
-    public class OfferRequestSpecification implements Specification<Offer>{
+    public Offer findOfferDbo(Long id) {
+        if (id == null)
+            return null;
+        return repo.findOne(id);
+    }
+
+    public class OfferRequestSpecification implements Specification<Offer> {
 
         private final List<DtoOfferCategory> selectedDtoOfferCategory;
         private final String namedQuery;
@@ -75,13 +81,15 @@ public class OfferService extends AbstractService<Offer, DtoOffer, OfferRepo, Of
             }
             if (namedQuery != null) {
                 if (predicate == null) {
-                    predicate = cb.like(root.<String>get("name"), "%"+namedQuery+"%");
+                    predicate = cb.like(root.<String>get("name"), "%" + namedQuery + "%");
 
                 } else {
-                    predicate = cb.and(predicate, cb.like(root.<String>get("name"), "%"+namedQuery+"%"));
+                    predicate = cb.and(predicate, cb.like(root.<String>get("name"), "%" + namedQuery + "%"));
                 }
             }
             return predicate;
         }
     }
+
+
 }

@@ -16,6 +16,10 @@ angularDemoControllers.controller('AngularDemoController', ['$scope', '$routePar
         AngularDemoService.deleteSection({id: 1}, $scope.section);
     }
 
+    $scope.logoutUser = function(){
+        AngularDemoService.logout();
+    }
+
     $scope.gridOptions = {
         enableFiltering: true,
         paginationPageSizes: [1, 2, 3],

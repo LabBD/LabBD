@@ -9,6 +9,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import pl.trainingCompany.service.AbstractService;
 
+import javax.servlet.http.HttpServletRequest;
+
 /**
  * Created by Kamil S on 2016-03-16.
  */
@@ -20,7 +22,7 @@ abstract public class AbstractController<DBO, DTO, S extends AbstractService<DBO
     S service;
 
     @RequestMapping("/{id}")
-    public DTO findOne(@PathVariable int id) {
+    public DTO findOne(@PathVariable int id,HttpServletRequest request) {
         return service.findOne(new Long(id));
     }
 
@@ -29,8 +31,8 @@ abstract public class AbstractController<DBO, DTO, S extends AbstractService<DBO
         return service.findAll();
     }
 
-    @RequestMapping(value = "/save/{id}", method = RequestMethod.POST)
-    public void save(@RequestBody DTO modelToSave, @PathVariable int id) {
+    @RequestMapping(value = "/save", method = RequestMethod.POST)
+    public void save(@RequestBody DTO modelToSave) {
         service.save(modelToSave);
     }
 

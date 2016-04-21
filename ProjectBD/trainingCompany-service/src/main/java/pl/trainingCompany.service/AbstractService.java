@@ -42,4 +42,8 @@ abstract public class AbstractService<DBO, DTO, R extends CrudRepository<DBO, Lo
     public void delete(Iterable<DTO> modelsToDelete) {
         repo.delete(mapper.convertToDBO(modelsToDelete));
     }
+
+    public M getMapper() {
+        return mapper;
+    }
 }

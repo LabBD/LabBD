@@ -20,7 +20,7 @@ public class Controller {
     @Autowired
     private GreetingRepo repo;
 
-    @RequestMapping("/users/{id}")
+    @RequestMapping("/admin/users/{id}")
     public Greeting get(@PathVariable("id") int id) {
 
         System.out.print(id);

@@ -22,6 +22,12 @@ public class AccountController extends AbstractController<Account, DTOAccount, A
     @Autowired
     CompanyService companyService;
 
+    @RequestMapping(value = "/logged/name")
+    public String  getLoggedUserame() {
+        return service.getLoggedAccountName();
+    }
+
+
     @RequestMapping(value = "/register", method = RequestMethod.POST, consumes = "application/x-www-form-urlencoded")
     public ModelAndView register(@RequestBody final MultiValueMap<String, String> data) {
 
