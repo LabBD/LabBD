@@ -9,10 +9,9 @@ angularDemoServices.factory('AngularDemoService', [
                 method: 'GET',
                 url: '../section/:id'
             },
-            postGret: {
-
+            deleteSection: {
                 method: 'POST',
-                url: '../gret/save/:id'
+                url: '../section/delete/:id'
             },
 
             getPhotos: {

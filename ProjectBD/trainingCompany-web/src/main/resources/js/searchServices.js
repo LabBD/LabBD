@@ -20,6 +20,11 @@ searchServices.factory('SearchServiceRepo', [
                 method: 'POST',
                 url: '/offer/page/:pageNumber',
                 isArray: true
+            },
+
+            getOfferPageCount: {
+                method: 'POST',
+                url: '/offer/page/count'
             }
 
         });

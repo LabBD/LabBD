@@ -10,6 +10,4 @@ import pl.trainingCompany.model.dbo.Offer;
 public interface OfferRepo extends CrudRepository<Offer,Long>, JpaSpecificationExecutor {
 
     public Offer getOfferByName(String name);
-
-//    public Long countAll();
 }

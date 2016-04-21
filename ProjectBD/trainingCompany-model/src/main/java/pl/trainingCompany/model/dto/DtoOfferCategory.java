@@ -10,6 +10,9 @@ public class DtoOfferCategory {
     private String description;
     private Long parentCategoryId;              // przy tym daliśmy pytajnik więc pole do przemyślenia :)
 
+    public DtoOfferCategory() {
+    }
+
     public long getId() {
         return id;
     }

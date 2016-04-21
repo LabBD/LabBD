@@ -20,10 +20,11 @@ indexControllers.controller('MainPageController', ['$scope', 'IndexService', fun
         $scope.user = user;
     });
 
-    $scope.searchPhrase = function () {
-        window.location = "../#/search/" + $scope.phrase;
-    };
 
+
+    $scope.searchPhrase = function () {
+        window.location = "../#/search/1?query=" + $scope.phrase;
+    }
 }]);
 
 indexControllers.controller('NewController', ['$scope', 'IndexService', function ($scope, IndexService) {

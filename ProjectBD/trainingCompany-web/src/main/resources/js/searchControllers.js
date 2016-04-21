@@ -1,27 +1,53 @@
 var searchControllers = angular.module(
     'SearchControllers', []);
 
-searchControllers.controller('SearchController', ['$scope', '$routeParams', 'SearchService', 'SearchServiceRepo', function ($scope, $routeParams, SearchService, SearchServiceRepo) {
-
-    $scope.reloadOffer = function(){
-        var selectedOfferCategory = [];
-        $scope.allCategory.forEach(function(offerCategory){
-            if(offerCategory.isSelected===true){
-                selectedOfferCategory.push(offerCategory);
-            }
-        });
-        SearchServiceRepo.getOfferPage({pageNumber: $scope.actualPageNmber},selectedOfferCategory,function (offers) {
-            $scope.offers = offers;
-        });
-    };
+searchControllers.controller('SearchController', ['$scope', '$routeParams', 'SearchService', 'SearchServiceRepo', '$location', function ($scope, $routeParams, SearchService, SearchServiceRepo, $location) {
+    $scope.offers = [];
 
     if ($routeParams.pageNumber === undefined || $routeParams.pageNumber === null) {
         $scope.actualPageNmber = 1;
     } else {
         $scope.actualPageNmber = parseInt($routeParams.pageNumber);
     }
-    $scope.maxPageNmber=20;
-    $scope.pageNumberTab = SearchService.getPageNumberTab($scope.actualPageNmber,$scope.maxPageNmber);
+
+    $scope.reloadPage = function (pageNumber, query) {
+        var url = '/search/';
+
+        if (pageNumber === null) {
+            url += '1'
+        } else {
+            url += pageNumber
+        }
+        if (query !== null) {
+            $location.search().query= query;
+        }
+
+        $location.path(url);
+        $scope.reloadOffer();
+    };
+    $scope.reloadOffer = function () {
+        var requestBody = {
+            selectedOfferCategory: [],
+            query: $location.search().query
+        }
+        $scope.allCategory.forEach(function (offerCategory) {
+            if (offerCategory.isSelected === true) {
+                requestBody.selectedOfferCategory.push(offerCategory);
+            }
+        });
+        SearchServiceRepo.getOfferPageCount(requestBody, function (offersCount) {
+            $scope.maxPageNmber = offersCount.value;
+            $scope.pageNumberTab = SearchService.getPageNumberTab($scope.actualPageNmber, $scope.maxPageNmber);
+        });
+
+        SearchServiceRepo.getOfferPage({pageNumber: $scope.actualPageNmber}, requestBody, function (offers) {
+            $scope.offers = offers;
+        });
+    };
+
+
+    $scope.maxPageNmber = 1;
+    $scope.pageNumberTab = SearchService.getPageNumberTab($scope.actualPageNmber, $scope.maxPageNmber);
 
     if (SearchService.getAllCategory() === undefined || SearchService.getAllCategory() === null || SearchService.getAllCategory().length === 0) {
         $scope.allCategory = [];
@@ -44,9 +70,9 @@ searchControllers.controller('SearchController', ['$scope', '$routeParams', 'Sea
         } else {
             category.isSelected = false;
         }
-        $scope.reloadOffer();
+        SearchService.setAllCategory($scope.allCategory);
+        $scope.reloadPage(null,null);
     }
-    $scope.offers = [];
 
 
 }]);

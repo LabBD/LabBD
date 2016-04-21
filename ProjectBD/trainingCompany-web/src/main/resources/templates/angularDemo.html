@@ -1,3 +1,12 @@
+<style>
+    .grid {
+        width: 90%;
+        height: 30%;
+        margin-left: auto;
+        margin-right: auto;
+    }
+</style>
+
 <h2>Angular demo</h2>
 <br><label>Wypisywanie zmiennych z controllera: {{demo}}</label></br>
 
@@ -26,3 +35,8 @@
     sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
     quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
 </div>
+        <button ng-click="deleteModel()" >usun</button>
+
+
+<div ui-grid="gridOptions" ui-grid-pagination="true" class="grid"></div>
+        {{gridOptions.data}}

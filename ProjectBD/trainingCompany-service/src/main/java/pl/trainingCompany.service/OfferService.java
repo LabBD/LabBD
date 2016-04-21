@@ -1,42 +1,87 @@
 package pl.trainingCompany.service;
 
-import org.springframework.data.domain.PageImpl;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 import pl.trainingCompany.model.dbo.Offer;
+import pl.trainingCompany.model.dbo.OfferCategory;
 import pl.trainingCompany.model.dto.DtoOffer;
+import pl.trainingCompany.model.dto.DtoOfferCategory;
+import pl.trainingCompany.repo.OfferCategoryRepo;
 import pl.trainingCompany.repo.OfferRepo;
+import pl.trainingCompany.service.mappers.OfferCategoryMapper;
 import pl.trainingCompany.service.mappers.OfferMapper;
 
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
-import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 
 /**
  * Created by Kamil S on 2016-03-24.
  */
 @Service
-public class OfferService extends AbstractService<Offer,DtoOffer,OfferRepo,OfferMapper> {
+public class OfferService extends AbstractService<Offer, DtoOffer, OfferRepo, OfferMapper> {
 
-    public Iterable<DtoOffer> getOfferPage(int pageNumber){
-        if(pageNumber<0)
+    @Autowired
+    OfferCategoryRepo offerCategoryRepo;
+
+    @Autowired
+    OfferCategoryMapper offerCategoryMapper;
+
+    private final static int NUMBER_OFFER_ON_PAGE = 3;
+
+    public Iterable<DtoOffer> getOfferPage(String namedQuery, int pageNumber, List<DtoOfferCategory> selectedDtoOfferCategory) {
+        if (pageNumber < 0)
             return null;
-        PageRequest pageRequest=  new PageRequest(pageNumber, 1);
-        Specification<Offer> offerSpecification= new Specification<Offer>() {
-            @Override
-            public Predicate toPredicate(Root<Offer> root, CriteriaQuery<?> query, CriteriaBuilder cb) {
-                return null;
-            }
-        };
-        Iterable<Offer> offers= repo.findAll(offerSpecification,pageRequest);
-
+        PageRequest pageRequest = new PageRequest(pageNumber, NUMBER_OFFER_ON_PAGE);
+        Specification<Offer> offerSpecification = new OfferRequestSpecification(selectedDtoOfferCategory,namedQuery);
+        Iterable<Offer> offers = repo.findAll(offerSpecification, pageRequest);
         return mapper.convertToDTO(offers);
     }
 
+    public Long getOfferPageCount(String namedQuery,  List<DtoOfferCategory> selectedDtoOfferCategory) {
+        Specification<Offer> offerSpecification = new OfferRequestSpecification(selectedDtoOfferCategory,namedQuery);
+        Long offersNumber = repo.count(offerSpecification);
+        Long pageNmber = offersNumber / NUMBER_OFFER_ON_PAGE;
+        if (offersNumber % NUMBER_OFFER_ON_PAGE != 0)
+            pageNmber++;
+        return pageNmber;
+    }
+
+    public class OfferRequestSpecification implements Specification<Offer>{
+
+        private final List<DtoOfferCategory> selectedDtoOfferCategory;
+        private final String namedQuery;
+
+        public OfferRequestSpecification(List<DtoOfferCategory> selectedDtoOfferCategory, String namedQuery) {
+            this.selectedDtoOfferCategory = selectedDtoOfferCategory;
+            this.namedQuery = namedQuery;
+        }
+
+        @Override
+        public Predicate toPredicate(Root<Offer> root, CriteriaQuery<?> query, CriteriaBuilder cb) {
+            Predicate predicate = null;
+            List<OfferCategory> selectedOfferCategory = (List<OfferCategory>) offerCategoryMapper.convertToDBO(selectedDtoOfferCategory);
+            for (OfferCategory offerCategory : selectedOfferCategory) {
+                if (predicate == null) {
+                    predicate = cb.equal(root.get("offerCategory"), offerCategory);
+                } else {
+                    predicate = cb.or(predicate, cb.equal(root.get("offerCategory"), offerCategory));
+                }
+
+            }
+            if (namedQuery != null) {
+                if (predicate == null) {
+                    predicate = cb.like(root.<String>get("name"), "%"+namedQuery+"%");
+
+                } else {
+                    predicate = cb.and(predicate, cb.like(root.<String>get("name"), "%"+namedQuery+"%"));
+                }
+            }
+            return predicate;
+        }
+    }
 }

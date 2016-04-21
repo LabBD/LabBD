@@ -39,12 +39,12 @@ abstract public class AbstractController<DBO, DTO, S extends AbstractService<DBO
         service.save(modelsToSave);
     }
 
-    @RequestMapping(value = "/delete/{id}", method = RequestMethod.DELETE)
+    @RequestMapping(value = "/delete/{id}", method = RequestMethod.POST)
     public void delete(@RequestBody DTO modelToDelete, @PathVariable int id) {
         service.delete(modelToDelete);
     }
 
-    @RequestMapping(value = "/delete/all", method = RequestMethod.DELETE)
+    @RequestMapping(value = "/delete/all", method = RequestMethod.POST)
     public void delete(@RequestBody Iterable<DTO> modelsToDelete) {
         service.delete(modelsToDelete);
     }

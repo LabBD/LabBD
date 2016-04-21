@@ -1,5 +1,7 @@
-var mainApp = angular.module("mainApp", ['ngRoute', 'IndexControllers', 'IndexServices','PhotoControllers'
-    ,'PhotoServices','AngularDemoControllers','AngularDemoServices','BasketControllers','BasketServices','SearchServices','SearchControllers']);mainApp.config(['$routeProvider', function ($routeProvider) {
+var mainApp = angular.module("mainApp", ['ngRoute', 'IndexControllers', 'IndexServices', 'PhotoControllers'
+    , 'PhotoServices', 'AngularDemoControllers', 'AngularDemoServices', 'BasketControllers', 'BasketServices'
+    , 'SearchServices', 'SearchControllers', 'ui.grid', 'ui.grid.pagination']);
+mainApp.config(['$routeProvider', function ($routeProvider) {
     $routeProvider.
 
         when('/angularDemo/:param', {
