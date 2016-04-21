@@ -11,19 +11,34 @@ basketControllers.controller('BasketController',
             if ($scope.checkAll) {
                     $scope.checkAll = true;
             } else {
-                    $scope.checkdAll = false;
+                    $scope.checkAll = false;
             }
                 angular.forEach($scope.allOrders, function (order) {
                         order.check = $scope.checkAll;
                 });
         };
 
-        $scope.allOrders = BasketService.getAllOrders();
+        $scope.totalCost = function(){
+                $scope.totalCostAllOrders = 0;
+                angular.forEach($scope.allOrders, function (order) {
+                        $scope.totalCostAllOrders += order.offerPrice*order.amount;
+                });
+                return $scope.totalCostAllOrders;
+        };
             
-        $scope.totalCost = function(price) {
-                $scope.total = 0;
-                total = total + price;
-                
-        }    
+        $scope.totalAmount = function(){
+                $scope.totalAmountAllOrders = 0;
+                angular.forEach($scope.allOrders, function (order) {
+                        $scope.totalAmountAllOrders += order.amount;
+                });
+                return $scope.totalAmountAllOrders;
+        };
+            
+        $scope.allOrders = BasketService.getAllOrders();
+
+        $scope.delete = function () {
+                BasketService.deleteOrder({id:1});
+                $location.reload();
+        }
 
     }]);

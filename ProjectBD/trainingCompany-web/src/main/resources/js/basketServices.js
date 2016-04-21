@@ -11,6 +11,11 @@ basketServices.factory('BasketService', [
                 method: 'GET',
                 url: '../order/offers',
                 isArray: true
+            },
+            deleteOrder: {
+                params: {id: "@id"},
+                method: 'DELETE',
+                url: '../order/delete/{id}'
             }
             //           getSection: { //nazwa metody
             //               params: {id: "@id"}, // parametry

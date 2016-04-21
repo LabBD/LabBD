@@ -21,6 +21,7 @@ public class OrderService extends AbstractService<Order, DtoOrder,OrderRepo,Orde
 
     public Iterable<DtoOrder> getAllOfferFromOrder(Long idBasket){
         List<Order> orders = (List<Order>) repo.findAll();
+        // repo.findByBasket( Kamil Da metode :D);
         return mapper.convertToDTO(orders);
     }
 }
