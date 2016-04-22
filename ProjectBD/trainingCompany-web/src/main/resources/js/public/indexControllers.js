@@ -11,3 +11,16 @@ indexControllers.controller('MainPageController', ['$scope', 'IndexService', fun
         window.location = "../#/search/1?query=" + $scope.phrase;
     }
 }]);
+
+indexControllers.controller('LoginController', ['$scope', 'IndexService', function ($scope, IndexService) {
+    $scope.message = "Login page";
+
+    $scope.login = function(){
+        IndexService.login($scope.user,function(data){
+
+            window.alert('succes');
+        });
+
+    }
+
+}]);

@@ -37,14 +37,13 @@
     <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
 
     Global repo -->
-    <script type="text/javascript" th:src="@{/js/basketServices.js}"/>
-    <script type="text/javascript" th:src="@{/js/basketControllers.js}"/>
-    <script type="text/javascript" th:src="@{/js/searchServices.js}"/>
-    <script type="text/javascript" th:src="@{/js/searchControllers.js}"/>
+
+    <script type="text/javascript" th:src="@{/js/public/searchServices.js}"/>
+    <script type="text/javascript" th:src="@{/js/public/searchControllers.js}"/>
     <script type="text/javascript" th:src="@{/js/photoServices.js}"/>
-    <script type="text/javascript" th:src="@{/js/routeProvider.js}"/>
-    <script type="text/javascript" th:src="@{/js/indexControllers.js}"/>
-    <script type="text/javascript" th:src="@{/js/indexServices.js}"/>
+    <script type="text/javascript" th:src="@{/js/public/routeProvider.js}"/>
+    <script type="text/javascript" th:src="@{/js/public/indexControllers.js}"/>
+    <script type="text/javascript" th:src="@{/js/public/indexServices.js}"/>
     <script type="text/javascript" th:src="@{/js/photoControllers.js}"/>
     <script type="text/javascript" th:src="@{/js/angularDemoServices.js}"/>
     <script type="text/javascript" th:src="@{/js/angularDemoControllers.js}"/>
@@ -229,18 +228,9 @@
         </div>
         <ul class="nav navbar-nav">
             <li class="active"><a href="#">Home</a></li>
-            <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">Page 1 <span
-                    class="caret"></span></a>
-                <ul class="dropdown-menu">
-                    <li><a href="#">Page 1-1</a></li>
-                    <li><a href="#">Page 1-2</a></li>
-                </ul>
-            </li>
-            <li><a href="#search/1/?query=oferta">Search page demo</a></li>
+            <li><a href="#search/1/">All ofert</a></li>
             <li><a href="#photoDemo">Photo demo</a></li>
             <li><a href="#angularDemo/zmiennaUrl">Angular demo</a></li>
-            <li><a href="#addOffer">Add offer</a></li>
-            <li><a href="#basket">Basket</a></li>
         </ul>
         <ul class="nav navbar-nav navbar-right">
             <li><a href="#" data-toggle="modal" data-target="#registerModal"><span
@@ -251,156 +241,159 @@
     </div>
 </nav>
 
-<!-- Login-->
-<div class="modal fade" id="login-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true"
-     style="display: none;">
-    <div class="modal-dialog">
-        <div class="loginmodal-container">
-
-            <h1>Login with Username and Password</h1>
-
-            <form name='f' action='/login' method='POST'>
-                <input type='text' name='username' value='' placeholder="Login"/>
-                <input type='password' name='password' placeholder="Password"/>
-                <input name="submit" type="submit" value="Login" class="login loginmodal-submit"/>
-            </form>
-
-            <div class="login-help">
-                <!--<a href="#">Zarejestruj</a> - <a href="#">Zapomniałes hasła?</a>-->
-            </div>
-        </div>
-    </div>
-</div>
 
 <div ng-app="mainApp">
 
 
     <div ng-view="true"></div>
 
-</div>
 
+    <!-- Login-->
+    <div class="modal fade" id="login-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+         aria-hidden="true"
+         style="display: none;"
+            ng-controller="LoginController">
+        <div class="modal-dialog">
+            <div class="loginmodal-container">
 
-<!-- Register-->
-<div class="modal fade" id="registerModal" tabindex="-1" role="dialog" aria-labelledby="Register" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="registerModalContent">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-                <h3 class="modal-title">Register</h3>
-            </div>
+                <h1>Login with Username and Password</h1>
 
-            <div class="modal-body">
-                <form id="registerForm" method="post" action="account/register" class="form-horizontal">
-
-                    <div class="form-group">
-                        <label class="col-xs-3 control-label">Username</label>
-
-                        <div class="col-xs-8">
-                            <input type="text" class="form-control" name="username"/>
-                        </div>
-                    </div>
-
-                    <div class="form-group">
-                        <label class="col-xs-3 control-label">First name</label>
-
-                        <div class="col-xs-8">
-                            <input type="text" class="form-control" name="firstName"/>
-                        </div>
-                    </div>
-
-
-                    <div class="form-group">
-                        <label class="col-xs-3 control-label">Last name</label>
-
-                        <div class="col-xs-8">
-                            <input type="text" class="form-control" name="lastName"/>
-                        </div>
-                    </div>
-
-                    <div class="form-group">
-                        <label class="col-xs-3 control-label">Email</label>
-
-                        <div class="col-xs-8">
-                            <input type="text" class="form-control" name="email"/>
-                        </div>
-                    </div>
-
-                    <div class="form-group">
-                        <label class="col-xs-3 control-label">Password</label>
-
-                        <div class="col-xs-8">
-                            <input type="password" class="form-control" name="password"/>
-                        </div>
-                    </div>
-
-                    <div class="form-group">
-                        <label class="col-xs-3 control-label">Retype password</label>
-
-                        <div class="col-xs-8">
-                            <input type="password" class="form-control" name="confirmPassword"/>
-                        </div>
-                    </div>
-
-                    <div class="form-group">
-                        <label class="col-xs-3 control-label">Phone number</label>
-
-                        <div class="col-xs-8">
-                            <input type="text" name="phone"
-                                   class="input-medium bfh-phone form-control"
-                                   id="form-phone" data-format="ddd ddd ddd"/>
-                        </div>
-                    </div>
-
-                    <div class="form-group">
-                        <label class="col-xs-3 control-label">City</label>
-
-                        <div class="col-xs-8">
-                            <input type="text" class="form-control" name="city"/>
-                        </div>
-                    </div>
-
-                    <div class="form-group">
-                        <label class="col-xs-3 control-label">Address</label>
-
-                        <div class="col-xs-8">
-                            <input type="text" class="form-control" name="address"/>
-                        </div>
-                    </div>
-                    <label for="checkCompany">
-                        <input type="checkbox" id="checkCompany" onclick="ShowHideDiv(this)"/>
-                        Register as company
-                    </label>
-
-                    <div id="companyName" class="form-group" style="display:none">
-                        <label class="col-xs-3 control-label">Company name</label>
-
-                        <div class="col-xs-8">
-                            <input type="text" class="form-control" name="companyName"/>
-                        </div>
-                    </div>
-                    <div id="companyDesc" class="form-group" style="display:none">
-                        <label class="col-xs-3 control-label">Company description</label>
-
-                        <div class="col-xs-8">
-                            <textarea class="form-control" rows="8" name="companyDesc"></textarea>
-                        </div>
-                    </div>
-
-                    <div class="form-group">
-                        <div class="col-xs-5 col-xs-offset-3">
-                            <button type="submit" class="btn btn-primary registerSubmit">Register</button>
-                            <button type="reset" class="btn btn-default" data-dismiss="modal">Cancel</button>
-                        </div>
-                    </div>
+                <form name='f' action='/login' method='POST'>
+                    <input type='text' name='username' value='' placeholder="Login" ng-model="user.username"/>
+                    <input type='password' name='password' placeholder="Password" ng-model="user.password"/>
+                    <input name="submit" type="submit"  value="Login" class="login loginmodal-submit" />
                 </form>
-            </div>
 
+                <div class="login-help">
+                    <!--<a href="#">Zarejestruj</a> - <a href="#">Zapomniałes hasła?</a>-->
+                </div>
+            </div>
         </div>
     </div>
-</div>
 
+    <!-- Register-->
+    <div class="modal fade" id="registerModal" tabindex="-1" role="dialog" aria-labelledby="Register"
+         aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="registerModalContent">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    <h3 class="modal-title">Register</h3>
+                </div>
+
+                <div class="modal-body">
+                    <form id="registerForm" method="post" action="account/register" class="form-horizontal">
+
+                        <div class="form-group">
+                            <label class="col-xs-3 control-label">Username</label>
+
+                            <div class="col-xs-8">
+                                <input type="text" class="form-control" name="username"/>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-xs-3 control-label">First name</label>
+
+                            <div class="col-xs-8">
+                                <input type="text" class="form-control" name="firstName"/>
+                            </div>
+                        </div>
+
+
+                        <div class="form-group">
+                            <label class="col-xs-3 control-label">Last name</label>
+
+                            <div class="col-xs-8">
+                                <input type="text" class="form-control" name="lastName"/>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-xs-3 control-label">Email</label>
+
+                            <div class="col-xs-8">
+                                <input type="text" class="form-control" name="email"/>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-xs-3 control-label">Password</label>
+
+                            <div class="col-xs-8">
+                                <input type="password" class="form-control" name="password"/>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-xs-3 control-label">Retype password</label>
+
+                            <div class="col-xs-8">
+                                <input type="password" class="form-control" name="confirmPassword"/>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-xs-3 control-label">Phone number</label>
+
+                            <div class="col-xs-8">
+                                <input type="text" name="phone"
+                                       class="input-medium bfh-phone form-control"
+                                       id="form-phone" data-format="ddd ddd ddd"/>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-xs-3 control-label">City</label>
+
+                            <div class="col-xs-8">
+                                <input type="text" class="form-control" name="city"/>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-xs-3 control-label">Address</label>
+
+                            <div class="col-xs-8">
+                                <input type="text" class="form-control" name="address"/>
+                            </div>
+                        </div>
+                        <label for="checkCompany">
+                            <input type="checkbox" id="checkCompany" onclick="ShowHideDiv(this)"/>
+                            Register as company
+                        </label>
+
+                        <div id="companyName" class="form-group" style="display:none">
+                            <label class="col-xs-3 control-label">Company name</label>
+
+                            <div class="col-xs-8">
+                                <input type="text" class="form-control" name="companyName"/>
+                            </div>
+                        </div>
+                        <div id="companyDesc" class="form-group" style="display:none">
+                            <label class="col-xs-3 control-label">Company description</label>
+
+                            <div class="col-xs-8">
+                                <textarea class="form-control" rows="8" name="companyDesc"></textarea>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="col-xs-5 col-xs-offset-3">
+                                <button type="submit" class="btn btn-primary registerSubmit">Register</button>
+                                <button type="reset" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+</div>
 <script type="text/javascript">
     $(document).ready(function () {
         $('#registerForm').formValidation({

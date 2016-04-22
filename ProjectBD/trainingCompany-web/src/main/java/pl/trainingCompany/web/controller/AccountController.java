@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
+import pl.trainingCompany.model.ValueWrapper;
 import pl.trainingCompany.model.dbo.Account;
 import pl.trainingCompany.model.dto.DTOAccount;
 import pl.trainingCompany.service.AccountService;
@@ -23,8 +24,8 @@ public class AccountController extends AbstractController<Account, DTOAccount, A
     CompanyService companyService;
 
     @RequestMapping(value = "/logged/name")
-    public String  getLoggedUserame() {
-        return service.getLoggedAccountName();
+    public ValueWrapper<String> getLoggedUserame() {
+        return new ValueWrapper(service.getLoggedAccountName());
     }
 
 

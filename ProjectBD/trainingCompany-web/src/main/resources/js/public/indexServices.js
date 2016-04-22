@@ -4,6 +4,17 @@ var IndexServices = angular.module(
 IndexServices.factory('IndexService', [
     '$resource', function ($resource) {
         return $resource('', {}, {
+
+            login: {
+                method: 'POST',
+                url: '/login'
+            },
+
+            getLoggedUsername: {
+                method: 'GET',
+                url: '/account/logged/name'
+            },
+
             getUser: {
                 params: {id: "@id"},
                 method: 'GET',

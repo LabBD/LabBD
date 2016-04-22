@@ -5,39 +5,41 @@ mainApp.config(['$routeProvider', function ($routeProvider) {
     $routeProvider.
 
         when('/angularDemo/:param', {
-            templateUrl: '/angularDemo.html',
+            templateUrl: '/templates/angularDemo.html',
             controller: 'AngularDemoController'
         }).
 
         when('/photoDemo', {
-            templateUrl: '/photoDemo.html',
+            templateUrl: '/templates/photoDemo.html',
             controller: 'PhotoController'
         }).
 
         when('/search', {
-            templateUrl: '/searchPage.html',
+            templateUrl: '/templates/public/searchPage.html',
             controller: 'SearchController'
         }).
 
         when('/search/:pageNumber', {
-            templateUrl: '/searchPage.html',
+            templateUrl: '/templates/public/searchPage.html',
             controller: 'SearchController'
         }).
 
         when('/addOffer', {
-            templateUrl: '/addOffer.html'
+            templateUrl: '/templates/user/addOffer.html'
         }).
 
         when('/basket', {
-            templateUrl: '/basket.html',
+            templateUrl: '/templates/user/basket.html',
             controller: 'BasketController'
         }).
 
         otherwise({
-            templateUrl: '/main.html',
+            templateUrl: '/templates/public/main.html',
             controller: 'MainPageController'
         });
 }]);
+
+
 
 
 

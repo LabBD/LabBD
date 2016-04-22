@@ -105,9 +105,9 @@
                ng-mouseleave="home='element-with-border-radius'"
                ng-click="redirectToOfferPage(offer)" ng-repeat="offer in offers">
             <div class="col-sm-5">
-                <img src="attachment/files/{{offer.mainPhoto}}" ng-if="offer.mainPhoto!==null"
+                <img src="../attachment/files/{{offer.mainPhoto}}" ng-if="offer.mainPhoto!==null"
                      style="width: 90%; height: 90%; margin: 10px">
-                <img src="../image/seler.jpg" ng-if="offer.mainPhoto===null"
+                <img src="../../image/seler.jpg" ng-if="offer.mainPhoto===null"
                      style="width: 90%; height: 90%; margin: 10px">
 
                 <h3 class="element-with-border-radius" style="margin-right: 2px">
