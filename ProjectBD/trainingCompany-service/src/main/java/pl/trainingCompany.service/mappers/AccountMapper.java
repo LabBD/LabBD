@@ -19,18 +19,26 @@ public class AccountMapper implements MapperInterface<Account,DTOAccount> {
         account.setUsername(dtoAccount.getUsername());
         account.setPassword(dtoAccount.getPassword());
         account.setEmail(dtoAccount.getEmail());
+        account.setFirstName(dtoAccount.getFirstName());
+        account.setLastName(dtoAccount.getLastName());
+        account.setPhoneNumber(dtoAccount.getPhoneNumber());
+        account.setCity(dtoAccount.getCity());
+        account.setAddress(dtoAccount.getAddress());
         return account;
     }
 
     @Override
     public DTOAccount convertToDTO(Account account) {
-        if(account==null)
-            return null;
         DTOAccount dtoAccount = new DTOAccount();
         dtoAccount.setId(account.getId());
         dtoAccount.setUsername(account.getUsername());
         dtoAccount.setPassword(account.getPassword());
         dtoAccount.setEmail(account.getEmail());
+        dtoAccount.setFirstName(account.getFirstName());
+        dtoAccount.setLastName(account.getLastName());
+        dtoAccount.setPhoneNumber(account.getPhoneNumber());
+        dtoAccount.setCity(account.getCity());
+        dtoAccount.setAddress(account.getAddress());
         return dtoAccount;
     }
 

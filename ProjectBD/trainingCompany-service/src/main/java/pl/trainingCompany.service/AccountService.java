@@ -15,18 +15,26 @@ import pl.trainingCompany.service.mappers.AccountMapper;
 @Service
 public class AccountService extends AbstractService<Account, DTOAccount, AccountRepo, AccountMapper> {
 
-    public void save(MultiValueMap<String, String> data) {
+    public void save(MultiValueMap<String, String > data){
         DTOAccount dtoAccount = new DTOAccount();
         dtoAccount.setUsername(data.getFirst("username"));
         dtoAccount.setEmail(data.getFirst("email"));
         dtoAccount.setPassword(data.getFirst("password"));
+        dtoAccount.setFirstName(data.getFirst("firstName"));
+        dtoAccount.setLastName(data.getFirst("lastName"));
+        dtoAccount.setPhoneNumber(data.getFirst("phone"));
+        dtoAccount.setCity(data.getFirst("city"));
+        dtoAccount.setAddress(data.getFirst("address"));
         repo.save(mapper.convertToDBO(dtoAccount));
     }
 
-    public Long findAccountIdByName(String username) {
-
-        Long id = repo.getIdByUsername(username);
-        return id;
+    public Long findAccountIdByUsername(String username) {
+        Account account = repo.findByUsername(username);
+        if(account != null) {
+            return account.getId();
+        }
+        else
+            return -1L;
 
     }
 

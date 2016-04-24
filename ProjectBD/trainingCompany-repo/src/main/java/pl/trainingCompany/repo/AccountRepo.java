@@ -10,5 +10,4 @@ public interface AccountRepo extends CrudRepository<Account,Long> {
 
     public Account findByUsername(String userName);
 
-    public Long getIdByUsername(String userName);
 }

@@ -11,4 +11,12 @@ import pl.trainingCompany.service.mappers.UserMapper;
  */
 @Service
 public class UserService extends AbstractService<User,DtoUser,UserRepo,UserMapper> {
+
+    public void save (String username, String password, String email) {
+        DtoUser dtoUser = new DtoUser();
+        dtoUser.setUsername(username);
+        dtoUser.setPassword(password);
+        dtoUser.setEmail(email);
+        repo.save(mapper.convertToDBO(dtoUser));
+    }
 }

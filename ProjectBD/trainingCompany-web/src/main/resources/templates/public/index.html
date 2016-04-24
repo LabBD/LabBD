@@ -54,10 +54,26 @@
     <script src="http://www.freenetmall.com/common/jquery/FormHelpers/docs/assets/js/bootstrap-formhelpers-phone.js"></script>
     <script type="text/javascript">
         function ShowHideDiv(checkCompany) {
-            var dvCompanyName = document.getElementById("companyName");
-            dvCompanyName.style.display = checkCompany.checked ? "block" : "none";
-            var dvCompanyDesc = document.getElementById("companyDesc");
-            dvCompanyDesc.style.display = checkCompany.checked ? "block" : "none";
+            var companyName = document.getElementById("companyName");
+            var companyDesc = document.getElementById("companyDesc");
+            if(checkCompany.checked) {
+                companyName.style.display = "block";
+                companyDesc.style.display = "block";
+                $('#registerForm').formValidation('updateStatus', 'companyName', 'NOT_VALIDATED')
+                        .formValidation('validateField', 'companyName');
+                $('#registerForm').formValidation('updateStatus', 'companyDesc', 'NOT_VALIDATED')
+                        .formValidation('validateField', 'companyDesc');
+            }
+            else {
+                companyName.style.display = "none";
+                companyDesc.style.display = "none";
+                document.getElementById("inputCompanyName").value = "";
+                document.getElementById("inputCompanyDesc").value = "";
+                $('#registerForm').formValidation('updateStatus', 'companyName', 'NOT_VALIDATED')
+                        .formValidation('validateField', 'companyName');
+                $('#registerForm').formValidation('updateStatus', 'companyDesc', 'NOT_VALIDATED')
+                        .formValidation('validateField', 'companyDesc');
+            }
         }
     </script>
 
@@ -290,9 +306,11 @@
                             <label class="col-xs-3 control-label">Username</label>
 
                             <div class="col-xs-8">
-                                <input type="text" class="form-control" name="username"/>
+                                <input type="text" class="form-control" id="username" name="username"/>
                             </div>
                         </div>
+
+                        <p id="demoo" style="display:none"></p>
 
                         <div class="form-group">
                             <label class="col-xs-3 control-label">First name</label>
@@ -369,14 +387,14 @@
                             <label class="col-xs-3 control-label">Company name</label>
 
                             <div class="col-xs-8">
-                                <input type="text" class="form-control" name="companyName"/>
+                                <input type="text" class="form-control" id="inputCompanyName" name="companyName"/>
                             </div>
                         </div>
                         <div id="companyDesc" class="form-group" style="display:none">
                             <label class="col-xs-3 control-label">Company description</label>
 
                             <div class="col-xs-8">
-                                <textarea class="form-control" rows="8" name="companyDesc"></textarea>
+                                <textarea class="form-control" id="inputCompanyDesc" rows="8" name="companyDesc"></textarea>
                             </div>
                         </div>
 
@@ -409,6 +427,26 @@
                     validators: {
                         notEmpty: {
                             message: 'The username is required'
+                        },
+                        callback: {
+                            message: '',
+                            callback: function (value, validator, $field) {
+                                var xhttp = new XMLHttpRequest();
+                                xhttp.onreadystatechange = function () {
+                                    document.getElementById("demoo").innerText = xhttp.responseText;
+                                };
+                                var urlReq = "http://localhost:8080/account/checkUsername/" + document.getElementById("username").value;
+                                xhttp.open("GET", urlReq, false);
+                                xhttp.send();
+
+                                if($('p').html() != "-1") {
+                                    return {
+                                        valid: false,
+                                        message: "Username already exist!"
+                                    }
+                                }
+                                return true;
+                            }
                         }
                     }
                 },
@@ -483,8 +521,14 @@
                         callback: {
                             message: 'Wiaodmosc do was',
                             callback: function (value, validator, $field) {
-                                if (document.getElementById("companyDesc").style.display == "block") {
-
+                                var element = document.getElementById('companyDesc');
+                                if (element.style.display == "block") {
+                                    if(value === '') {
+                                        return {
+                                            valid: false,
+                                            message: 'The company description is required'
+                                        }
+                                    }
                                 }
                                 return true;
                             }
@@ -496,8 +540,14 @@
                         callback: {
                             message: 'Wiaodmosc do was',
                             callback: function (value, validator, $field) {
-                                if (document.getElementById("companyName").style.display == "block") {
-
+                                var element = document.getElementById('companyName');
+                                if (element.style.display == "block") {
+                                    if(value === '') {
+                                        return {
+                                            valid: false,
+                                            message: 'The company name is required'
+                                        }
+                                    }
                                 }
                                 return true;
                             }

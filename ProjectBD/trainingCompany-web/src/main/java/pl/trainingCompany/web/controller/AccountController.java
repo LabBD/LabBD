@@ -2,16 +2,14 @@ package pl.trainingCompany.web.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.MultiValueMap;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import pl.trainingCompany.model.ValueWrapper;
 import pl.trainingCompany.model.dbo.Account;
 import pl.trainingCompany.model.dto.DTOAccount;
 import pl.trainingCompany.service.AccountService;
 import pl.trainingCompany.service.CompanyService;
+import pl.trainingCompany.service.UserService;
 
 /**
  * Created by Kamil S on 2016-03-31.
@@ -23,6 +21,9 @@ public class AccountController extends AbstractController<Account, DTOAccount, A
     @Autowired
     CompanyService companyService;
 
+    @Autowired
+    UserService userService;
+
     @RequestMapping(value = "/logged/name")
     public ValueWrapper<String> getLoggedUserame() {
         return new ValueWrapper(service.getLoggedAccountName());
@@ -30,17 +31,19 @@ public class AccountController extends AbstractController<Account, DTOAccount, A
 
 
     @RequestMapping(value = "/register", method = RequestMethod.POST, consumes = "application/x-www-form-urlencoded")
-    public ModelAndView register(@RequestBody final MultiValueMap<String, String> data) {
+    public ModelAndView register(@RequestBody final MultiValueMap<String, String > data) {
 
-        if (!data.isEmpty()) {
-            if (service.findAccountIdByName(data.getFirst("username")) != null) {
+        if(!data.isEmpty()) {
+            if(service.findAccountIdByUsername(data.getFirst("username")) != -1L){
                 //uzytkownik o podanym username juz istnieje, redirect do jakiejs strony z informacja o bledzie
-            } else {
+            }
+            else {
                 service.save(data);
+                userService.save(data.getFirst("username"), data.getFirst("password"), data.getFirst("email"));
 
-                if (!data.getFirst("companyName").isEmpty() && !data.getFirst("companyDesc").isEmpty()) {
-                    Long accountId = service.findAccountIdByName(data.getFirst("username"));
-                    if (accountId != null) {
+                if(!data.getFirst("companyName").isEmpty() && !data.getFirst("companyDesc").isEmpty()) {
+                    Long accountId = service.findAccountIdByUsername(data.getFirst("username"));
+                    if(accountId != -1L) {
                         companyService.save(accountId, data.getFirst("companyName"), data.getFirst("companyDesc"));
                     } else {
                         //To Do  nie odnaleziono uzytkownika o podanym username (nie udalo sie wyzej zapisac uzytkownika do bazy)
@@ -49,5 +52,14 @@ public class AccountController extends AbstractController<Account, DTOAccount, A
             }
         }
         return new ModelAndView("redirect:/");
+    }
+
+    @RequestMapping(value = "/checkUsername/{username}", method = RequestMethod.GET)
+    public long checkUsername(@PathVariable String username) {
+        Long id = service.findAccountIdByUsername(username);
+        if(id != -1L) {
+            return 1L;
+        }
+        return -1L;
     }
 }
