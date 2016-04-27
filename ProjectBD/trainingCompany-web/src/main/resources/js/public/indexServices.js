@@ -10,6 +10,11 @@ IndexServices.factory('IndexService', [
                 url: '/login'
             },
 
+            logout: {
+                method: 'GET',
+                url: '/logout'
+            },
+
             getLoggedUsername: {
                 method: 'GET',
                 url: '/account/logged/name'

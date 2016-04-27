@@ -34,10 +34,6 @@ public class OfferController extends AbstractController<Offer, DtoOffer, OfferSe
 
     @RequestMapping(value = "/page/{pageNumber}", method = RequestMethod.POST)
     public Iterable<DtoOffer> getOfferPage(@RequestBody GetOfferPageRequestBody requestBody, @PathVariable int pageNumber) {
-        for (DtoOfferCategory dtoOfferCategory : requestBody.getSelectedOfferCategory()) {
-            System.out.println(dtoOfferCategory.getName());
-        }
-        System.out.println();
         return service.getOfferPage(requestBody.getQuery(),pageNumber - 1,requestBody.getSelectedOfferCategory());
     }
 

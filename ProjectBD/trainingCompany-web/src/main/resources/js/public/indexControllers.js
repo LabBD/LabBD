@@ -5,14 +5,20 @@ indexControllers.controller('MainPageController', ['$scope', 'IndexService', fun
     $scope.message = "Main page";
 
     $scope.searchPhrase = function (phrase) {
-        if (typeof phrase == 'undefined') {
-            window.location = "../#/search/1";
-        } else window.location = "../#/search/1?query=" + phrase;
+        if (typeof phrase === 'undefined') {
+            $location.path('/search/1');
+            //window.location = "../#/search/1";
+        } else {
+            //window.location = "/search/1?query=" + phrase;
+            $location.search().query= phrase;
+            $location.path('/search/1');
+        }
+
     };
-    
+
 }]);
 
-indexControllers.controller('LoginController', ['$scope', 'IndexService', function ($scope, IndexService) {
+indexControllers.controller('LoginController', ['$scope', '$location', 'IndexService', function ($scope, $location, IndexService) {
     $scope.message = "Login page";
 
     $scope.login = function () {
@@ -21,6 +27,16 @@ indexControllers.controller('LoginController', ['$scope', 'IndexService', functi
             window.alert('succes');
         });
 
+    }
+
+    $scope.logout = function () {
+        IndexService.logout(function () {
+            IndexService.getLoggedUsername(function (username) {
+                if (username.value === null) {
+                    window.location = "/#" + $location.path();
+                }
+            });
+        });
     }
 
 }]);

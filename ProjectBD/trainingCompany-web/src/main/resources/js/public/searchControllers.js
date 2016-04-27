@@ -3,6 +3,8 @@ var searchControllers = angular.module(
 
 searchControllers.controller('SearchController', ['$scope', '$routeParams', 'SearchService', 'SearchServiceRepo', '$location', function ($scope, $routeParams, SearchService, SearchServiceRepo, $location) {
     $scope.offers = [];
+    $scope.categoryIsLoaded=false;
+    $scope.offersIsLoaded=false;
 
     if ($routeParams.pageNumber === undefined || $routeParams.pageNumber === null) {
         $scope.actualPageNmber = 1;
@@ -42,6 +44,7 @@ searchControllers.controller('SearchController', ['$scope', '$routeParams', 'Sea
 
         SearchServiceRepo.getOfferPage({pageNumber: $scope.actualPageNmber}, requestBody, function (offers) {
             $scope.offers = offers;
+            $scope.offersIsLoaded=true;
         });
     };
 
@@ -57,10 +60,12 @@ searchControllers.controller('SearchController', ['$scope', '$routeParams', 'Sea
             });
             SearchService.setAllCategory(allCategory);
             $scope.allCategory = SearchService.getAllCategory();
+            $scope.categoryIsLoaded=true;
             $scope.reloadOffer();
         });
     } else {
         $scope.allCategory = SearchService.getAllCategory();
+        $scope.categoryIsLoaded=true;
         $scope.reloadOffer();
     }
 
@@ -77,5 +82,17 @@ searchControllers.controller('SearchController', ['$scope', '$routeParams', 'Sea
     $scope.redirectToOfferPage = function(offer){
         $location.path('/offer/'+ offer.id);
     }
+
+    $scope.searchPhrase = function (phrase) {
+        if (typeof phrase === 'undefined') {
+            $location.path('/search/1');
+            //window.location = "../#/search/1";
+        } else {
+            //window.location = "/search/1?query=" + phrase;
+            $location.search().query= phrase;
+            $location.path('/search/1');
+        }
+
+    };
 
 }]);

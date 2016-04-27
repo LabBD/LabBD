@@ -61,10 +61,72 @@
         color: #fff;
     }
 
+    #custom-search-input {
+        margin: 10px 0 0;
+        padding: 0;
+    }
+
+    #custom-search-input .search-query {
+        padding-right: 3px;
+        padding-right: 4px \9;
+        padding-left: 3px;
+        padding-left: 4px \9;
+        /* IE7-8 doesn't have border-radius, so don't indent the padding */
+        margin-bottom: 0;
+        -webkit-border-radius: 4px;
+        -moz-border-radius: 4px;
+        border-radius: 4px;
+    }
+
+    #custom-search-input button {
+        border: 0;
+        background: none;
+        /** belows styles are working good */
+        padding: 0 0;
+        margin-top: 2px;
+        position: relative;
+        left: -24px;
+        /* IE7-8 doesn't have border-radius, so don't indent the padding */
+        margin-bottom: 0;
+        -webkit-border-radius: 3px;
+        -moz-border-radius: 3px;
+        border-radius: 3px;
+        color: #0d8006;
+        z-index: 59;
+    }
+
+    .form-control:focus {
+        border-color: #0d8006;
+        background-color: #F5F6CE;
+        box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.25);
+    }
+
+    .col-md-12 {
+        margin: 0 auto;
+        width: 90%;
+        max-width: 500px;
+        margin-bottom: 5%;
+    }
+
+    .btn-default {
+        background-color: #5cb85c;
+        color: white;
+    }
+
+    .btn-default:hover {
+        background-color: green;
+        color: white;
+    }
+
 </style>
 <div style="margin: 3%;">
     <div class="col-sm-2" style=" border-style: solid; border-width: thin; border-color: #4e8f55;">
-        <div class="btn-group-vertical" data-toggle="buttons" style="max-height: 100%; max-width: 100%;">
+        <p class="text-center" ng-hide="categoryIsLoaded">
+            <i class="fa fa-spinner fa-pulse fa-3x fa-fw margin-bottom"></i>
+            <span class="sr-only">Loading...</span>
+        </p>
+
+        <div ng-show="categoryIsLoaded" class="btn-group-vertical" data-toggle="buttons" style="max-height: 100%; max-width: 100%;">
             <div ng-repeat="category in allCategory">
                 <label ng-if="!category.isSelected" class="btn btn-success"
                        ng-click="addToSelectedCategory(category)" title="{{category.description}}" data-toggle="tooltip"
@@ -99,8 +161,24 @@
         </div>
     </div>
     <div class="col-sm-10">
+        <div id="custom-search-input" >
+            <div class="input-group col-md-12">
+                <input type="text" class="search-query form-control" placeholder="I'm searching for..."
+                       ng-model="phrase" ng-keypress="$event.keyCode == 13 && searchPhrase(phrase)"/>
+                <span class="input-group-btn">
+                    <button class="btn btn-default" type="button" ng-click="searchPhrase(phrase)">
+                        <span class=" glyphicon glyphicon-search"></span>
+                    </button>
+                </span>
+            </div>
+        </div>
 
-        <label style="width: 70%;" ng-init="home='element-with-border-radius'" ng-class="home"
+        <p class="text-center" ng-hide="offersIsLoaded">
+            <i class="fa fa-spinner fa-pulse fa-3x fa-fw margin-bottom"></i>
+            <span class="sr-only">Loading...</span>
+        </p>
+
+        <label style="width: 70%;" ng-show="offersIsLoaded" ng-init="home='element-with-border-radius'" ng-class="home"
                ng-mouseenter="home='element-with-border-radius-medium'"
                ng-mouseleave="home='element-with-border-radius'"
                ng-click="redirectToOfferPage(offer)" ng-repeat="offer in offers">
