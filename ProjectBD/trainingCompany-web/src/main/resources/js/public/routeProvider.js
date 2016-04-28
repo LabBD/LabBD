@@ -1,6 +1,7 @@
 var mainApp = angular.module("mainApp", ['ngRoute', 'IndexControllers', 'IndexServices', 'PhotoControllers'
     , 'PhotoServices', 'AngularDemoControllers', 'AngularDemoServices'
-    , 'SearchServices', 'SearchControllers', 'ui.grid', 'ui.grid.pagination']);
+    , 'SearchServices', 'SearchControllers', 'ui.grid', 'ui.grid.pagination'
+    , 'OfferDetailsServices', 'OfferDetailsControllers']);
 mainApp.config(['$routeProvider', function ($routeProvider) {
     $routeProvider.
 
@@ -15,7 +16,8 @@ mainApp.config(['$routeProvider', function ($routeProvider) {
         }).
 
         when('/offer/:offerId', {
-            templateUrl: '/templates/public/offerDetails.html'
+            templateUrl: '/templates/public/offerDetails.html',
+            controller: 'OfferDetailsController'
         }).
 
         when('/search', {
@@ -27,6 +29,7 @@ mainApp.config(['$routeProvider', function ($routeProvider) {
             templateUrl: '/templates/public/searchPage.html',
             controller: 'SearchController'
         }).
+        
 
         otherwise({
             templateUrl: '/templates/public/main.html',
