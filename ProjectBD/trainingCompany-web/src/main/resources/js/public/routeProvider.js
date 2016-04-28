@@ -14,6 +14,10 @@ mainApp.config(['$routeProvider', function ($routeProvider) {
             controller: 'PhotoController'
         }).
 
+        when('/offer/:offerId', {
+            templateUrl: '/templates/public/offerDetails.html'
+        }).
+
         when('/search', {
             templateUrl: '/templates/public/searchPage.html',
             controller: 'SearchController'

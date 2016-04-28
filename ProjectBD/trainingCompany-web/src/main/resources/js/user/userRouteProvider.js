@@ -24,6 +24,10 @@ mainApp.config(['$routeProvider', function ($routeProvider) {
             controller: 'SearchController'
         }).
 
+        when('/offer/:offerId', {
+            templateUrl: '/templates/public/offerDetails.html'
+        }).
+
         when('/addOffer', {
             templateUrl: '/templates/user/addOffer.html'
         }).
