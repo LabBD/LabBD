@@ -12,6 +12,13 @@ offerDetailsServices.factory('OfferDetailsService', [
                 method: 'GET',
                 url: '/offer/:offerId',
                 params: {offerId: "@offerId"}
+            },
+
+            getAttachements: {
+                method: 'GET',
+                url: 'attachment/offer/:offerId',
+                params: {offerId: "@offerId"},
+                isArray: true
             }
             
             

@@ -12,4 +12,10 @@ import pl.trainingCompany.service.mappers.OfferCategoryMapper;
 @Service
 public class OfferCategoryService extends AbstractService<OfferCategory,DtoOfferCategory,OfferCategoryRepo,OfferCategoryMapper> {
 
+    public void save(String name, String description) {
+        OfferCategory offerCategory= new OfferCategory();
+        offerCategory.setName(name);
+        offerCategory.setDescription(description);
+        repo.save(offerCategory);
+    }
 }

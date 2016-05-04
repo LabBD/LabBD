@@ -1,7 +1,7 @@
 var indexControllers = angular.module(
     'IndexControllers', []);
 
-indexControllers.controller('MainPageController', ['$scope', 'IndexService', function ($scope, IndexService) {
+indexControllers.controller('MainPageController', ['$scope', 'IndexService','$location', function ($scope, IndexService,$location) {
     $scope.message = "Main page";
 
     $scope.searchPhrase = function (phrase) {

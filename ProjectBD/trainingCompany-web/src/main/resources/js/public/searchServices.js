@@ -35,6 +35,11 @@ searchServices.service('SearchService', function () {
 
     var allCategory = [];
 
+    this.lastQuery = '';
+
+    this.lastPageNumber = 1;
+
+
     this.setAllCategory = function (newAllCategory) {
         allCategory = newAllCategory;
     };

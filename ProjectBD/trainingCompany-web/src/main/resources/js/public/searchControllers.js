@@ -80,6 +80,9 @@ searchControllers.controller('SearchController', ['$scope', '$routeParams', 'Sea
     }
 
     $scope.redirectToOfferPage = function(offer){
+        SearchService.lastQuery = $location.search().query;
+        SearchService.lastPageNumber = $scope.actualPageNmber;
+        $location.url($location.path());
         $location.path('/offer/'+ offer.id);
     }
 

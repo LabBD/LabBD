@@ -31,7 +31,17 @@ public class OfferService extends AbstractService<Offer, DtoOffer, OfferRepo, Of
     @Autowired
     OfferCategoryMapper offerCategoryMapper;
 
-    private final static int NUMBER_OFFER_ON_PAGE = 3;
+    private final static int NUMBER_OFFER_ON_PAGE = 10;
+
+    public void save(String name,String description,Double price,Long quantity, int offerCategoryId) {
+        Offer offer = new Offer();
+        offer.setName(name);
+        offer.setDescription(description);
+        offer.setPrice(price);
+        offer.setQuantity(quantity);
+        offer.setOfferCategory(offerCategoryRepo.findOne(new Long(offerCategoryId+1)));
+        repo.save(offer);
+    }
 
     public Iterable<DtoOffer> getOfferPage(String namedQuery, int pageNumber, List<DtoOfferCategory> selectedDtoOfferCategory) {
         if (pageNumber < 0)
@@ -39,6 +49,10 @@ public class OfferService extends AbstractService<Offer, DtoOffer, OfferRepo, Of
         PageRequest pageRequest = new PageRequest(pageNumber, NUMBER_OFFER_ON_PAGE);
         Specification<Offer> offerSpecification = new OfferRequestSpecification(selectedDtoOfferCategory, namedQuery);
         Iterable<Offer> offers = repo.findAll(offerSpecification, pageRequest);
+        for(Offer offer:offers){
+            if(offer.getDescription().length()>255)
+            offer.setDescription(offer.getDescription().substring(0,255)+"...");
+        }
         return mapper.convertToDTO(offers);
     }
 

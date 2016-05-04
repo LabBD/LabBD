@@ -31,19 +31,18 @@ public class AccountController extends AbstractController<Account, DTOAccount, A
 
 
     @RequestMapping(value = "/register", method = RequestMethod.POST, consumes = "application/x-www-form-urlencoded")
-    public ModelAndView register(@RequestBody final MultiValueMap<String, String > data) {
+    public ModelAndView register(@RequestBody final MultiValueMap<String, String> data) {
 
-        if(!data.isEmpty()) {
-            if(service.findAccountIdByUsername(data.getFirst("username")) != -1L){
+        if (!data.isEmpty()) {
+            if (service.findAccountIdByUsername(data.getFirst("username")) != -1L) {
                 //uzytkownik o podanym username juz istnieje, redirect do jakiejs strony z informacja o bledzie
-            }
-            else {
+            } else {
                 service.save(data);
                 userService.save(data.getFirst("username"), data.getFirst("password"), data.getFirst("email"));
 
-                if(!data.getFirst("companyName").isEmpty() && !data.getFirst("companyDesc").isEmpty()) {
+                if (!data.getFirst("companyName").isEmpty() && !data.getFirst("companyDesc").isEmpty()) {
                     Long accountId = service.findAccountIdByUsername(data.getFirst("username"));
-                    if(accountId != -1L) {
+                    if (accountId != -1L) {
                         companyService.save(accountId, data.getFirst("companyName"), data.getFirst("companyDesc"));
                     } else {
                         //To Do  nie odnaleziono uzytkownika o podanym username (nie udalo sie wyzej zapisac uzytkownika do bazy)
@@ -55,11 +54,12 @@ public class AccountController extends AbstractController<Account, DTOAccount, A
     }
 
     @RequestMapping(value = "/checkUsername/{username}", method = RequestMethod.GET)
-    public long checkUsername(@PathVariable String username) {
+    public ValueWrapper<Boolean> checkUsername(@PathVariable String username) {
         Long id = service.findAccountIdByUsername(username);
-        if(id != -1L) {
-            return 1L;
+
+        if (id == null || id != -1L) {
+            return new ValueWrapper<Boolean>(true);
         }
-        return -1L;
+        return new ValueWrapper<Boolean>(false);
     }
 }

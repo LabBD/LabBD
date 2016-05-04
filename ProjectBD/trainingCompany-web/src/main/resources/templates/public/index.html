@@ -24,7 +24,6 @@
     <script th:src="@{/js/bower_components/bootstrap-formhelpers/js/bootstrap-formhelpers-phone.js}"/>
 
 
-
     <!-- Ui-grid opcional
      <script th:src="@{/js/bower_components/angular-ui-grid/ui-grid.css}"></script>
      <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.3/angular-touch.js"></script>
@@ -67,7 +66,7 @@
         function ShowHideDiv(checkCompany) {
             var companyName = document.getElementById("companyName");
             var companyDesc = document.getElementById("companyDesc");
-            if(checkCompany.checked) {
+            if (checkCompany.checked) {
                 companyName.style.display = "block";
                 companyDesc.style.display = "block";
                 $('#registerForm').formValidation('updateStatus', 'companyName', 'NOT_VALIDATED')
@@ -279,7 +278,7 @@
     <div class="modal fade" id="login-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
          aria-hidden="true"
          style="display: none;"
-            ng-controller="LoginController">
+         ng-controller="LoginController">
         <div class="modal-dialog">
             <div class="loginmodal-container">
 
@@ -288,7 +287,7 @@
                 <form name='f' action='/login' method='POST'>
                     <input type='text' name='username' value='' placeholder="Login" ng-model="user.username"/>
                     <input type='password' name='password' placeholder="Password" ng-model="user.password"/>
-                    <input name="submit" type="submit"  value="Login" class="login loginmodal-submit" />
+                    <input name="submit" type="submit" value="Login" class="login loginmodal-submit"/>
                 </form>
 
                 <div class="login-help">
@@ -405,7 +404,8 @@
                             <label class="col-xs-3 control-label">Company description</label>
 
                             <div class="col-xs-8">
-                                <textarea class="form-control" id="inputCompanyDesc" rows="8" name="companyDesc"></textarea>
+                                <textarea class="form-control" id="inputCompanyDesc" rows="8"
+                                          name="companyDesc"></textarea>
                             </div>
                         </div>
 
@@ -439,25 +439,28 @@
                         notEmpty: {
                             message: 'The username is required'
                         },
+                        regexp: {
+                            regexp: /^[a-zA-Z0-9_]+$/,
+                            message: 'The name can only consist of alphabetical, number and underscore'
+                        },
                         callback: {
-                            message: '',
-                            callback: function (value, validator, $field) {
-                                var xhttp = new XMLHttpRequest();
-                                xhttp.onreadystatechange = function () {
-                                    document.getElementById("demoo").innerText = xhttp.responseText;
-                                };
-                                var urlReq = "http://localhost:8080/account/checkUsername/" + document.getElementById("username").value;
-                                xhttp.open("GET", urlReq, false);
-                                xhttp.send();
-
-                                if($('p').html() != "-1") {
-                                    return {
-                                        valid: false,
-                                        message: "Username already exist!"
-                                    }
-                                }
-                                return true;
-                            }
+                            message: ''
+//                            ,callback: function (value, validator, $field) {
+//                                var xhttp = new XMLHttpRequest();
+//                                xhttp.onreadystatechange = function () {
+//                                    document.getElementById("demoo").innerText = xhttp.responseText;
+//                                };
+//                                var urlReq = "http://localhost:8080/account/checkUsername/" + document.getElementById("username").value;
+//                                xhttp.open("GET", urlReq, false);
+//                                xhttp.send();
+//                                if($('p').html() != "-1") {
+//                                    return {
+//                                        valid: false,
+//                                        message: "Username already exist!"
+//                                    }
+//                                }
+//                                return true;
+//                            }
                         }
                     }
                 },
@@ -465,6 +468,10 @@
                     validators: {
                         notEmpty: {
                             message: 'The first name is required'
+                        },
+                        regexp: {
+                            regexp: /^[a-zA-Z0-9_]+$/,
+                            message: 'The name can only consist of alphabetical, number and underscore'
                         }
                     }
                 },
@@ -472,6 +479,10 @@
                     validators: {
                         notEmpty: {
                             message: 'The last name is required'
+                        },
+                        regexp: {
+                            regexp: /^[a-zA-Z0-9_]+$/,
+                            message: 'The name can only consist of alphabetical, number and underscore'
                         }
                     }
                 },
@@ -482,6 +493,10 @@
                         },
                         emailAddress: {
                             message: 'The value is not a valid email address'
+                        },
+                        regexp: {
+                            regexp: /^[a-zA-Z0-9_]+$/,
+                            message: 'The name can only consist of alphabetical, number and underscore'
                         }
                     }
                 },
@@ -489,6 +504,10 @@
                     validators: {
                         notEmpty: {
                             message: 'The password is required'
+                        },
+                        regexp: {
+                            regexp: /^[a-zA-Z0-9_]+$/,
+                            message: 'The name can only consist of alphabetical, number and underscore'
                         }
                     }
                 },
@@ -498,6 +517,10 @@
                         identical: {
                             field: 'password',
                             message: 'The password and its confirm are not the same'
+                        },
+                        regexp: {
+                            regexp: /^[a-zA-Z0-9_]+$/,
+                            message: 'The name can only consist of alphabetical, number and underscore'
                         }
                     }
                 },
@@ -505,6 +528,10 @@
                     validators: {
                         notEmpty: {
                             message: 'The city name is required'
+                        },
+                        regexp: {
+                            regexp: /^[a-zA-Z0-9_]+$/,
+                            message: 'The name can only consist of alphabetical, number and underscore'
                         }
                     }
                 },
@@ -512,6 +539,10 @@
                     validators: {
                         notEmpty: {
                             message: 'The address is required'
+                        },
+                        regexp: {
+                            regexp: /^[a-zA-Z0-9_]+$/,
+                            message: 'The name can only consist of alphabetical, number and underscore'
                         }
                     }
                 },
@@ -529,12 +560,16 @@
                 },
                 companyDesc: {
                     validators: {
+                        regexp: {
+                            regexp: /^[a-zA-Z0-9_]+$/,
+                            message: 'The name can only consist of alphabetical, number and underscore'
+                        },
                         callback: {
                             message: 'Wiaodmosc do was',
                             callback: function (value, validator, $field) {
                                 var element = document.getElementById('companyDesc');
                                 if (element.style.display == "block") {
-                                    if(value === '') {
+                                    if (value === '') {
                                         return {
                                             valid: false,
                                             message: 'The company description is required'
@@ -548,12 +583,16 @@
                 },
                 companyName: {
                     validators: {
+                        regexp: {
+                            regexp: /^[a-zA-Z0-9_]+$/,
+                            message: 'The name can only consist of alphabetical, number and underscore'
+                        },
                         callback: {
                             message: 'Wiaodmosc do was',
                             callback: function (value, validator, $field) {
                                 var element = document.getElementById('companyName');
                                 if (element.style.display == "block") {
-                                    if(value === '') {
+                                    if (value === '') {
                                         return {
                                             valid: false,
                                             message: 'The company name is required'

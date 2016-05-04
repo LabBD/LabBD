@@ -11,7 +11,7 @@ public class DtoOrder {
 
     private Long offerId;
 
-    private String offerDescription;
+    private String offerName;
 
     private Double offerPrice;
 
@@ -43,12 +43,12 @@ public class DtoOrder {
         this.offerPrice = offerPrice;
     }
 
-    public String getOfferDescription() {
-        return offerDescription;
+    public String getOfferName() {
+        return offerName;
     }
 
-    public void setOfferDescription(String offerDescription) {
-        this.offerDescription = offerDescription;
+    public void setOfferName(String offerName) {
+        this.offerName = offerName;
     }
 
     public Long getId() {

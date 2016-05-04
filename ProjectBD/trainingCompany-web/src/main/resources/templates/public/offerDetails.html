@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!--<!DOCTYPE html>
 <html lang="en">
 <head>
     <title>Szczegoly oferty</title>
@@ -8,13 +8,13 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
     <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
 </head>
-<body data-spy="scroll" data-target="#myScrollspy" data-offset="20">
+<body data-spy="scroll" data-target="#myScrollspy" data-offset="20">-->
 <style>
 
     .main_content {
         margin-left: 7%;
         margin-right: 7%;
-        margin-top:;: 2 %;
+        margin-top: 2%;
         margin-bottom: 2%;
     }
 
@@ -43,15 +43,54 @@
         color: darkgreen;
         font-weight: bold;
     }
+
+    .carousel {
+        margin-top: 10%;
+        margin-bottom: 10%;
+    }
+
+    img {
+        width: 100%;
+        height: 100%;
+    }
 </style>
-<div class ="main_content">
+<div class="container">
 
-    {{offerDetails}}
+    <div class="col-sm-12">
 
-    <div class="col-sm-10">
-        <label class="element-with-border-radius " style="margin-bottom: 10px">
+        <div class="col-sm-12"><label class="element-with-border-radius " style="margin-bottom: 10px">
             <div class="col-sm-3">
-                <img src="../attachment/files/{{offerDetails.mainPhoto}}" class="img-rounded" style="width: 98%; height: 98%; margin: 10px">
+
+
+                <!-- <img src="../attachment/files/{{offerDetails.mainPhoto}}" class="img-rounded"
+                      style="width: 98%; height: 98%; margin: 10px">-->
+                <div id="Carousel" class="carousel slide">
+                    <ol class="carousel-indicators">
+                        <li ng-repeat-start="attachment in attachments" ng-if="$first" data-target="Carousel"
+                            data-slide-to="0"
+                            class="active"></li>
+                        <li ng-repeat-end ng-if="!$first" data-target="Carousel" data-slide-to="$index"></li>
+
+                    </ol>
+                    <div class="carousel-inner">
+                        <div ng-repeat-start="attachment in attachments" ng-if="$first" class="item active">
+                            <img src="attachment/files/{{attachment.offerId}}/{{attachment.name}}"
+                                 class="img-responsive">
+                        </div>
+
+                        <div ng-repeat-end ng-if="!$first" class="item">
+                            <img src="attachment/files/{{attachment.offerId}}/{{attachment.name}}"
+                                 class="img-responsive">
+                        </div>
+                    </div>
+                    <span class="left carousel-control" data-target="#Carousel" data-slide="prev">
+                        <span class="glyphicon glyphicon-chevron-left"></span>
+                    </span>
+                    <span class="right carousel-control" data-target="#Carousel" data-slide="next">
+                       <span class="glyphicon glyphicon-chevron-right"></span>
+                    </span>
+                </div>
+
             </div>
             <div class="col-sm-9">
                 <h2 align="center" class="element-with-border-radius">
@@ -79,50 +118,53 @@
             </div>
 
         </label>
-    </div>
-
-
-    <div style="margin-left: 3%;margin-right: 3%;">
-        <div class="col-sm-10">
-
-            <h2 align="center">Szczegoly oferty</h2>
-
-            <h4>Ogólnie</h4>
-            Tutaj mamy szczegolowy opis oferty. Dlaczego szczegolowy? Poniewaz nieszczegolowy jest wyzej. Potrzebny byl
-            szczegolowy opis.
-            Opos czy ty to widzisz? Grecja Korfu :D
-            Opos czy ty to widzisz? Grecja Korfu :D
-            Opos czy ty to widzisz? Grecja Korfu :D
-            <br/><br/>
-            <h4>Atrakcje</h4>
-            Opos czy ty to widzisz? Grecja Korfu :D
-            Opos czy ty to widzisz? Grecja Korfu :D
-            Opos czy ty to widzisz? Grecja Korfu :D
-            Opos czy ty to widzisz? Grecja Korfu :D
-            Opos czy ty to widzisz? Grecja Korfu :D
-            Opos czy ty to widzisz? Grecja Korfu :D
-            Opos czy ty to widzisz? Grecja Korfu :D
-            Opos czy ty to widzisz? Grecja Korfu :D
-            Opos czy ty to widzisz? Grecja Korfu :D
-            <br/><br/>
-            <h4>Zadzwon!</h4>
-            Kamil S.: 777 888 999 <br/>
-            Prezes Danny: 555 555 552<br/><br/>
-
-            <br/><br/>
-            <div class="btn-group btn-group-justified">
-                <a href="#" class="btn btn-primary">Dodaj do koszyka!</a>
-                <a href="#" class="btn btn-primary">Wróć do poprzedniej strony</a>
-
-            </div>
         </div>
 
+
+        <div style="margin-left: 3%;margin-right: 3%;">
+            <div class="col-sm-12">
+
+                <h2 align="center">Szczegoly oferty</h2>
+
+                <h4>Ogólnie</h4>
+                Tutaj mamy szczegolowy opis oferty. Dlaczego szczegolowy? Poniewaz nieszczegolowy jest wyzej. Potrzebny
+                byl
+                szczegolowy opis.
+                Opos czy ty to widzisz? Grecja Korfu :D
+                Opos czy ty to widzisz? Grecja Korfu :D
+                Opos czy ty to widzisz? Grecja Korfu :D
+                <br/><br/>
+                <h4>Atrakcje</h4>
+                Opos czy ty to widzisz? Grecja Korfu :D
+                Opos czy ty to widzisz? Grecja Korfu :D
+                Opos czy ty to widzisz? Grecja Korfu :D
+                Opos czy ty to widzisz? Grecja Korfu :D
+                Opos czy ty to widzisz? Grecja Korfu :D
+                Opos czy ty to widzisz? Grecja Korfu :D
+                Opos czy ty to widzisz? Grecja Korfu :D
+                Opos czy ty to widzisz? Grecja Korfu :D
+                Opos czy ty to widzisz? Grecja Korfu :D
+                <br/><br/>
+                <h4>Zadzwon!</h4>
+                Kamil S.: 777 888 999 <br/>
+                Prezes Danny: 555 555 552<br/><br/>
+
+                <br/><br/>
+
+                <div class="btn-group btn-group-justified">
+                    <a href="#" class="btn btn-primary">Dodaj do koszyka!</a>
+                    <a class="btn btn-primary" ng-click="redirectToSearchPage()">Wróć do poprzedniej strony</a>
+
+                </div>
+            </div>
+
+        </div>
     </div>
-</div>
 
 
 </div>
 
-
+<!--
 </body>
 </html>
+-->

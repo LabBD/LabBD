@@ -38,10 +38,10 @@ public class AttachmentController extends AbstractController<Attachment, DtoAtta
         if (!file.isEmpty()) {
             try {
                 service.save(name, attachmentType, offerID);
-                File dbFile = new File("FILE/"+offerID);
+                File dbFile = new File("trainingCompany-web/src/main/resources/image/"+offerID);
                 if(!dbFile.exists())
                     dbFile.mkdirs();
-                dbFile = new File("FILE/"+offerID+"/"+name);
+                dbFile = new File("trainingCompany-web/src/main/resources/image/"+offerID+"/"+name);
                 BufferedOutputStream stream = new BufferedOutputStream(
                         new FileOutputStream(dbFile));
 
@@ -71,7 +71,7 @@ public class AttachmentController extends AbstractController<Attachment, DtoAtta
         if (!(fileName.contains("{") || fileName.contains("}"))) {
             try {
                 // get your file as InputStream
-                BufferedInputStream is = new BufferedInputStream(new FileInputStream(new File("FILE/"+offerId+"/"+fileName)));
+                BufferedInputStream is = new BufferedInputStream(new FileInputStream(new File("trainingCompany-web/src/main/resources/image/"+offerId+"/"+fileName)));
                 // copy it to response's OutputStream
                 try {
                     IOUtils.copy(is, response.getOutputStream());
@@ -87,4 +87,10 @@ public class AttachmentController extends AbstractController<Attachment, DtoAtta
 
         }
     }
+
+    @RequestMapping(value = "/offer/{offerId}", method = RequestMethod.GET)
+    public Iterable<DtoAttachment> getAttachementByOfferId(@PathVariable("offerId") Long offerId){
+        return service.getAttachementByOfferId(offerId);
+    }
 }
+

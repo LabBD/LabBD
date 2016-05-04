@@ -1,3 +1,4 @@
+f
 <style>
     .carousel {
         width: 400px;
@@ -8,17 +9,18 @@
 
 <div id="Carousel" class="carousel slide" ng-if="attachments.length!==0">
     <ol class="carousel-indicators">
-        <li ng-repeat-start="attachment in attachments" ng-if="$first" data-target="Carousel" data-slide-to="0" class="active"></li>
+        <li ng-repeat-start="attachment in attachments" ng-if="$first" data-target="Carousel" data-slide-to="0"
+            class="active"></li>
         <li ng-repeat-end ng-if="!$first" data-target="Carousel" data-slide-to="$index"></li>
 
     </ol>
     <div class="carousel-inner">
         <div ng-repeat-start="attachment in attachments" ng-if="$first" class="item active">
-            <img src="attachment/files/1/{{attachment.name}}" class="img-responsive">
+            <img src="attachment/files/{{attachment.offerId}}/{{attachment.name}}" class="img-responsive">
         </div>
 
         <div ng-repeat-end ng-if="!$first" class="item">
-            <img src="attachment/files/1/{{attachment.name}}" class="img-responsive">
+            <img src="attachment/files/{{attachment.offerId}}/{{attachment.name}}" class="img-responsive">
         </div>
     </div>
 <span class="left carousel-control" data-target="#Carousel" data-slide="prev">
@@ -51,7 +53,7 @@
         </tr>
         <tr>
             <td>Offer id:</td>
-            <td><input type="text" name="offerID" value="1" /></td>
+            <td><input type="text" name="offerID" value="1"/></td>
         </tr>
         <tr>
             <td></td>
