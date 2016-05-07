@@ -29,7 +29,7 @@ mainApp.config(['$routeProvider', function ($routeProvider) {
             templateUrl: '/templates/public/searchPage.html',
             controller: 'SearchController'
         }).
-        
+
 
         otherwise({
             templateUrl: '/templates/public/main.html',

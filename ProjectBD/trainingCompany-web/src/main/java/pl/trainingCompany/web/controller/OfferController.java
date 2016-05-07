@@ -2,14 +2,24 @@ package pl.trainingCompany.web.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import pl.trainingCompany.model.GetOfferPageRequestBody;
+import pl.trainingCompany.model.ValueWrapper;
 import pl.trainingCompany.model.dbo.Offer;
+import pl.trainingCompany.model.dbo.OfferCategory;
 import pl.trainingCompany.model.dto.DtoOffer;
+import pl.trainingCompany.repo.OfferCategoryRepo;
 import pl.trainingCompany.service.GuestService;
+import pl.trainingCompany.service.OfferCategoryService;
 import pl.trainingCompany.service.OfferService;
 
 import javax.servlet.http.HttpServletRequest;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Random;
 
@@ -22,6 +32,12 @@ public class OfferController extends AbstractController<Offer, DtoOffer, OfferSe
 
     @Autowired
     GuestService guestService;
+
+    @Autowired
+    OfferCategoryRepo offerCategoryRepo;
+
+    @Autowired
+    OfferCategoryService offerCategoryService;
 
     @RequestMapping("/init")
     public void init() {
@@ -106,11 +122,28 @@ public class OfferController extends AbstractController<Offer, DtoOffer, OfferSe
 //            if(j%20==0)
 //                System.out.println(j);
             for (int i = 0; i < offerName.size(); i++) {
-                service.save(offerName.get(i), offerDescription.get(i), new Double(random.nextInt(2000)), new Long(random.nextInt(100)), (int) i / 5);
+                //service.save(offerName.get(i), offerDescription.get(i), new Double(random.nextInt(2000)), new Long(random.nextInt(100)), new Date(),(int) i / 5);
             }
 //        }
 
 
+    }
+
+    @RequestMapping(method = RequestMethod.POST, value = "/saveNew")
+    public ModelAndView saveNewOffer(@RequestParam("title") String title,
+                                     @RequestParam("description") String description,
+                                     @RequestParam("price") Double price,
+                                     @RequestParam("quantity") Long quantity,
+                                     @RequestParam("endDate") String endDate,
+                                     @RequestParam("category") String categoryName,
+                                     RedirectAttributes redirectAttributes) throws ParseException {
+
+        DateFormat dateFormat = new SimpleDateFormat("yyyy-mm-dd");
+        Date date = dateFormat.parse(endDate);
+        final OfferCategory category = offerCategoryRepo.findByname(categoryName);
+        service.save(title,description,price,quantity,date,category);
+        redirectAttributes.addFlashAttribute("message", "Offer added properly.");
+        return new ModelAndView("redirect:http://localhost:8080/user/#/addOffer");
     }
 
     @Override

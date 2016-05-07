@@ -17,6 +17,7 @@ import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -26,20 +27,18 @@ import java.util.List;
 public class OfferService extends AbstractService<Offer, DtoOffer, OfferRepo, OfferMapper> {
 
     @Autowired
-    OfferCategoryRepo offerCategoryRepo;
-
-    @Autowired
     OfferCategoryMapper offerCategoryMapper;
 
     private final static int NUMBER_OFFER_ON_PAGE = 10;
 
-    public void save(String name,String description,Double price,Long quantity, int offerCategoryId) {
+    public void save(String name, String description, Double price, Long quantity, Date endDate, OfferCategory offerCategoryId) {
         Offer offer = new Offer();
         offer.setName(name);
         offer.setDescription(description);
         offer.setPrice(price);
         offer.setQuantity(quantity);
-        offer.setOfferCategory(offerCategoryRepo.findOne(new Long(offerCategoryId+1)));
+        offer.setEndDate(endDate);
+        offer.setOfferCategory(offerCategoryId);
         repo.save(offer);
     }
 

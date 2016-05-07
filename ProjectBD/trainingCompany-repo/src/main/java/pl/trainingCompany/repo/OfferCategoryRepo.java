@@ -8,4 +8,5 @@ import pl.trainingCompany.model.dbo.OfferCategory;
  */
 public interface OfferCategoryRepo extends CrudRepository<OfferCategory, Long> {
 
+    OfferCategory findByname(String name);
 }

@@ -1,6 +1,6 @@
 var mainApp = angular.module("mainApp", ['ngRoute', 'IndexControllers', 'IndexServices', 'PhotoControllers'
     , 'PhotoServices', 'AngularDemoControllers', 'AngularDemoServices', 'BasketControllers', 'BasketServices'
-    , 'SearchServices', 'SearchControllers', 'ui.grid', 'ui.grid.pagination']);
+    , 'AddOfferControllers', 'AddOfferServices', 'SearchServices', 'SearchControllers', 'ui.grid', 'ui.grid.pagination']);
 mainApp.config(['$routeProvider', function ($routeProvider) {
     $routeProvider.
 
@@ -29,7 +29,8 @@ mainApp.config(['$routeProvider', function ($routeProvider) {
         }).
 
         when('/addOffer', {
-            templateUrl: '/templates/user/addOffer.html'
+            templateUrl: '/templates/user/addOffer.html',
+            controller: 'AddOfferController'
         }).
 
         when('/basket', {
