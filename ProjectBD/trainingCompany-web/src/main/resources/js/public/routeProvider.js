@@ -1,6 +1,6 @@
 var mainApp = angular.module("mainApp", ['ngRoute', 'IndexControllers', 'IndexServices', 'PhotoControllers'
-    , 'PhotoServices', 'AngularDemoControllers', 'AngularDemoServices'
-    , 'SearchServices', 'SearchControllers', 'ui.grid', 'ui.grid.pagination'
+    , 'PhotoServices', 'AngularDemoControllers', 'AngularDemoServices', 'ErrorControllers'
+    , 'SearchServices', 'SearchControllers', 'ui.grid', 'ui.grid.pagination',
     , 'OfferDetailsServices', 'OfferDetailsControllers']);
 mainApp.config(['$routeProvider', function ($routeProvider) {
     $routeProvider.
@@ -18,6 +18,11 @@ mainApp.config(['$routeProvider', function ($routeProvider) {
         when('/offer/:offerId', {
             templateUrl: '/templates/public/offerDetails.html',
             controller: 'OfferDetailsController'
+        }).
+
+        when('/error/:reasonOfError', {
+            templateUrl: '/templates/error.html',
+            controller: 'ErrorController'
         }).
 
         when('/search', {

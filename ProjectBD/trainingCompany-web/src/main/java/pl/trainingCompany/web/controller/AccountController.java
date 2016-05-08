@@ -35,17 +35,19 @@ public class AccountController extends AbstractController<Account, DTOAccount, A
 
         if (!data.isEmpty()) {
             if (service.findAccountIdByUsername(data.getFirst("username")) != -1L) {
-                //uzytkownik o podanym username juz istnieje, redirect do jakiejs strony z informacja o bledzie
+                return new ModelAndView("redirect:http://localhost:8080/#/error/userExisted");
             } else {
-                service.save(data);
+                if(!service.save(data)) {
+                    return new ModelAndView("redirect:http://localhost:8080/#/error/userExisted");
+                }
                 userService.save(data.getFirst("username"), data.getFirst("password"), data.getFirst("email"));
 
-                if (!data.getFirst("companyName").isEmpty() && !data.getFirst("companyDesc").isEmpty()) {
+                if ((data.getFirst("companyName").length() != 0) && (data.getFirst("companyDesc").length() != 0)) {
                     Long accountId = service.findAccountIdByUsername(data.getFirst("username"));
                     if (accountId != -1L) {
                         companyService.save(accountId, data.getFirst("companyName"), data.getFirst("companyDesc"));
                     } else {
-                        //To Do  nie odnaleziono uzytkownika o podanym username (nie udalo sie wyzej zapisac uzytkownika do bazy)
+                        return new ModelAndView("redirect:http://localhost:8080/#/error/registration");
                     }
                 }
             }
