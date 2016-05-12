@@ -1,6 +1,6 @@
-var mainApp = angular.module("mainApp", ['ngRoute', 'IndexControllers', 'IndexServices', 'PhotoControllers'
+var mainApp = angular.module("mainApp", ['ngRoute', 'ngAnimate','toaster','IndexControllers', 'IndexServices', 'PhotoControllers'
     , 'PhotoServices', 'AngularDemoControllers', 'AngularDemoServices', 'ErrorControllers', 'BasketControllers', 'BasketServices'
-    , 'AddOfferControllers', 'AddOfferServices', 'SearchServices', 'SearchControllers', 'ui.grid', 'ui.grid.pagination']);
+    , 'AddOfferControllers', 'AddOfferServices', 'SearchServices', 'SearchControllers', 'ui.grid', 'ui.grid.pagination', 'OfferDetailsServices', 'OfferDetailsControllers']);
 mainApp.config(['$routeProvider', function ($routeProvider) {
     $routeProvider.
 
@@ -30,7 +30,8 @@ mainApp.config(['$routeProvider', function ($routeProvider) {
         }).
 
         when('/offer/:offerId', {
-            templateUrl: '/templates/public/offerDetails.html'
+            templateUrl: '/templates/public/offerDetails.html',
+            controller: 'OfferDetailsController'
         }).
 
         when('/addOffer', {

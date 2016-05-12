@@ -5,6 +5,7 @@ indexControllers.controller('MainPageController', ['$scope', 'IndexService','$lo
     $scope.message = "Main page";
 
     $scope.searchPhrase = function (phrase) {
+
         if (typeof phrase === 'undefined') {
             $location.path('/search/1');
             //window.location = "../#/search/1";

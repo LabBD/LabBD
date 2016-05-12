@@ -1,6 +1,6 @@
-var mainApp = angular.module("mainApp", ['ngRoute', 'IndexControllers', 'IndexServices', 'PhotoControllers'
-    , 'PhotoServices', 'AngularDemoControllers', 'AngularDemoServices', 'ErrorControllers'
-    , 'SearchServices', 'SearchControllers', 'ui.grid', 'ui.grid.pagination',
+var mainApp = angular.module("mainApp", ['ngRoute', 'ngAnimate','toaster','IndexControllers', 'IndexServices', 'PhotoControllers'
+    , 'PhotoServices', 'AngularDemoControllers', 'AngularDemoServices'
+    , 'SearchServices', 'SearchControllers', 'ui.grid', 'ui.grid.pagination', 'ErrorControllers'
     , 'OfferDetailsServices', 'OfferDetailsControllers']);
 mainApp.config(['$routeProvider', function ($routeProvider) {
     $routeProvider.

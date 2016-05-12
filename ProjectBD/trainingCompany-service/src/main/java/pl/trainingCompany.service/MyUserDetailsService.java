@@ -32,6 +32,8 @@ public class MyUserDetailsService implements UserDetailsService {
             throws UsernameNotFoundException {
 
         pl.trainingCompany.model.dbo.User user = userRepository.findByusername(username);
+        if(user==null)
+            throw  new UsernameNotFoundException("Username not found");
         List<GrantedAuthority> authorities =
                 buildUserAuthority(user.getUserRole());
 

@@ -6,7 +6,7 @@ var offerDetailsControllers = angular.module(
     'OfferDetailsControllers', []);
 
 offerDetailsControllers.controller('OfferDetailsController',
-    ['$scope','$routeParams','OfferDetailsService','SearchService','$location' , function($scope, $routeParams, OfferDetailsService, SearchService, $location) {
+    ['$scope','$routeParams','OfferDetailsService','SearchService','$location','toaster' , function($scope, $routeParams, OfferDetailsService, SearchService, $location,toaster) {
     
         $scope.offerID = $routeParams.offerId;
         $scope.attachments=[];
@@ -29,6 +29,15 @@ offerDetailsControllers.controller('OfferDetailsController',
                 url = url + '/' + SearchService.lastPageNumber;
             }
             $location.path(url);
+        }
+
+        $scope.addToBasket = function(){
+            toaster.pop({
+                type: 'success',
+                title: 'Title text',
+                body: 'Body text',
+                timeout: 3000
+            });
         }
 
 

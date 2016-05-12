@@ -41,7 +41,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
 
         http.authorizeRequests().antMatchers("/admin/**")
-                .access("hasRole('ROLE_ADMIN')").and().formLogin().loginPage("/login").failureUrl("/#/error?reason=Bad username or password").and()
+                .access("hasRole('ROLE_ADMIN')").and().formLogin().loginPage("/login").failureUrl("http://localhost:8080/#/error/login").and()
                 .logout().logoutSuccessUrl("/").and().csrf().disable();
     }
 

@@ -12,7 +12,7 @@ addOfferServices.factory('AddOfferServiceRepo', [
             },
             saveOffer: {
                 method: 'POST',
-                url: '/offer/save',
+                url: '/offer/save'
              }
 
         });

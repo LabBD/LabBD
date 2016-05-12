@@ -56,6 +56,8 @@
 </style>
 <div class="container">
 
+    <toaster-container></toaster-container>
+
     <div class="col-sm-12">
 
         <div class="col-sm-12"><label class="element-with-border-radius " style="margin-bottom: 10px">
@@ -74,12 +76,12 @@
                     </ol>
                     <div class="carousel-inner">
                         <div ng-repeat-start="attachment in attachments" ng-if="$first" class="item active">
-                            <img src="attachment/files/{{attachment.offerId}}/{{attachment.name}}"
+                            <img src="/attachment/files/{{attachment.offerId}}/{{attachment.name}}"
                                  class="img-responsive">
                         </div>
 
                         <div ng-repeat-end ng-if="!$first" class="item">
-                            <img src="attachment/files/{{attachment.offerId}}/{{attachment.name}}"
+                            <img src="/attachment/files/{{attachment.offerId}}/{{attachment.name}}"
                                  class="img-responsive">
                         </div>
                     </div>
@@ -152,7 +154,7 @@
                 <br/><br/>
 
                 <div class="btn-group btn-group-justified">
-                    <a href="#" class="btn btn-primary">Dodaj do koszyka!</a>
+                    <a class="btn btn-primary" ng-click="addToBasket()">Dodaj do koszyka!</a>
                     <a class="btn btn-primary" ng-click="redirectToSearchPage()">Wróć do poprzedniej strony</a>
 
                 </div>

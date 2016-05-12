@@ -23,6 +23,10 @@
     <script th:src="@{/js/bower_components/form.validation/dist/js/framework/bootstrap.min.js}"/>
     <script th:src="@{/js/bower_components/bootstrap-formhelpers/js/bootstrap-formhelpers-phone.js}"/>
 
+    <link rel="stylesheet" th:href="@{/js/bower_components/AngularJS-Toaster/toaster.min.css}"  />
+    <script th:src="@{/js/bower_components/angular-animate/angular-animate.min.js}" ></script>
+    <script th:src="@{/js/bower_components/AngularJS-Toaster/toaster.min.js}"></script>
+
 
     <!-- Ui-grid opcional
      <script th:src="@{/js/bower_components/angular-ui-grid/ui-grid.css}"></script>
@@ -276,7 +280,6 @@
 
 
     <div ng-view="true"></div>
-
 
     <!-- Login-->
     <div class="modal fade" id="login-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
