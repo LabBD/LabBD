@@ -20,19 +20,18 @@ import java.io.*;
 @RequestMapping("/attachment")
 public class AttachmentController extends AbstractController<Attachment, DtoAttachment, AttachmentService> {
 
-    @RequestMapping(method = RequestMethod.POST, value = "/upload")
-    public ModelAndView handleFileUpload(@RequestParam("name") String name,
-                                         @RequestParam("attachmentType") String attachmentType,
-                                         @RequestParam("offerID") Long offerID,
-                                         @RequestParam("file") MultipartFile file,
+    public boolean handleFileUpload(String name,
+                                         String attachmentType,
+                                         Long offerID,
+                                         MultipartFile file,
                                          RedirectAttributes redirectAttributes) {
         if (name.contains("/")) {
             redirectAttributes.addFlashAttribute("message", "Folder separators not allowed");
-            return new ModelAndView("redirect:http://localhost:8080/#/photoDemo");
+            return false;
         }
         if (name.contains("/")) {
             redirectAttributes.addFlashAttribute("message", "Relative pathnames not allowed");
-            return new ModelAndView("redirect:http://localhost:8080/#/photoDemo");
+            return false;
         }
 
         if (!file.isEmpty()) {
@@ -53,13 +52,15 @@ public class AttachmentController extends AbstractController<Attachment, DtoAtta
             } catch (Exception e) {
                 redirectAttributes.addFlashAttribute("message",
                         "You failed to upload " + name + " => " + e.getMessage());
+                return false;
             }
         } else {
             redirectAttributes.addFlashAttribute("message",
                     "You failed to upload " + name + " because the file was empty");
+            return false;
         }
 
-        return new ModelAndView("redirect:http://localhost:8080/#/photoDemo");
+        return true;
     }
 
 

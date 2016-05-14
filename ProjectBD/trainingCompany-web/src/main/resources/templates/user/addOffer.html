@@ -16,9 +16,6 @@
     <script type="text/javascript" src="/js/bower_components/jquery/jquery.min.js"></script>
     <script type="text/javascript" src="/js/bower_components/moment/min/moment.min.js"></script>
     <script type="text/javascript" src="/js/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
-    <script type="text/javascript" src="/js/bower_components/eonasdan-bootstrap-datetimepicker/build/js/bootstrap-datetimepicker.min.js"></script>
-    <link rel="stylesheet" href="/js/bower_components/bootstrap/dist/css/bootstrap.min.css" />
-    <link rel="stylesheet" href="/js/bower_components/eonasdan-bootstrap-datetimepicker/build/css/bootstrap-datetimepicker.min.css" />
 </head>
 <body>
 
@@ -28,51 +25,67 @@
         margin-top: 5%;
         margin-right: 0%;
     }
+
     #input-title {
         width: 40%;
         padding: 0;
     }
+
     #category {
-       float:left;
+        float: left;
         padding: 0;
     }
+
     #input-price {
         margin-left: 5%;
-        float:left;
-        width: 10%;
+        float: left;
+        width: 17%;
         padding: 0;
     }
+
     #input-quantity {
-        margin-left: 5%;
-        float:left;
-        width: 10%;
+        margin-right: 60%;
+        width: 17%;
         padding: 0;
+        float:right;
+        margin-top: -8%;
     }
+
     #desc {
         width: 85%;
         height: 250px;
     }
+
     #preview-button {
         margin-left: 70%;
     }
+
     #add-button {
         margin-left: 80%;
     }
+
     .buttons {
         margin-left: 75%;
         margin-top: 3%;
     }
+
     .container {
         width: 60%;
         border-radius: 10px 10px 10px 10px;
         border-style: solid;
         border-width: thin;
         border-color: #4e8f55;
-     }
+    }
+
+    .carousel {
+        width: 400px;
+        height: auto;
+    }
+
     .header {
         font-family: "Georgia";
         color: #4cae4c;
-        margin-top:2%;
+        margin-top: 2%;
         margin-left: 21%;
     }
 
@@ -83,55 +96,102 @@
     <h3 style="margin-left:3%;">Fill offer details</h3>
 </div>
 <div class="container" style="clear:both;">
-    <form id="offerForm" name="offerForm" method="POST" action="/offer/saveNew">
+    <form id="offerForm" name="offerForm" method="POST" enctype="multipart/form-data" action="/offer/saveNew">
         <div id="inputs">
             <div id="input-title">
                 <h4>Offer title:</h4>
-                <input name="title" class="form-control" ng-model="title" ng-required="true" aria-describedby="basic-addon2">
+                <input name="title" class="form-control" ng-model="title" ng-required="true"
+                       aria-describedby="basic-addon2">
             </div>
             <div class="dropdown">
                 <div id="category">
                     <h4>Category:</h4>
                     <div class="form-group">
                         <select class="form-control" id="sel1" name="category">
-                            <option ng-repeat="category in allCategory" value="{{category.name}}">{{category.name}}</option>
+                            <option ng-repeat="category in allCategory" value="{{category.name}}">{{category.name}}
+                            </option>
                         </select>
                     </div>
                 </div>
             </div>
             <div id="input-price">
                 <h4>Price:</h4>
-                <input type="number" class="form-control" name="price" min="0" ng-model="price" ng-required="true" ng-pattern = "/^\d*[1-9]\d*$/" aria-describedby="basic-addon2">
-            </div>
-            <div id="input-quantity">
-                <h4>Quantity:</h4>
-                <input type="number" class="form-control" name="quantity" min="0" step="1" data-bind="value:replyNumber"
-                       ng-model="quantity" ng-required="true" ng-pattern = "/^\d*[1-9]\d*$/" aria-describedby="basic-addon2">
+                <input type="number" class="form-control" name="price" min="0" ng-model="price" ng-required="true"
+                       ng-pattern="/^\d*[1-9]\d*$/" aria-describedby="basic-addon2">
             </div>
             <div class="end_date" style="clear:both;margin-top:10%;">
                 <h4>End date:</h4>
             </div>
-
-                <div class="row">
-                    <div class='col-sm-6'>
-                        <input type='date' class="form-control" name="endDate" ng-model="endDate"  max="2099-12-31" min="{{minDate}}"
-                               ng-required="true">
-                    </div>
+            <div class="row">
+                <div class='col-sm-6'>
+                    <input type='date' style="width:40%;" class="form-control" name="endDate" ng-model="endDate"
+                           max="2099-12-31" min="{{minDate}}"
+                           ng-required="true">
                 </div>
-
-            <div class="form-group" style="float:right;margin-top:-8%;margin-right:10%;">
-                <label for="exampleInputFile"><h4>Attachement</h4></label>
-                <input type="file" id="exampleInputFile">
             </div>
+            <div id="input-quantity">
+                <h4>Quantity:</h4>
+                <input type="number" class="form-control" name="quantity" min="0" step="1" data-bind="value:replyNumber"
+                       ng-model="quantity" ng-required="true" ng-pattern="/^\d*[1-9]\d*$/">
+            </div>
+            <!--<div id="Carousel" style="margin-left:50%;margin-top:-5%;" class="carousel slide" ng-if="attachments.length!==0">-->
+                    <!--<ol class="carousel-indicators">-->
+                        <!--<li ng-repeat-start="attachment in attachments" ng-if="$first" data-target="Carousel"-->
+                            <!--data-slide-to="0"-->
+                            <!--class="active"></li>-->
+                        <!--<li ng-repeat-end ng-if="!$first" data-target="Carousel" data-slide-to="$index"></li>-->
+
+                    <!--</ol>-->
+                    <!--<div class="carousel-inner">-->
+                        <!--<div ng-repeat-start="attachment in attachments" ng-if="$first" class="item active">-->
+                            <!--<img src="attachment/files/{{attachment.offerId}}/{{attachment.name}}"-->
+                                 <!--class="img-responsive">-->
+                        <!--</div>-->
+
+                        <!--<div ng-repeat-end ng-if="!$first" class="item">-->
+                            <!--<img src="attachment/files/{{attachment.offerId}}/{{attachment.name}}"-->
+                                 <!--class="img-responsive">-->
+                        <!--</div>-->
+                    <!--</div>-->
+                <!--<span class="left carousel-control" data-target="#Carousel" data-slide="prev">-->
+                    <!--<span class="glyphicon glyphicon-chevron-left"></span>-->
+                <!--</span>-->
+                <!--<span class="right carousel-control" data-target="#Carousel" data-slide="next">-->
+                    <!--<span class="glyphicon glyphicon-chevron-right"></span>-->
+                <!--</span>-->
+                <!--</div>-->
+
+                    <table style="margin-right:10%;margin-top:-10%;float:right;">
+                        <tr>
+                            <td>File to upload:</td>
+                            <td><input type="file"  name="file" class="form-control"/></td>
+                        </tr>
+                        <tr>
+                            <td>Name:</td>
+                            <td><input type="text" name="name" class="form-control"/></td>
+                        </tr>
+                        <tr>
+                            <td>Attachment Type</td>
+                            <td>
+                                <select name="attachmentType" class="form-control">
+                                    <option name="PHOTO">PHOTO</option>
+                                    <option name="MOVIE">MOVIE</option>
+                                    <option name="DOCUMENT">DOCUMENT</option>
+                                </select>
+                            </td>
+                        </tr>
+                    </table>
             <h4>Description:</h4>
             <div class="form-group">
-                <textarea class="form-control" rows="5" id="desc" class="form-control" name="description" min="0" max="255" step="1" data-bind="value:replyNumber"
-                          ng-model="description" ng-required="true" aria-describedby="basic-addon2" style="resize:none"></textarea>
+                <textarea class="form-control" style="resize:none;width:90%" rows="5" id="desc" class="form-control" name="description" min="0"
+                          max="255" step="1" data-bind="value:replyNumber"
+                          ng-model="description" ng-required="true" aria-describedby="basic-addon2">
+                </textarea>
             </div>
         </div>
         <div class="buttons">
             <button type="button" class="btn btn-success" data-toggle="modal" data-target="#myModal">Preview</button>
-                <button type="submit" class="btn btn-success">Add offer</button>
+            <button type="submit" class="btn btn-success">Add offer</button>
             <br><br>
         </div>
     </form>

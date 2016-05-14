@@ -31,7 +31,7 @@ public class OfferService extends AbstractService<Offer, DtoOffer, OfferRepo, Of
 
     private final static int NUMBER_OFFER_ON_PAGE = 10;
 
-    public void save(String name, String description, Double price, Long quantity, Date endDate, OfferCategory offerCategoryId) {
+    public long save(String name, String description, Double price, Long quantity, Date endDate, OfferCategory offerCategoryId) {
         Offer offer = new Offer();
         offer.setName(name);
         offer.setDescription(description);
@@ -40,6 +40,7 @@ public class OfferService extends AbstractService<Offer, DtoOffer, OfferRepo, Of
         offer.setEndDate(endDate);
         offer.setOfferCategory(offerCategoryId);
         repo.save(offer);
+        return offer.getId();
     }
 
     public Iterable<DtoOffer> getOfferPage(String namedQuery, int pageNumber, List<DtoOfferCategory> selectedDtoOfferCategory) {

@@ -1,5 +1,5 @@
-var mainApp = angular.module("mainApp", ['ngRoute', 'ngAnimate','toaster','IndexControllers', 'IndexServices', 'PhotoControllers'
-    , 'PhotoServices', 'AngularDemoControllers', 'AngularDemoServices'
+var mainApp = angular.module("mainApp", ['ngRoute', 'ngAnimate','toaster','IndexControllers', 'IndexServices'
+    , 'AngularDemoControllers', 'AngularDemoServices'
     , 'SearchServices', 'SearchControllers', 'ui.grid', 'ui.grid.pagination', 'ErrorControllers'
     , 'OfferDetailsServices', 'OfferDetailsControllers']);
 mainApp.config(['$routeProvider', function ($routeProvider) {
@@ -8,11 +8,6 @@ mainApp.config(['$routeProvider', function ($routeProvider) {
         when('/angularDemo/:param', {
             templateUrl: '/templates/angularDemo.html',
             controller: 'AngularDemoController'
-        }).
-
-        when('/photoDemo', {
-            templateUrl: '/templates/photoDemo.html',
-            controller: 'PhotoController'
         }).
 
         when('/offer/:offerId', {

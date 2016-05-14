@@ -2,6 +2,7 @@ package pl.trainingCompany.web.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import pl.trainingCompany.model.GetOfferPageRequestBody;
@@ -38,6 +39,9 @@ public class OfferController extends AbstractController<Offer, DtoOffer, OfferSe
 
     @Autowired
     OfferCategoryService offerCategoryService;
+
+    @Autowired
+    AttachmentController attachmentController;
 
     @RequestMapping("/init")
     public void init() {
@@ -136,14 +140,25 @@ public class OfferController extends AbstractController<Offer, DtoOffer, OfferSe
                                      @RequestParam("quantity") Long quantity,
                                      @RequestParam("endDate") String endDate,
                                      @RequestParam("category") String categoryName,
+                                     @RequestParam("name") String attchName,
+                                     @RequestParam("attachmentType") String attchType,
+                                     @RequestParam("file") MultipartFile file,
                                      RedirectAttributes redirectAttributes) throws ParseException {
 
         DateFormat dateFormat = new SimpleDateFormat("yyyy-mm-dd");
         Date date = dateFormat.parse(endDate);
         final OfferCategory category = offerCategoryRepo.findByname(categoryName);
-        service.save(title,description,price,quantity,date,category);
-        redirectAttributes.addFlashAttribute("message", "Offer added properly.");
-        return new ModelAndView("redirect:http://localhost:8080/user/#/addOffer");
+        if(category!=null) {
+            Long offerId = service.save(title,description,price,quantity,date,category);
+            if(offerId != null) {
+                redirectAttributes.addFlashAttribute("message", "Offer added properly.");
+                boolean isAtchAdded = attachmentController.handleFileUpload(attchName,attchType,offerId,file,redirectAttributes);
+                return isAtchAdded ? new ModelAndView("redirect:http://localhost:8080/user/#/addOffer") : new ModelAndView("redirect:http://localhost:8080/#/error/attachmentError");
+            } else {
+                return new ModelAndView("redirect:http://localhost:8080/#/error/addOfferError");
+            }
+        }
+        return new ModelAndView("redirect:http://localhost:8080/#/error/addOfferError");
     }
 
     @Override
