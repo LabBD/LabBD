@@ -503,10 +503,6 @@
                         },
                         emailAddress: {
                             message: 'The value is not a valid email address'
-                        },
-                        regexp: {
-                            regexp: /^[a-zA-Z0-9_]+$/,
-                            message: 'The name can only consist of alphabetical, number and underscore'
                         }
                     }
                 },
@@ -549,10 +545,6 @@
                     validators: {
                         notEmpty: {
                             message: 'The address is required'
-                        },
-                        regexp: {
-                            regexp: /^[a-zA-Z0-9_]+$/,
-                            message: 'The name can only consist of alphabetical, number and underscore'
                         }
                     }
                 },
@@ -570,10 +562,6 @@
                 },
                 companyDesc: {
                     validators: {
-                        regexp: {
-                            regexp: /^[a-zA-Z0-9_]+$/,
-                            message: 'The name can only consist of alphabetical, number and underscore'
-                        },
                         callback: {
                             message: 'Wiaodmosc do was',
                             callback: function (value, validator, $field) {

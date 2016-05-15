@@ -4,11 +4,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
+import pl.trainingCompany.model.dbo.Company;
 import pl.trainingCompany.model.dbo.Offer;
 import pl.trainingCompany.model.dbo.OfferCategory;
 import pl.trainingCompany.model.dto.DtoOffer;
 import pl.trainingCompany.model.dto.DtoOfferCategory;
-import pl.trainingCompany.repo.OfferCategoryRepo;
 import pl.trainingCompany.repo.OfferRepo;
 import pl.trainingCompany.service.mappers.OfferCategoryMapper;
 import pl.trainingCompany.service.mappers.OfferMapper;
@@ -29,6 +29,9 @@ public class OfferService extends AbstractService<Offer, DtoOffer, OfferRepo, Of
     @Autowired
     OfferCategoryMapper offerCategoryMapper;
 
+    @Autowired
+    CompanyService companyService;
+
     private final static int NUMBER_OFFER_ON_PAGE = 10;
 
     public long save(String name, String description, Double price, Long quantity, Date endDate, OfferCategory offerCategoryId) {
@@ -43,11 +46,13 @@ public class OfferService extends AbstractService<Offer, DtoOffer, OfferRepo, Of
         return offer.getId();
     }
 
-    public Iterable<DtoOffer> getOfferPage(String namedQuery, int pageNumber, List<DtoOfferCategory> selectedDtoOfferCategory) {
+    public Iterable<DtoOffer> getOfferPage(String namedQuery, int pageNumber, List<DtoOfferCategory> selectedDtoOfferCategory,Company company) {
         if (pageNumber < 0)
             return null;
         PageRequest pageRequest = new PageRequest(pageNumber, NUMBER_OFFER_ON_PAGE);
-        Specification<Offer> offerSpecification = new OfferRequestSpecification(selectedDtoOfferCategory, namedQuery);
+
+
+        Specification<Offer> offerSpecification = new OfferRequestSpecification(selectedDtoOfferCategory, namedQuery,company);
         Iterable<Offer> offers = repo.findAll(offerSpecification, pageRequest);
         for(Offer offer:offers){
             if(offer.getDescription().length()>255)
@@ -56,8 +61,8 @@ public class OfferService extends AbstractService<Offer, DtoOffer, OfferRepo, Of
         return mapper.convertToDTO(offers);
     }
 
-    public Long getOfferPageCount(String namedQuery, List<DtoOfferCategory> selectedDtoOfferCategory) {
-        Specification<Offer> offerSpecification = new OfferRequestSpecification(selectedDtoOfferCategory, namedQuery);
+    public Long getOfferPageCount(String namedQuery, List<DtoOfferCategory> selectedDtoOfferCategory,Company company) {
+        Specification<Offer> offerSpecification = new OfferRequestSpecification(selectedDtoOfferCategory, namedQuery, company);
         Long offersNumber = repo.count(offerSpecification);
         Long pageNmber = offersNumber / NUMBER_OFFER_ON_PAGE;
         if (offersNumber % NUMBER_OFFER_ON_PAGE != 0)
@@ -75,10 +80,12 @@ public class OfferService extends AbstractService<Offer, DtoOffer, OfferRepo, Of
 
         private final List<DtoOfferCategory> selectedDtoOfferCategory;
         private final String namedQuery;
+        private final Company company;
 
-        public OfferRequestSpecification(List<DtoOfferCategory> selectedDtoOfferCategory, String namedQuery) {
+        public OfferRequestSpecification(List<DtoOfferCategory> selectedDtoOfferCategory, String namedQuery, Company company) {
             this.selectedDtoOfferCategory = selectedDtoOfferCategory;
             this.namedQuery = namedQuery;
+            this.company = company;
         }
 
         @Override
@@ -101,6 +108,18 @@ public class OfferService extends AbstractService<Offer, DtoOffer, OfferRepo, Of
                     predicate = cb.and(predicate, cb.like(root.<String>get("name"), "%" + namedQuery + "%"));
                 }
             }
+
+            if (company != null) {
+                if (predicate == null) {
+                    predicate = cb.equal(root.get("company"),company);
+
+                } else {
+                    predicate = cb.and(predicate, cb.equal(root.get("company"), company));
+                }
+            }
+
+
+
             return predicate;
         }
     }

@@ -1,7 +1,7 @@
-var searchServices = angular.module(
-    'SearchServices', ['ngResource']);
+var myOffersServices = angular.module(
+    'MyOffersServices', ['ngResource']);
 
-searchServices.factory('SearchServiceRepo', [
+myOffersServices.factory('MyOffersServiceRepo', [
     '$resource', function ($resource) {
         return $resource('', {}, {
 
@@ -10,23 +10,23 @@ searchServices.factory('SearchServiceRepo', [
                 url: '/offerCategory/all',
                 isArray: true
             },
-            getOfferPage: {
+            getMyOfferPage: {
                 params: {pageNumber: "@pageNumber"},
                 method: 'POST',
-                url: '/offer/page/:pageNumber',
+                url: '/offer/my/page/:pageNumber',
                 isArray: true
             },
 
-            getOfferPageCount: {
+            getMyOfferPageCount: {
                 method: 'POST',
-                url: '/offer/page/count'
+                url: '/offer/my/page/count'
             }
 
         });
     }]);
 
 
-searchServices.service('SearchService', function () {
+myOffersServices.service('MyOffersService', function () {
 
     var allCategory = [];
 
@@ -42,7 +42,7 @@ searchServices.service('SearchService', function () {
     this.getAllCategory = function () {
         return allCategory;
     };
-    
+
     this.getPageNumberTab = function(actualPageNmber, maxPageNmber){
         var pageNumberTab = [];
         if (actualPageNmber - 2 >= 1) {

@@ -1,6 +1,7 @@
 package pl.trainingCompany.model.dbo;
 
 import javax.persistence.*;
+import java.util.List;
 
 /**
  * Created by Mateusz on 2016-03-24.
@@ -15,6 +16,9 @@ public class Company {
     @OneToOne
     @JoinColumn(name = "account_id")
     private Account account;
+
+    @OneToMany(mappedBy = "company")
+    private List<Offer> offers;
 
     private String companyName;
     private String description;
@@ -49,5 +53,13 @@ public class Company {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public List<Offer> getOffers() {
+        return offers;
+    }
+
+    public void setOffers(List<Offer> offers) {
+        this.offers = offers;
     }
 }

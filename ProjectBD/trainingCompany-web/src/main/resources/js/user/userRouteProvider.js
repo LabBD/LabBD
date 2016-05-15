@@ -1,6 +1,7 @@
 var mainApp = angular.module("mainApp", ['ngRoute', 'ngAnimate','toaster','IndexControllers', 'IndexServices',
     'AngularDemoControllers', 'AngularDemoServices', 'ErrorControllers', 'BasketControllers', 'BasketServices'
-    , 'AddOfferControllers', 'AddOfferServices', 'SearchServices', 'SearchControllers', 'ui.grid', 'ui.grid.pagination', 'OfferDetailsServices', 'OfferDetailsControllers']);
+    , 'AddOfferControllers', 'AddOfferServices', 'SearchServices', 'SearchControllers', 'ui.grid', 'ui.grid.pagination',
+    'OfferDetailsServices', 'OfferDetailsControllers','MyOffersServices','MyOffersControllers']);
 mainApp.config(['$routeProvider', function ($routeProvider) {
     $routeProvider.
 
@@ -12,6 +13,16 @@ mainApp.config(['$routeProvider', function ($routeProvider) {
         when('/search', {
             templateUrl: '/templates/public/searchPage.html',
             controller: 'SearchController'
+        }).
+
+        when('/myOffers', {
+            templateUrl: '/templates/public/searchPage.html',
+            controller: 'MyOffersController'
+        }).
+
+        when('/myOffers/:pageNumber', {
+            templateUrl: '/templates/public/searchPage.html',
+            controller: 'MyOffersController'
         }).
 
         when('/search/:pageNumber', {
@@ -45,7 +56,27 @@ mainApp.config(['$routeProvider', function ($routeProvider) {
         });
 }]);
 
+mainApp.run(['$rootScope', '$location', 'IndexService', function ($rootScope, $location, IndexService) {
+    $rootScope.$on('$routeChangeStart', function (event) {
 
+            IndexService.getLoggedUsername(function (username) {
+                if (username.value === null) {
+                    window.location = "/#" + $location.path();
+                }
+            });
+            //window.alert($location.path().toString());
+            //if (!Auth.isLoggedIn()) {
+            //    console.log('DENY');
+            //    event.preventDefault();
+            //    $location.path('/login');
+            //}
+            //else {
+            //    console.log('ALLOW');
+            //    $location.path('/home');
+            //}
+        }
+    );
+}]);
 
 
 

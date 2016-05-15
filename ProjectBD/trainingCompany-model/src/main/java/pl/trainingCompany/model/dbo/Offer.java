@@ -16,6 +16,9 @@ public class Offer {
 
     private String name;
 
+    @ManyToOne
+    private Company company;
+
     @Column(length = 1500)
     private String description;
 
@@ -116,5 +119,13 @@ public class Offer {
 
     public void setOfferCategory(OfferCategory offerCategory) {
         this.offerCategory = offerCategory;
+    }
+
+    public Company getCompany() {
+        return company;
+    }
+
+    public void setCompany(Company company) {
+        this.company = company;
     }
 }

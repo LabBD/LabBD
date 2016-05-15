@@ -1,8 +1,9 @@
-var searchControllers = angular.module(
-    'SearchControllers', []);
+var myOffersControllers = angular.module(
+    'MyOffersControllers', []);
 
-searchControllers.controller('SearchController', ['$scope', '$routeParams', 'SearchService', 'SearchServiceRepo', '$location', function ($scope, $routeParams, SearchService, SearchServiceRepo, $location) {
+myOffersControllers.controller('MyOffersController', ['$scope', '$routeParams', 'MyOffersService', 'MyOffersServiceRepo', '$location', function ($scope, $routeParams, MyOffersService, MyOffersServiceRepo, $location) {
     $scope.offers = [];
+    $scope.title="My offers:";
     $scope.categoryIsLoaded=false;
     $scope.offersIsLoaded=false;
 
@@ -13,7 +14,7 @@ searchControllers.controller('SearchController', ['$scope', '$routeParams', 'Sea
     }
 
     $scope.reloadPage = function (pageNumber, query) {
-        var url = '/search/';
+        var url = '/myOffers/';
 
         if (pageNumber === null) {
             url += '1'
@@ -37,14 +38,14 @@ searchControllers.controller('SearchController', ['$scope', '$routeParams', 'Sea
                 requestBody.selectedOfferCategory.push(offerCategory);
             }
         });
-        SearchServiceRepo.getOfferPageCount(requestBody, function (offersCount) {
+        MyOffersServiceRepo. getMyOfferPageCount(requestBody, function (offersCount) {
             $scope.maxPageNmber = offersCount.value;
             if($scope.maxPageNmber< $scope.actualPageNmber)
                 $scope.reloadPage(null,null);
-            $scope.pageNumberTab = SearchService.getPageNumberTab($scope.actualPageNmber, $scope.maxPageNmber);
+            $scope.pageNumberTab = MyOffersService.getPageNumberTab($scope.actualPageNmber, $scope.maxPageNmber);
         });
 
-        SearchServiceRepo.getOfferPage({pageNumber: $scope.actualPageNmber}, requestBody, function (offers) {
+        MyOffersServiceRepo. getMyOfferPage({pageNumber: $scope.actualPageNmber}, requestBody, function (offers) {
             $scope.offers = offers;
             $scope.offersIsLoaded=true;
         });
@@ -52,21 +53,21 @@ searchControllers.controller('SearchController', ['$scope', '$routeParams', 'Sea
 
 
     $scope.maxPageNmber = 1;
-    $scope.pageNumberTab = SearchService.getPageNumberTab($scope.actualPageNmber, $scope.maxPageNmber);
+    $scope.pageNumberTab = MyOffersService.getPageNumberTab($scope.actualPageNmber, $scope.maxPageNmber);
 
-    if (SearchService.getAllCategory() === undefined || SearchService.getAllCategory() === null || SearchService.getAllCategory().length === 0) {
+    if (MyOffersService.getAllCategory() === undefined || MyOffersService.getAllCategory() === null || MyOffersService.getAllCategory().length === 0) {
         $scope.allCategory = [];
-        SearchServiceRepo.getOfferCattegory(function (allCategory) {
+        MyOffersServiceRepo.getOfferCattegory(function (allCategory) {
             allCategory.forEach(function (category) {
                 category.isSelected = false;
             });
-            SearchService.setAllCategory(allCategory);
-            $scope.allCategory = SearchService.getAllCategory();
+            MyOffersService.setAllCategory(allCategory);
+            $scope.allCategory = MyOffersService.getAllCategory();
             $scope.categoryIsLoaded=true;
             $scope.reloadOffer();
         });
     } else {
-        $scope.allCategory = SearchService.getAllCategory();
+        $scope.allCategory = MyOffersService.getAllCategory();
         $scope.categoryIsLoaded=true;
         $scope.reloadOffer();
     }
@@ -77,25 +78,25 @@ searchControllers.controller('SearchController', ['$scope', '$routeParams', 'Sea
         } else {
             category.isSelected = false;
         }
-        SearchService.setAllCategory($scope.allCategory);
+        MyOffersService.setAllCategory($scope.allCategory);
         $scope.reloadPage(null,null);
     }
 
     $scope.redirectToOfferPage = function(offer){
-        SearchService.lastQuery = $location.search().query;
-        SearchService.lastPageNumber = $scope.actualPageNmber;
+        MyOffersService.lastQuery = $location.search().query;
+        MyOffersService.lastPageNumber = $scope.actualPageNmber;
         $location.url($location.path());
         $location.path('/offer/'+ offer.id);
     }
 
     $scope.searchPhrase = function (phrase) {
         if (typeof phrase === 'undefined') {
-            $location.path('/search/1');
+            $location.path('/myOffers/1');
             //window.location = "../#/search/1";
         } else {
             //window.location = "/search/1?query=" + phrase;
             $location.search().query= phrase;
-            $location.path('/search/1');
+            $location.path('/myOffers/1');
         }
 
     };

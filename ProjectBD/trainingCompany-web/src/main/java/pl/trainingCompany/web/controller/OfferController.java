@@ -7,10 +7,12 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import pl.trainingCompany.model.GetOfferPageRequestBody;
 import pl.trainingCompany.model.ValueWrapper;
+import pl.trainingCompany.model.dbo.Company;
 import pl.trainingCompany.model.dbo.Offer;
 import pl.trainingCompany.model.dbo.OfferCategory;
 import pl.trainingCompany.model.dto.DtoOffer;
 import pl.trainingCompany.repo.OfferCategoryRepo;
+import pl.trainingCompany.service.CompanyService;
 import pl.trainingCompany.service.GuestService;
 import pl.trainingCompany.service.OfferCategoryService;
 import pl.trainingCompany.service.OfferService;
@@ -42,6 +44,9 @@ public class OfferController extends AbstractController<Offer, DtoOffer, OfferSe
 
     @Autowired
     AttachmentController attachmentController;
+
+    @Autowired
+    private CompanyService companyService;
 
     @RequestMapping("/init")
     public void init() {
@@ -172,13 +177,30 @@ public class OfferController extends AbstractController<Offer, DtoOffer, OfferSe
 
     @RequestMapping(value = "/page/{pageNumber}", method = RequestMethod.POST)
     public Iterable<DtoOffer> getOfferPage(@RequestBody GetOfferPageRequestBody requestBody, @PathVariable int pageNumber) {
-        return service.getOfferPage(requestBody.getQuery(), pageNumber - 1, requestBody.getSelectedOfferCategory());
+        return service.getOfferPage(requestBody.getQuery(), pageNumber - 1, requestBody.getSelectedOfferCategory(),null);
+    }
+
+    @RequestMapping(value = "/my/page/{pageNumber}", method = RequestMethod.POST)
+    public Iterable<DtoOffer> getMyOfferPage(@RequestBody GetOfferPageRequestBody requestBody, @PathVariable int pageNumber) {
+
+        Company loggedCompany = companyService.getLoggedCompany();
+        if(loggedCompany==null)
+            return null;
+        return service.getOfferPage(requestBody.getQuery(), pageNumber - 1, requestBody.getSelectedOfferCategory(),loggedCompany);
     }
 
     @RequestMapping(value = "/page/count", method = RequestMethod.POST)
     public LongWraper getOfferPageCount(@RequestBody GetOfferPageRequestBody requestBody) {
         LongWraper longWraper = new LongWraper();
-        longWraper.value = service.getOfferPageCount(requestBody.getQuery(), requestBody.getSelectedOfferCategory());
+        longWraper.value = service.getOfferPageCount(requestBody.getQuery(), requestBody.getSelectedOfferCategory(),null);
+        return longWraper;
+    }
+
+    @RequestMapping(value = "/page/my/count", method = RequestMethod.POST)
+    public LongWraper getMyOfferPageCount(@RequestBody GetOfferPageRequestBody requestBody) {
+        LongWraper longWraper = new LongWraper();
+        Company loggedCompany = companyService.getLoggedCompany();
+        longWraper.value = service.getOfferPageCount(requestBody.getQuery(), requestBody.getSelectedOfferCategory(),loggedCompany);
         return longWraper;
     }
 
