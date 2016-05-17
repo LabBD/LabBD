@@ -19,6 +19,16 @@ offerDetailsServices.factory('OfferDetailsService', [
                 url: '/attachment/offer/:offerId',
                 params: {offerId: "@offerId"},
                 isArray: true
+            },
+
+            getUsername: {
+                method: 'GET',
+                url: '/account/logged/name'
+            },
+
+            addOrder: {
+                method: 'POST',
+                url: '/order/addToBasket',
             }
             
             

@@ -53,6 +53,34 @@
         width: 100%;
         height: 100%;
     }
+
+    table {
+        height: 100%;
+        width: 100%;
+    }
+
+    .vertical-alignment-helper {
+        display: table;
+        height: 100%;
+        width: 100%;
+        pointer-events: none; /* This makes sure that we can still click outside of the modal to close it */
+    }
+
+    .vertical-align-center {
+        /* To center vertically */
+        display: table-cell;
+        vertical-align: middle;
+        pointer-events: none;
+    }
+
+    .modal-content {
+        /* Bootstrap sets the size of the modal in the modal-dialog class, we need to inherit it */
+        width: inherit;
+        height: inherit;
+        /* To center horizontally */
+        margin: 0 auto;
+        pointer-events: all;
+    }
 </style>
 <div class="container">
 
@@ -150,13 +178,67 @@
                 <h4>Zadzwon!</h4>
                 Kamil S.: 777 888 999 <br/>
                 Prezes Danny: 555 555 552<br/><br/>
-
+                <p>{{done}}</p>
                 <br/><br/>
 
                 <div class="btn-group btn-group-justified">
-                    <a class="btn btn-primary" ng-click="addToBasket()">Dodaj do koszyka!</a>
+                    <!--<a class="btn btn-primary" ng-click="addToBasket()">Dodaj do koszyka!</a>-->
+                    <a class="btn btn-primary" data-toggle="modal" data-target="#myModal">Add to basket</a>
                     <a class="btn btn-primary" ng-click="redirectToSearchPage()">Wróć do poprzedniej strony</a>
 
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- Modal -->
+    <!--<div id="myModal" class="modal" ng-show="display" role="dialog" style="display:flex">-->
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="Register" aria-hidden="true">
+        <div class="vertical-alignment-helper">
+            <div class="modal-dialog vertical-align-center">
+                <!-- Modal content-->
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h3 class="modal-title">Add to basket</h3>
+                    </div>
+                    <div class="modal-body">
+                        <p class="information">{{information}}</p>
+                    </div>
+
+                    <table>
+                        <tr>
+                            <th class="text-align-center">Quantity</th>
+                            <th class="text-align-center">Price</th>
+                            <th class="text-align-center">Amount</th>
+                        </tr>
+                        <tr class="text-align-center">
+                            <td>
+                                <input type="number" min="1" max="{{offerDetails.quantity}}"
+                                       ng-model="order.quantity" ng-init="order.quantity = 1">
+                            </td>
+                            <td>
+                                <label style="color: black">
+                                    {{offerDetails.price}} PLN
+                                </label>
+                            </td>
+                            <td>
+                                <label style="color: black">
+                                    {{offerDetails.price*order.quantity}} PLN
+                                </label>
+                            </td>
+
+                        </tr>
+                    </table>
+                    <p ng-show="tooBigQuantity()">There is not enough available courses</p>
+                    <p ng-show="notLogged">Please log in to add this course to your basket</p>
+
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" ng-click="addToBasket()" data-dismiss="modal">
+                            Buy
+                        </button>
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Back</button>
+                    </div>
                 </div>
             </div>
 

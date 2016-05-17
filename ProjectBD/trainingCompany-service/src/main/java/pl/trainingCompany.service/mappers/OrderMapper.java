@@ -27,6 +27,7 @@ public class OrderMapper implements MapperInterface<Order,DtoOrder> {
     public Order convertToDBO(DtoOrder dtoOrder) {
         Order order = new Order();
         order.setId(dtoOrder.getId());
+        order.setAmount(dtoOrder.getAmount());
         if(dtoOrder.getBasketId() != null) {
             Basket basket = basketRepo.findOne(dtoOrder.getBasketId());
             if(basket != null) {

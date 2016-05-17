@@ -33,25 +33,10 @@ public class AccountController extends AbstractController<Account, DTOAccount, A
     @RequestMapping(value = "/register", method = RequestMethod.POST, consumes = "application/x-www-form-urlencoded")
     public ModelAndView register(@RequestBody final MultiValueMap<String, String> data) {
 
-        if (!data.isEmpty()) {
-            if (service.findAccountIdByUsername(data.getFirst("username")) != -1L) {
-                return new ModelAndView("redirect:http://localhost:8080/#/error/userExisted");
-            } else {
-                if(!service.save(data)) {
-                    return new ModelAndView("redirect:http://localhost:8080/#/error/userExisted");
-                }
-                userService.save(data.getFirst("username"), data.getFirst("password"), data.getFirst("email"));
-
-                if ((data.getFirst("companyName").length() != 0) && (data.getFirst("companyDesc").length() != 0)) {
-                    Long accountId = service.findAccountIdByUsername(data.getFirst("username"));
-                    if (accountId != -1L) {
-                        companyService.save(accountId, data.getFirst("companyName"), data.getFirst("companyDesc"));
-                    } else {
-                        return new ModelAndView("redirect:http://localhost:8080/#/error/registration");
-                    }
-                }
-            }
+        if (!service.save(data)) {
+            return new ModelAndView("redirect:http://localhost:8080/#/error/userExisted");
         }
+
         return new ModelAndView("redirect:/");
     }
 

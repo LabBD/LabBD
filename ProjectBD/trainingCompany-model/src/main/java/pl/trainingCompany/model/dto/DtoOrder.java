@@ -74,4 +74,8 @@ public class DtoOrder {
     public void setOfferId(Long offerId) {
         this.offerId = offerId;
     }
+
+    public boolean isValid() {
+        return offerId != null && offerName != null && offerPrice != null && offerQuantity != null;
+    }
 }

@@ -124,5 +124,10 @@ public class OfferService extends AbstractService<Offer, DtoOffer, OfferRepo, Of
         }
     }
 
+    public void reduceOfferQuantity(Long quantityToReduce, Long offerId) {
+        Offer offer = repo.findOne(offerId);
+        offer.setQuantity(offer.getQuantity() - quantityToReduce);
+        repo.save(offer);
+    }
 
 }

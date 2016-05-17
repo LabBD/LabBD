@@ -10,6 +10,7 @@ offerDetailsControllers.controller('OfferDetailsController',
     
         $scope.offerID = $routeParams.offerId;
         $scope.attachments=[];
+        $scope.notLogged = {};
 
         $scope.offerDetails = OfferDetailsService.getOfferDetails({
             offerId: $scope.offerID
@@ -31,13 +32,46 @@ offerDetailsControllers.controller('OfferDetailsController',
             $location.path(url);
         }
 
-        $scope.addToBasket = function(){
+        $scope.tooBigQuantity = function () {
+            if($scope.offerDetails.quantity < $scope.order.quantity)
+                return true;
+            else
+                return false;
+        };
+
+        OfferDetailsService.getUsername(function (username) {
+            if (username.value === null) {
+                $scope.notLogged = true;
+                $scope.username = '';
+            } else {
+                $scope.notLogged = false;
+                $scope.username = username;
+            }
+        });
+
+        $scope.addToBasket = function () {
+            $scope.DtoOrder = {};
+            $scope.DtoOrder.offerId = $scope.offerID;
+            $scope.DtoOrder.offerName = $scope.offerDetails.name;
+            $scope.DtoOrder.offerPrice = $scope.offerDetails.price;
+            $scope.DtoOrder.offerQuantity = $scope.order.quantity;
+            $scope.DtoOrder.amount = "";
+            $scope.DtoOrder.basketId = ""
+            $scope.DtoOrder.id = "";
+
+            OfferDetailsService.addOrder($scope.DtoOrder, function () {
+            });
+            //jakies sprawdzenie czy wgl sie udalo zapisac w backendzie to zamowienie
             toaster.pop({
                 type: 'success',
                 title: 'Title text',
                 body: 'Body text',
                 timeout: 3000
             });
+            $scope.offerDetails = OfferDetailsService.getOfferDetails({
+                offerId: $scope.offerID
+            });
+
         }
 
 

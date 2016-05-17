@@ -1,5 +1,6 @@
 package pl.trainingCompany.service;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
@@ -15,7 +16,17 @@ import pl.trainingCompany.service.mappers.AccountMapper;
 @Service
 public class AccountService extends AbstractService<Account, DTOAccount, AccountRepo, AccountMapper> {
 
-    public boolean save(MultiValueMap<String, String > data){
+    @Autowired
+    CompanyService companyService;
+
+    @Autowired
+    UserService userService;
+
+    public boolean save(MultiValueMap<String, String> data) {
+
+        if (findAccountIdByUsername(data.getFirst("username")) != -1L) {
+            return false;
+        }
         DTOAccount dtoAccount = new DTOAccount();
         dtoAccount.setUsername(data.getFirst("username"));
         dtoAccount.setEmail(data.getFirst("email"));
@@ -25,10 +36,22 @@ public class AccountService extends AbstractService<Account, DTOAccount, Account
         dtoAccount.setPhoneNumber(data.getFirst("phone"));
         dtoAccount.setCity(data.getFirst("city"));
         dtoAccount.setAddress(data.getFirst("address"));
-        if(findAccountIdByUsername(dtoAccount.getUsername()) != -1L) {
+
+        repo.save(mapper.convertToDBO(dtoAccount));
+        userService.save(data.getFirst("username"), data.getFirst("password"), data.getFirst("email"));
+        if (findAccountIdByUsername(dtoAccount.getUsername()) != -1L) {
             return false;
         }
-        repo.save(mapper.convertToDBO(dtoAccount));
+
+        if ((data.getFirst("companyName").length() != 0) && (data.getFirst("companyDesc").length() != 0)) {
+            Long accountId = findAccountIdByUsername(data.getFirst("username"));
+            if (accountId == -1L) {
+                return false;
+            } else {
+                companyService.save(accountId, data.getFirst("companyName"), data.getFirst("companyDesc"));
+            }
+        }
+
         return true;
     }
 
@@ -48,6 +71,15 @@ public class AccountService extends AbstractService<Account, DTOAccount, Account
         if("anonymousUser".equals(name))
             return null;
         return name;
+    }
+
+    public Long getLoggedAccountId() {
+        String username = getLoggedAccountName();
+        if (username != null) {
+            Long id = findAccountIdByUsername(username);
+            return id;
+        } else
+            return -1L;
     }
 
     public Account getLoggedAccount(){
