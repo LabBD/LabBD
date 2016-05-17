@@ -5,7 +5,15 @@ var basketControllers = angular.module(
     'BasketControllers', []);
 
 basketControllers.controller('BasketController',
-    ['$scope','$routeParams','BasketService', function($scope, $routeParams, BasketService) {
+    ['$scope','$routeParams','BasketService', '$location', function($scope, $routeParams, BasketService, $location) {
+
+        $scope.allOrders = BasketService.getAllOrders();
+
+        angular.forEach($scope.allOrders, function (order) {
+            if (!order.datePayment) {
+                $scope.remove(order);
+            }
+        });
 
         $scope.selectAll = function () {
             if ($scope.checkAll) {
@@ -33,12 +41,35 @@ basketControllers.controller('BasketController',
                 });
                 return $scope.totalAmountAllOrders;
         };
-            
-        $scope.allOrders = BasketService.getAllOrders();
-
+        
         $scope.delete = function () {
-                BasketService.deleteOrder({id:1});
-                $location.reload();
+            angular.forEach($scope.allOrders, function (order) {
+                if(order.check){
+                    BasketService.deleteOrder({id:order.offerId}, order);
+                }
+            });
+            window.location.reload();
+        }
+
+
+        $scope.redirectToOfferPage = function(order){
+            $location.path('/offer/'+ order.offerId);
+        }
+
+        $scope.pay = function(){
+            angular.forEach($scope.allOrders, function (order) {
+                if(order.check){
+                    order.datePayment = new Date();
+                    BasketService.saveOrder(order);
+                    $scope.remove(order);
+                }
+            });
+            //window.location.reload();
+        }
+
+        $scope.remove = function(order) {
+            var index = $scope.allOrders.indexOf(order);
+            $scope.allOrders.splice(index, 1);
         }
 
     }]);

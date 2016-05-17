@@ -13,9 +13,12 @@ basketServices.factory('BasketService', [
                 isArray: true
             },
             deleteOrder: {
-                params: {id: "@id"},
-                method: 'DELETE',
-                url: '../order/delete/{id}'
+                method: 'POST',
+                url: '../order/delete/:id'
+            },
+            saveOrder: {
+                method: 'POST',
+                url: '../order/save'
             }
             //           getSection: { //nazwa metody
             //               params: {id: "@id"}, // parametry

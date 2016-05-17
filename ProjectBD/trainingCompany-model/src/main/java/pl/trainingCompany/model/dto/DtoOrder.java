@@ -1,5 +1,7 @@
 package pl.trainingCompany.model.dto;
 
+import java.util.Date;
+
 /**
  * Created by Sebastian on 2016-03-25.
  */
@@ -18,6 +20,8 @@ public class DtoOrder {
     private Long offerQuantity;
 
     private Long amount;
+
+    private Date datePayment;
 
     public Long getAmount() {
         return amount;
@@ -75,7 +79,14 @@ public class DtoOrder {
         this.offerId = offerId;
     }
 
+    public Date getDatePayment() {
+        return datePayment;
+    }
+
+    public void setDatePayment(Date datePayment) {
+        this.datePayment = datePayment;
+    }
+
     public boolean isValid() {
         return offerId != null && offerName != null && offerPrice != null && offerQuantity != null;
-    }
-}
+    }}
