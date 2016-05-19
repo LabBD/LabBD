@@ -9,12 +9,6 @@ basketControllers.controller('BasketController',
 
         $scope.allOrders = BasketService.getAllOrders();
 
-        angular.forEach($scope.allOrders, function (order) {
-            if (!order.datePayment) {
-                $scope.remove(order);
-            }
-        });
-
         $scope.selectAll = function () {
             if ($scope.checkAll) {
                     $scope.checkAll = true;
@@ -29,7 +23,9 @@ basketControllers.controller('BasketController',
         $scope.totalCost = function(){
                 $scope.totalCostAllOrders = 0;
                 angular.forEach($scope.allOrders, function (order) {
-                        $scope.totalCostAllOrders += order.offerPrice*order.amount;
+                        if(!order.datePayment) {
+                            $scope.totalCostAllOrders += order.offerPrice * order.amount;
+                        }
                 });
                 return $scope.totalCostAllOrders;
         };
@@ -37,7 +33,9 @@ basketControllers.controller('BasketController',
         $scope.totalAmount = function(){
                 $scope.totalAmountAllOrders = 0;
                 angular.forEach($scope.allOrders, function (order) {
+                    if(!order.datePayment) {
                         $scope.totalAmountAllOrders += order.amount;
+                    }
                 });
                 return $scope.totalAmountAllOrders;
         };
@@ -61,10 +59,8 @@ basketControllers.controller('BasketController',
                 if(order.check){
                     order.datePayment = new Date();
                     BasketService.saveOrder(order);
-                    $scope.remove(order);
                 }
             });
-            //window.location.reload();
         }
 
         $scope.remove = function(order) {

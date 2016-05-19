@@ -2,6 +2,7 @@ package pl.trainingCompany.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import pl.trainingCompany.model.dbo.Account;
 import pl.trainingCompany.model.dbo.Offer;
 import pl.trainingCompany.model.dbo.Order;
 import pl.trainingCompany.model.dto.DtoOffer;
@@ -28,6 +29,7 @@ public class OrderService extends AbstractService<Order, DtoOrder,OrderRepo,Orde
     @Autowired
     OfferService offerService;
 
+
     public Iterable<DtoOrder> getAllOfferFromOrder(Long idBasket){
         List<Order> orders = (List<Order>) repo.findAll();
         // repo.findByBasket( Kamil Da metode :D);
@@ -38,12 +40,21 @@ public class OrderService extends AbstractService<Order, DtoOrder,OrderRepo,Orde
         if(dtoOrder.isValid()) {
             Double amount = dtoOrder.getOfferQuantity() * dtoOrder.getOfferPrice();
             dtoOrder.setAmount(amount.longValue());
-            dtoOrder.setBasketId(basketService.getBasketIdByAccountId(accountService.getLoggedAccount()));
+            dtoOrder.setAccountId(accountService.getLoggedAccountId());
+           // dtoOrder.setBasketId(basketService.getBasketIdByAccountId(accountService.getLoggedAccount()));
             repo.save(mapper.convertToDBO(dtoOrder));
             //jak nie wywali to zapisalo order i trzeba odjac od dostepnych sztuk
             offerService.reduceOfferQuantity(dtoOrder.getOfferQuantity(), dtoOrder.getOfferId());
             return true;
         }
         return false;
+    }
+
+    public Iterable<DtoOrder> getOrdersFromLoggedAccount() {
+        Account account = accountService.getLoggedAccount();
+        if (account == null) return null;
+        List<Order> orders = repo.findByAccount(account);
+        if (orders == null || orders.size() == 0) return null;
+        return mapper.convertToDTO(orders);
     }
 }

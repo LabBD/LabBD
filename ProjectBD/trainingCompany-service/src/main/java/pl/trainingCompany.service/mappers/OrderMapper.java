@@ -2,10 +2,12 @@ package pl.trainingCompany.service.mappers;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import pl.trainingCompany.model.dbo.Account;
 import pl.trainingCompany.model.dbo.Basket;
 import pl.trainingCompany.model.dbo.Offer;
 import pl.trainingCompany.model.dbo.Order;
 import pl.trainingCompany.model.dto.DtoOrder;
+import pl.trainingCompany.repo.AccountRepo;
 import pl.trainingCompany.repo.BasketRepo;
 import pl.trainingCompany.repo.OfferRepo;
 
@@ -19,6 +21,9 @@ import java.util.List;
 public class OrderMapper implements MapperInterface<Order,DtoOrder> {
 
     @Autowired
+    AccountRepo accountRepo;
+
+    @Autowired
     BasketRepo basketRepo;
     @Autowired
     OfferRepo offerRepo;
@@ -28,10 +33,10 @@ public class OrderMapper implements MapperInterface<Order,DtoOrder> {
         Order order = new Order();
         order.setId(dtoOrder.getId());
         order.setAmount(dtoOrder.getAmount());
-        if(dtoOrder.getBasketId() != null) {
-            Basket basket = basketRepo.findOne(dtoOrder.getBasketId());
-            if(basket != null) {
-                order.setBasket(basket);
+        if(dtoOrder.getAccountId() != null) {
+            Account account = accountRepo.findOne(dtoOrder.getAccountId());
+            if(account != null) {
+                order.setAccount(account);
             }else {
                 //ToDo
             }
@@ -57,8 +62,8 @@ public class OrderMapper implements MapperInterface<Order,DtoOrder> {
         dtoOrder.setOfferQuantity(order.getOffer().getQuantity());
         dtoOrder.setAmount(order.getAmount());
         dtoOrder.setDatePayment(order.getDatePayment());
-        if(order.getBasket() != null) {
-            dtoOrder.setBasketId(order.getBasket().getId());
+        if(order.getAccount() != null) {
+            dtoOrder.setAccountId(order.getAccount().getId());
         }
         if(order.getOffer() != null) {
             dtoOrder.setOfferId(order.getOffer().getId()); //id oznacza offerId

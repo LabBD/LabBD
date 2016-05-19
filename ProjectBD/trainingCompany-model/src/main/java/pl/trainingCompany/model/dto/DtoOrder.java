@@ -9,7 +9,7 @@ public class DtoOrder {
 
     private long id;
 
-    private Long basketId;
+    private Long accountId;
 
     private Long offerId;
 
@@ -63,12 +63,12 @@ public class DtoOrder {
         this.id = id;
     }
 
-    public Long getBasketId() {
-        return basketId;
+    public Long getAccountId() {
+        return accountId;
     }
 
-    public void setBasketId(Long basketId) {
-        this.basketId = basketId;
+    public void setAccountId(Long accountId) {
+        this.accountId = accountId;
     }
 
     public Long getOfferId() {

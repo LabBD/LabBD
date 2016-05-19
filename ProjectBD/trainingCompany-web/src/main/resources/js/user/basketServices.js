@@ -9,7 +9,7 @@ basketServices.factory('BasketService', [
         return $resource('', {}, {
             getAllOrders: {
                 method: 'GET',
-                url: '../order/offers',
+                url: '../order/my',
                 isArray: true
             },
             deleteOrder: {

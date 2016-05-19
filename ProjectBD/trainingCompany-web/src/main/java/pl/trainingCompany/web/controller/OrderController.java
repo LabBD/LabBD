@@ -10,6 +10,8 @@ import pl.trainingCompany.model.dto.DtoOffer;
 import pl.trainingCompany.model.dto.DtoOrder;
 import pl.trainingCompany.service.OrderService;
 
+import java.util.List;
+
 /**
  * Created by Sebastian on 2016-03-25.
  */
@@ -31,6 +33,11 @@ public class OrderController extends AbstractController<Order, DtoOrder, OrderSe
         } else
             return new ModelAndView("redirect:http://localhost:8080/#/error/order");
 //            return false;
+    }
+
+    @RequestMapping("/my")
+    public Iterable<DtoOrder> getOrdersFromLoggedAccount(){
+        return service.getOrdersFromLoggedAccount();
     }
 
 }

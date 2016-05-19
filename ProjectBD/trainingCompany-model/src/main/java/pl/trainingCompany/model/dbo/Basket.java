@@ -19,8 +19,6 @@ public class Basket {
     @JoinColumn(name = "account_id")
     private Account account;
 
-    @OneToMany(mappedBy = "basket")
-    private List<Order> orders;
 
     public long getId() {
         return id;
@@ -31,13 +29,6 @@ public class Basket {
     }
 
 
-    public List<Order> getOrders() {
-        return orders;
-    }
-
-    public void setOrders(List<Order> orders) {
-        this.orders = orders;
-    }
 
     public Account getAccount() {
         return account;

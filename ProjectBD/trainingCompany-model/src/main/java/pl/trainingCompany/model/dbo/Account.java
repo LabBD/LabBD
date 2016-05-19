@@ -33,11 +33,22 @@ public class Account {
     @OneToMany(mappedBy = "author")
     private List<Topic> topics;
 
+    @OneToMany(mappedBy = "account")
+    private List<Order> orders;
+
     @OneToOne(mappedBy = "account")
     private Basket basket;
 
     @OneToOne(mappedBy = "account")
     private Company company;
+
+    public List<Order> getOrders() {
+        return orders;
+    }
+
+    public void setOrders(List<Order> orders) {
+        this.orders = orders;
+    }
 
     public String getFirstName() {
         return firstName;

@@ -15,8 +15,8 @@ public class Order {
     private long id;
 
     @ManyToOne
-    @JoinColumn(name = "basket_id")
-    private Basket basket;
+    @JoinColumn(name = "account_id")
+    private Account account;
 
     @ManyToOne
     @JoinColumn(name = "offer_id")
@@ -42,14 +42,6 @@ public class Order {
         this.id = id;
     }
 
-    public Basket getBasket() {
-        return basket;
-    }
-
-    public void setBasket(Basket basket) {
-        this.basket = basket;
-    }
-
     public Offer getOffer() {
         return offer;
     }
@@ -64,5 +56,13 @@ public class Order {
 
     public void setDatePayment(Date datePayment) {
         this.datePayment = datePayment;
+    }
+
+    public Account getAccount() {
+        return account;
+    }
+
+    public void setAccount(Account account) {
+        this.account = account;
     }
 }
