@@ -19,7 +19,6 @@ public class Basket {
     @JoinColumn(name = "account_id")
     private Account account;
 
-
     public long getId() {
         return id;
     }
@@ -27,8 +26,6 @@ public class Basket {
     public void setId(long id) {
         this.id = id;
     }
-
-
 
     public Account getAccount() {
         return account;

@@ -46,8 +46,6 @@ public class AttachmentMapper implements MapperInterface<Attachment, DtoAttachme
         dtoAttachment.setAttachmentType(attachment.getAttachmentType().toString());
         if (attachment.getOffer() != null)
             dtoAttachment.setOfferId(attachment.getOffer().getId());
-        else if(attachment.getPostInTopic() !=null)
-            dtoAttachment.setPostInTopicId(attachment.getPostInTopic().getId());
         return dtoAttachment;
     }
 

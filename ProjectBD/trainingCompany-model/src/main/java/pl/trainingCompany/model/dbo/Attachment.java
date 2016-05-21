@@ -22,10 +22,6 @@ public class Attachment {
     @JoinColumn(name = "offer_id")
     private Offer offer;
 
-    @ManyToOne
-    @JoinColumn(name = "post_in_topic_id")
-    private PostInTopic postInTopic;
-
     public long getId() {
         return id;
     }
@@ -56,13 +52,5 @@ public class Attachment {
 
     public void setAttachmentType(AttachmentType attachmentType) {
         this.attachmentType = attachmentType;
-    }
-
-    public PostInTopic getPostInTopic() {
-        return postInTopic;
-    }
-
-    public void setPostInTopic(PostInTopic postInTopic) {
-        this.postInTopic = postInTopic;
     }
 }

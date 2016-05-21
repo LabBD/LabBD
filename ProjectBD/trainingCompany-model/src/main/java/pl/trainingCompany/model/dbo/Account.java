@@ -30,9 +30,6 @@ public class Account {
 
     private String email;
 
-    @OneToMany(mappedBy = "author")
-    private List<Topic> topics;
-
     @OneToMany(mappedBy = "account")
     private List<Order> orders;
 
@@ -131,14 +128,6 @@ public class Account {
 
     public void setEmail(String email) {
         this.email = email;
-    }
-
-    public List<Topic> getTopics() {
-        return topics;
-    }
-
-    public void setTopics(List<Topic> topics) {
-        this.topics = topics;
     }
 
     public Basket getBasket() {
