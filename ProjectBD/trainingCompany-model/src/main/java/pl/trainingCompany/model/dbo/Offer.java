@@ -37,9 +37,20 @@ public class Offer {
     @OneToMany(mappedBy = "offer")
     private List<Guest> guests;
 
+    @OneToMany(mappedBy = "offer")
+    private List<Comment> comments;
+
     @ManyToOne
     @JoinColumn(name = "offer_category_id")
     private OfferCategory offerCategory;
+
+    public List<Comment> getComments() {
+        return comments;
+    }
+
+    public void setComments(List<Comment> comments) {
+        this.comments = comments;
+    }
 
     public long getId() {
         return id;

@@ -2,7 +2,7 @@
  * Created by Mateusz on 2016-04-28.
  */
 
-var offerDetailsServices  = angular.module(
+var offerDetailsServices = angular.module(
     'OfferDetailsServices', ['ngResource']);
 
 offerDetailsServices.factory('OfferDetailsService', [
@@ -28,9 +28,14 @@ offerDetailsServices.factory('OfferDetailsService', [
 
             addOrder: {
                 method: 'POST',
-                url: '/order/addToBasket',
+                url: '/order/addToBasket'
+            },
+
+            getComments: {
+                method: 'GET',
+                url: '../comment/offer/:offerId',
+                params: {offerId: "@OfferId"},
+                isArray: true
             }
-            
-            
         });
     }]);

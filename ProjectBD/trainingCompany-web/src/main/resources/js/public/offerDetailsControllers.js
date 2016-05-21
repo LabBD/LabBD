@@ -6,34 +6,42 @@ var offerDetailsControllers = angular.module(
     'OfferDetailsControllers', []);
 
 offerDetailsControllers.controller('OfferDetailsController',
-    ['$scope','$routeParams','OfferDetailsService','SearchService','$location','toaster' , function($scope, $routeParams, OfferDetailsService, SearchService, $location,toaster) {
-    
+    ['$scope', '$routeParams', 'OfferDetailsService', 'SearchService', '$location', 'toaster', function ($scope, $routeParams, OfferDetailsService, SearchService, $location, toaster) {
+
         $scope.offerID = $routeParams.offerId;
-        $scope.attachments=[];
+        $scope.attachments = [];
         $scope.notLogged = {};
 
         $scope.offerDetails = OfferDetailsService.getOfferDetails({
             offerId: $scope.offerID
         });
 
-        OfferDetailsService.getAttachements({offerId: $scope.offerID},function(attachements){
-            $scope.attachments=attachements;
+        OfferDetailsService.getAttachements({offerId: $scope.offerID}, function (attachements) {
+            $scope.attachments = attachements;
         });
 
+        OfferDetailsService.getComments({offerId: $scope.offerID}, function (comments) {
+            $scope.comments = comments;
+        });
 
-        $scope.redirectToSearchPage = function(){
+        $scope.getCommentDate = function (comment) {
+            var date = new Date(comment.date);
+            return date.getUTCDay() + "." + date.getUTCMonth() + "." + date.getFullYear();
+        };
+
+        $scope.redirectToSearchPage = function () {
             var url = '/search';
-            if(SearchService.lastQuery!==undefined && SearchService.lastQuery!==null && SearchService.lastQuery !== ''){
+            if (SearchService.lastQuery !== undefined && SearchService.lastQuery !== null && SearchService.lastQuery !== '') {
                 $location.search().query = SearchService.lastQuery;
             }
-            if(SearchService.lastPageNumber!==undefined && SearchService.lastPageNumber!=null){
+            if (SearchService.lastPageNumber !== undefined && SearchService.lastPageNumber != null) {
                 url = url + '/' + SearchService.lastPageNumber;
             }
             $location.path(url);
-        }
+        };
 
         $scope.tooBigQuantity = function () {
-            if($scope.offerDetails.quantity < $scope.order.quantity)
+            if ($scope.offerDetails.quantity < $scope.order.quantity)
                 return true;
             else
                 return false;
@@ -56,7 +64,7 @@ offerDetailsControllers.controller('OfferDetailsController',
             $scope.DtoOrder.offerPrice = $scope.offerDetails.price;
             $scope.DtoOrder.offerQuantity = $scope.order.quantity;
             $scope.DtoOrder.amount = "";
-            $scope.DtoOrder.basketId = ""
+            $scope.DtoOrder.basketId = "";
             $scope.DtoOrder.id = "";
 
             OfferDetailsService.addOrder($scope.DtoOrder, function () {
@@ -71,8 +79,6 @@ offerDetailsControllers.controller('OfferDetailsController',
             $scope.offerDetails = OfferDetailsService.getOfferDetails({
                 offerId: $scope.offerID
             });
-
-        }
-
+        };
 
     }]);

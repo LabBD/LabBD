@@ -81,6 +81,41 @@
         margin: 0 auto;
         pointer-events: all;
     }
+
+    .panel {
+        position: relative;
+    }
+
+    .panel > .panel-heading:after, .panel > .panel-heading:before {
+        position: absolute;
+        top: 11px;
+        left: -16px;
+        right: 100%;
+        width: 0;
+        height: 0;
+        display: block;
+        content: " ";
+        border-color: transparent;
+        border-style: solid solid outset;
+        pointer-events: none;
+    }
+
+    .panel > .panel-heading:after {
+        border-width: 7px;
+        border-right-color: #f7f7f7;
+        margin-top: 1px;
+        margin-left: 2px;
+    }
+
+    .panel > .panel-heading:before {
+        border-right-color: #ddd;
+        border-width: 8px;
+    }
+
+    #commentsHeader, #comments {
+        margin-top: 20px;
+    }
+
 </style>
 <div class="container">
 
@@ -189,6 +224,33 @@
                 </div>
             </div>
 
+            <!-- komentarze -->
+
+            <div id="commentsHeader" ng-hide="!comments.length">
+                <h1>Comments:</h1>
+            </div>
+
+            <div id="comments" ng-repeat="comment in comments">
+                <div class="col-sm-1">
+                    <div class="thumbnail">
+                        <img class="img-responsive user-photo" src="https://ssl.gstatic.com/accounts/ui/avatar_2x.png">
+                    </div><!-- /thumbnail -->
+                </div><!-- /col-sm-1 -->
+                <div class="col-sm-5">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <strong> {{comment.authorName}}</strong>
+                            <span class="text-muted">commented {{getCommentDate(comment)}} </span>
+                            <span ng-hide="!comment.rate" style="float: right;" class="glyphicon glyphicon-star" aria-hidden="true"></span>
+                            <span style="float: right;">{{comment.rate}}</span>
+                        </div>
+                        <div class="panel-body">
+                            {{comment.text}}
+                        </div><!-- /panel-body -->
+                    </div><!-- /panel panel-default -->
+                </div><!-- /col-sm-5 -->
+            </div>
+
         </div>
     </div>
 
@@ -244,8 +306,6 @@
 
         </div>
     </div>
-
-
 </div>
 
 <!--

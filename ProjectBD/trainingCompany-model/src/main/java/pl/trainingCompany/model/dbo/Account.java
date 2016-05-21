@@ -42,6 +42,17 @@ public class Account {
     @OneToOne(mappedBy = "account")
     private Company company;
 
+    @OneToMany(mappedBy = "author")
+    private List<Comment> comments;
+
+    public List<Comment> getComments() {
+        return comments;
+    }
+
+    public void setComments(List<Comment> comments) {
+        this.comments = comments;
+    }
+
     public List<Order> getOrders() {
         return orders;
     }
