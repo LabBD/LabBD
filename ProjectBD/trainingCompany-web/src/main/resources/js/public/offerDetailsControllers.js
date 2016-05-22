@@ -11,6 +11,8 @@ offerDetailsControllers.controller('OfferDetailsController',
         $scope.offerID = $routeParams.offerId;
         $scope.attachments = [];
         $scope.notLogged = {};
+        $scope.canBuy = [];
+
 
         $scope.offerDetails = OfferDetailsService.getOfferDetails({
             offerId: $scope.offerID
@@ -41,44 +43,58 @@ offerDetailsControllers.controller('OfferDetailsController',
         };
 
         $scope.tooBigQuantity = function () {
-            if ($scope.offerDetails.quantity < $scope.order.quantity)
+            if ($scope.offerDetails.quantity < $scope.order.quantity || $scope.order.quantity === null) {
+                $scope.canBuy = false;
                 return true;
-            else
+            } else {
+                if (!$scope.notLogged) {
+                    $scope.canBuy = true;
+                }
                 return false;
+            }
         };
 
         OfferDetailsService.getUsername(function (username) {
             if (username.value === null) {
                 $scope.notLogged = true;
+                $scope.canBuy = false;
                 $scope.username = '';
             } else {
                 $scope.notLogged = false;
+                if (!$scope.tooBigQuantity()) {
+                    $scope.canBuy = true;
+                }
                 $scope.username = username;
             }
         });
 
         $scope.addToBasket = function () {
-            $scope.DtoOrder = {};
-            $scope.DtoOrder.offerId = $scope.offerID;
-            $scope.DtoOrder.offerName = $scope.offerDetails.name;
-            $scope.DtoOrder.offerPrice = $scope.offerDetails.price;
-            $scope.DtoOrder.offerQuantity = $scope.order.quantity;
-            $scope.DtoOrder.amount = "";
-            $scope.DtoOrder.basketId = "";
-            $scope.DtoOrder.id = "";
+            if ($scope.notLogged || $scope.tooBigQuantity()) {
+                //modal zostaje widoczny
+            }
+            else {
+                $scope.DtoOrder = {};
+                $scope.DtoOrder.offerId = $scope.offerID;
+                $scope.DtoOrder.offerName = $scope.offerDetails.name;
+                $scope.DtoOrder.offerPrice = $scope.offerDetails.price;
+                $scope.DtoOrder.offerQuantity = $scope.order.quantity;
+                $scope.DtoOrder.amount = $scope.offerDetails.quantity;
+                $scope.DtoOrder.basketId = "";
+                $scope.DtoOrder.id = "";
 
-            OfferDetailsService.addOrder($scope.DtoOrder, function () {
-            });
-            //jakies sprawdzenie czy wgl sie udalo zapisac w backendzie to zamowienie
-            toaster.pop({
-                type: 'success',
-                title: 'Title text',
-                body: 'Body text',
-                timeout: 3000
-            });
-            $scope.offerDetails = OfferDetailsService.getOfferDetails({
-                offerId: $scope.offerID
-            });
+                OfferDetailsService.addOrder($scope.DtoOrder, function () {
+                });
+
+                toaster.pop({
+                    type: 'success',
+                    title: 'Added to basket',
+                    body: 'Go to basket to finalize order and buy',
+                    timeout: 3000
+                });
+                // $scope.offerDetails = OfferDetailsService.getOfferDetails({
+                //     offerId: $scope.offerID
+                // });
+            }
         };
 
     }]);

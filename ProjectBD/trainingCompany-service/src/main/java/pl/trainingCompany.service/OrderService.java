@@ -24,9 +24,6 @@ public class OrderService extends AbstractService<Order, DtoOrder,OrderRepo,Orde
     AccountService accountService;
 
     @Autowired
-    BasketService basketService;
-
-    @Autowired
     OfferService offerService;
 
 
@@ -38,13 +35,13 @@ public class OrderService extends AbstractService<Order, DtoOrder,OrderRepo,Orde
 
     public boolean saveOrder(DtoOrder dtoOrder) {
         if(dtoOrder.isValid()) {
-            Double amount = dtoOrder.getOfferQuantity() * dtoOrder.getOfferPrice();
-            dtoOrder.setAmount(amount.longValue());
+//            Double amount = dtoOrder.getOfferQuantity() * dtoOrder.getOfferPrice();
+//            dtoOrder.setAmount(amount.longValue());
+//            dtoOrder.setBasketId(basketService.getBasketIdByAccountId(accountService.getLoggedAccount()));
             dtoOrder.setAccountId(accountService.getLoggedAccountId());
-           // dtoOrder.setBasketId(basketService.getBasketIdByAccountId(accountService.getLoggedAccount()));
             repo.save(mapper.convertToDBO(dtoOrder));
             //jak nie wywali to zapisalo order i trzeba odjac od dostepnych sztuk
-            offerService.reduceOfferQuantity(dtoOrder.getOfferQuantity(), dtoOrder.getOfferId());
+//            offerService.reduceOfferQuantity(dtoOrder.getOfferQuantity(), dtoOrder.getOfferId());
             return true;
         }
         return false;

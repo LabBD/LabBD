@@ -276,7 +276,7 @@
                         </tr>
                         <tr class="text-align-center">
                             <td>
-                                <input type="number" min="1" max="{{offerDetails.quantity}}"
+                                <input type="number" min="1" ng-change="tooBigQuantity()"
                                        ng-model="order.quantity" ng-init="order.quantity = 1">
                             </td>
                             <td>
@@ -292,11 +292,13 @@
 
                         </tr>
                     </table>
+                    <p ng-show = false ng-init="tooBigQuantity"></p>
+                    <p ng-show = false ng-init="getUsername"></p>
+                    <p ng-show = false ng-init="canBuy"></p>
                     <p ng-show="tooBigQuantity()">There is not enough available courses</p>
                     <p ng-show="notLogged">Please log in to add this course to your basket</p>
-
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-default" ng-click="addToBasket()" data-dismiss="modal">
+                        <button type="button" ng-show="canBuy" class="btn btn-default" ng-click="addToBasket()" data-dismiss="modal">
                             Buy
                         </button>
                         <button type="button" class="btn btn-default" data-dismiss="modal">Back</button>

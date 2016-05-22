@@ -26,6 +26,18 @@ public class Order {
 
     private Date datePayment;
 
+    private Long orderQuantity;
+
+    private Double offerPrice;
+
+    public Double getOfferPrice() {
+        return offerPrice;
+    }
+
+    public void setOfferPrice(Double offerPrice) {
+        this.offerPrice = offerPrice;
+    }
+
     public Long getAmount() {
         return amount;
     }
@@ -64,5 +76,13 @@ public class Order {
 
     public void setAccount(Account account) {
         this.account = account;
+    }
+
+    public Long getOrderQuantity() {
+        return orderQuantity;
+    }
+
+    public void setOrderQuantity(Long orderQuantity) {
+        this.orderQuantity = orderQuantity;
     }
 }

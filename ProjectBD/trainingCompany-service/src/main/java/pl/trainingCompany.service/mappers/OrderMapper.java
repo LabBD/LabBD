@@ -49,6 +49,8 @@ public class OrderMapper implements MapperInterface<Order,DtoOrder> {
                 //ToDo
             }
         }
+        order.setOfferPrice(dtoOrder.getOfferPrice());
+        order.setOrderQuantity(dtoOrder.getOfferQuantity());
         order.setDatePayment(dtoOrder.getDatePayment());
         return order;
     }
@@ -59,7 +61,7 @@ public class OrderMapper implements MapperInterface<Order,DtoOrder> {
         dtoOrder.setId(order.getId());
         dtoOrder.setOfferName(order.getOffer().getName());
         dtoOrder.setOfferPrice(order.getOffer().getPrice());
-        dtoOrder.setOfferQuantity(order.getOffer().getQuantity());
+        dtoOrder.setOfferQuantity(order.getOrderQuantity());
         dtoOrder.setAmount(order.getAmount());
         dtoOrder.setDatePayment(order.getDatePayment());
         if(order.getAccount() != null) {
