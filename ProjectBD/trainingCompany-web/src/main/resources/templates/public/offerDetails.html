@@ -226,31 +226,49 @@
 
             <!-- komentarze -->
 
-            <div id="commentsHeader" ng-hide="!comments.length">
-                <h1>Comments:</h1>
-            </div>
+            <div style="position: relative">
+                <div id="commentsHeader" ng-hide="!comments.length">
+                    <h2>Comments:</h2>
+                </div>
 
-            <div id="comments" ng-repeat="comment in comments">
-                <div class="col-sm-1">
-                    <div class="thumbnail">
-                        <img class="img-responsive user-photo" src="https://ssl.gstatic.com/accounts/ui/avatar_2x.png">
-                    </div><!-- /thumbnail -->
-                </div><!-- /col-sm-1 -->
-                <div class="col-sm-5">
-                    <div class="panel panel-default">
-                        <div class="panel-heading">
-                            <strong> {{comment.authorName}}</strong>
-                            <span class="text-muted">commented {{getCommentDate(comment)}} </span>
-                            <span ng-hide="!comment.rate" style="float: right;" class="glyphicon glyphicon-star" aria-hidden="true"></span>
-                            <span style="float: right;">{{comment.rate}}</span>
+                <div id="comments"
+                     ng-repeat="comment in comments  | orderBy:'-date' | startFrom:currentPage*pageSize | limitTo:pageSize">
+                    <div class="col-sm-1">
+                        <div class="thumbnail">
+                            <img class="img-responsive user-photo"
+                                 src="https://ssl.gstatic.com/accounts/ui/avatar_2x.png">
                         </div>
-                        <div class="panel-body">
-                            {{comment.text}}
-                        </div><!-- /panel-body -->
-                    </div><!-- /panel panel-default -->
-                </div><!-- /col-sm-5 -->
+                    </div>
+                    <div class="col-sm-5">
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <strong> {{comment.authorName}}</strong>
+                                <span class="text-muted">commented {{getCommentDate(comment)}} </span>
+                            <span ng-hide="!comment.rate" style="float: right;" class="glyphicon glyphicon-star"
+                                  aria-hidden="true"></span>
+                                <span style="float: right;">{{comment.rate}}</span>
+                            </div>
+                            <div class="panel-body">
+                                {{comment.text}}
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
 
+            <div id="pagination" style="margin-top:50px">
+                <nav>
+                    <ul class="pager">
+                        <li class="previous" ng-hide="currentPage >= comments.length/pageSize - 1"
+                            ng-click="currentPage=currentPage+1"><a>&larr;
+                            Older <span aria-hidden="true"></span></a>
+                        </li>
+                        <li class="next" ng-hide="currentPage == 0" ng-click="currentPage=currentPage-1"><a>Newer <span
+                                aria-hidden="true">&rarr;</span></a>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
         </div>
     </div>
 

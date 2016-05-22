@@ -11,6 +11,7 @@ offerDetailsControllers.controller('OfferDetailsController',
         $scope.offerID = $routeParams.offerId;
         $scope.attachments = [];
         $scope.notLogged = {};
+        $scope.comments = [];
         $scope.canBuy = [];
 
 
@@ -97,4 +98,18 @@ offerDetailsControllers.controller('OfferDetailsController',
             }
         };
 
+        // comments pagination
+        $scope.currentPage = 0;
+        $scope.pageSize = 4;
+        $scope.numberOfPages = function () {
+            return Math.ceil($scope.comments.length / $scope.pageSize);
+        };
+
     }]);
+
+offerDetailsControllers.filter('startFrom', function () {
+    return function (input, start) {
+        start = +start; //parse to int
+        return input.slice(start);
+    };
+});
