@@ -46,7 +46,7 @@ public class OfferService extends AbstractService<Offer, DtoOffer, OfferRepo, Of
         return offer.getId();
     }
 
-    public Iterable<DtoOffer> getOfferPage(String namedQuery, int pageNumber, List<DtoOfferCategory> selectedDtoOfferCategory,Company company) {
+    public Iterable<Offer> getOfferPageDBO(String namedQuery, int pageNumber, List<DtoOfferCategory> selectedDtoOfferCategory,Company company) {
         if (pageNumber < 0)
             return null;
         PageRequest pageRequest = new PageRequest(pageNumber, NUMBER_OFFER_ON_PAGE);
@@ -56,8 +56,15 @@ public class OfferService extends AbstractService<Offer, DtoOffer, OfferRepo, Of
         Iterable<Offer> offers = repo.findAll(offerSpecification, pageRequest);
         for(Offer offer:offers){
             if(offer.getDescription().length()>255)
-            offer.setDescription(offer.getDescription().substring(0,255)+"...");
+                offer.setDescription(offer.getDescription().substring(0,255)+"...");
         }
+        return offers;
+    }
+
+    public Iterable<DtoOffer> getOfferPage(String namedQuery, int pageNumber, List<DtoOfferCategory> selectedDtoOfferCategory,Company company) {
+        Iterable<Offer> offers = getOfferPageDBO(namedQuery,pageNumber,selectedDtoOfferCategory,company);
+        if(offers==null)
+            return null;
         return mapper.convertToDTO(offers);
     }
 

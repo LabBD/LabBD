@@ -22,6 +22,10 @@ indexControllers.controller('MainPageController', ['$scope', 'IndexService', '$l
 indexControllers.controller('LoginController', ['$scope', '$location', 'IndexService', function ($scope, $location, IndexService) {
     $scope.message = "Login page";
 
+    $scope.nextUrl = function(){
+        return $location.url();
+    }
+
     $scope.username ='';
     IndexService.getLoggedUsername(function (username) {
         if(username!==null)

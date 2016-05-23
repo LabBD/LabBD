@@ -23,6 +23,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Qualifier("userDetailsService")
     UserDetailsService userDetailsService;
 
+    @Autowired
+    CustomAuthenticationSuccessHandler customAuthenticationSuccessHandler;
+
 
     @Autowired
     public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
@@ -40,8 +43,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
 
-        http.authorizeRequests().antMatchers("/admin/**")
-                .access("hasRole('ROLE_ADMIN')").and().formLogin().loginPage("/login").failureUrl("http://localhost:8080/#/error/login").and()
+        http.authorizeRequests().antMatchers("/user/**")
+                .access("hasRole('ROLE_USER') or hasRole('ROLE_ADMIN')").and().formLogin().loginPage("/login").successHandler(customAuthenticationSuccessHandler)
+                //.defaultSuccessUrl("/user/")
+                .failureUrl("http://localhost:8080/#/error/login").and()
                 .logout().logoutSuccessUrl("/").and().csrf().disable();
     }
 

@@ -4,6 +4,7 @@ import org.springframework.data.repository.CrudRepository;
 import pl.trainingCompany.model.dbo.Guest;
 import pl.trainingCompany.model.dbo.Offer;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -12,6 +13,8 @@ import java.util.List;
 public interface GuestRepo extends CrudRepository<Guest,Long> {
 
     public Guest findBySessionIdAndOffer(String sessionId, Offer offer);
+
+    public int countByOfferAndDateBetween(Offer offer, Date start, Date end);
 
 }
 

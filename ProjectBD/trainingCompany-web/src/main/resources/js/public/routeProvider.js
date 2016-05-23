@@ -16,7 +16,7 @@ mainApp.config(['$routeProvider', function ($routeProvider) {
         }).
 
         when('/error/:reasonOfError', {
-            templateUrl: '/templates/error.html',
+            templateUrl: '/templates/public/error.html',
             controller: 'ErrorController'
         }).
 

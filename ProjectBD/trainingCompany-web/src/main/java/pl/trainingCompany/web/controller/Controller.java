@@ -17,28 +17,7 @@ import java.util.Map;
 @RestController
 public class Controller {
 
-    @Autowired
-    private GreetingRepo repo;
 
-    @RequestMapping("/admin/users/{id}")
-    public Greeting get(@PathVariable("id") int id) {
-
-        System.out.print(id);
-        return repo.findOne(1L);
-    }
-
-    @RequestMapping(value = "/users", method = RequestMethod.POST)
-    public void post(@RequestBody User user) {
-
-
-    }
-
-
-
-    @RequestMapping("/c")
-    public void take() {
-        repo.save(new Greeting());
-    }
 
     @RequestMapping("/")
     public ModelAndView index() {
@@ -48,6 +27,11 @@ public class Controller {
     @RequestMapping("/user/")
     public ModelAndView getUserIndex() {
         return new ModelAndView("user/userIndex");
+    }
+
+    @RequestMapping("/login")
+    public ModelAndView getLoginPage() {
+        return new ModelAndView("public/login");
     }
 
 

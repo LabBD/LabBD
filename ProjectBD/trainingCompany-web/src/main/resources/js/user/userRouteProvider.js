@@ -1,7 +1,10 @@
 var mainApp = angular.module("mainApp", ['ngRoute', 'ngAnimate','toaster','IndexControllers', 'IndexServices',
     'AngularDemoControllers', 'AngularDemoServices', 'ErrorControllers', 'BasketControllers', 'BasketServices'
     , 'AddOfferControllers', 'AddOfferServices', 'SearchServices', 'SearchControllers', 'ui.grid', 'ui.grid.pagination',
-    'OfferDetailsServices', 'OfferDetailsControllers','MyOffersServices','MyOffersControllers']);
+    'OfferDetailsServices', 'OfferDetailsControllers','MyOffersServices','MyOffersControllers'
+    , 'StatisticServices', 'StatisticControllers','googlechart']);
+
+
 mainApp.config(['$routeProvider', function ($routeProvider) {
     $routeProvider.
 
@@ -25,13 +28,23 @@ mainApp.config(['$routeProvider', function ($routeProvider) {
             controller: 'MyOffersController'
         }).
 
+        when('/statistic', {
+            templateUrl: '/templates/user/statisticPage.html',
+            controller: 'StatisticController'
+        }).
+
+        when('/statistic/:pageNumber', {
+            templateUrl: '/templates/user/statisticPage.html',
+            controller: 'StatisticController'
+        }).
+
         when('/search/:pageNumber', {
             templateUrl: '/templates/public/searchPage.html',
             controller: 'SearchController'
         }).
 
         when('/error/:reasonOfError', {
-            templateUrl: '/templates/error.html',
+            templateUrl: '/templates/public/error.html',
             controller: 'ErrorController'
         }).
 

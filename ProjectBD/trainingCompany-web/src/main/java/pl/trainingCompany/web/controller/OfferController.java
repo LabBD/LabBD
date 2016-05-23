@@ -6,7 +6,6 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import pl.trainingCompany.model.GetOfferPageRequestBody;
-import pl.trainingCompany.model.ValueWrapper;
 import pl.trainingCompany.model.dbo.Company;
 import pl.trainingCompany.model.dbo.Offer;
 import pl.trainingCompany.model.dbo.OfferCategory;
@@ -130,9 +129,9 @@ public class OfferController extends AbstractController<Offer, DtoOffer, OfferSe
 //        for (int j = 0; j < 1000; j++) {
 //            if(j%20==0)
 //                System.out.println(j);
-            for (int i = 0; i < offerName.size(); i++) {
-                //service.save(offerName.get(i), offerDescription.get(i), new Double(random.nextInt(2000)), new Long(random.nextInt(100)), new Date(),(int) i / 5);
-            }
+        for (int i = 0; i < offerName.size(); i++) {
+            //service.save(offerName.get(i), offerDescription.get(i), new Double(random.nextInt(2000)), new Long(random.nextInt(100)), new Date(),(int) i / 5);
+        }
 //        }
 
 
@@ -153,11 +152,11 @@ public class OfferController extends AbstractController<Offer, DtoOffer, OfferSe
         DateFormat dateFormat = new SimpleDateFormat("yyyy-mm-dd");
         Date date = dateFormat.parse(endDate);
         final OfferCategory category = offerCategoryRepo.findByname(categoryName);
-        if(category!=null) {
-            Long offerId = service.save(title,description,price,quantity,date,category);
-            if(offerId != null) {
+        if (category != null) {
+            Long offerId = service.save(title, description, price, quantity, date, category);
+            if (offerId != null) {
                 redirectAttributes.addFlashAttribute("message", "Offer added properly.");
-                boolean isAtchAdded = attachmentController.handleFileUpload(attchName,attchType,offerId,file,redirectAttributes);
+                boolean isAtchAdded = attachmentController.handleFileUpload(attchName, attchType, offerId, file, redirectAttributes);
                 return isAtchAdded ? new ModelAndView("redirect:http://localhost:8080/user/#/addOffer") : new ModelAndView("redirect:http://localhost:8080/#/error/attachmentError");
             } else {
                 return new ModelAndView("redirect:http://localhost:8080/#/error/addOfferError");
@@ -177,30 +176,30 @@ public class OfferController extends AbstractController<Offer, DtoOffer, OfferSe
 
     @RequestMapping(value = "/page/{pageNumber}", method = RequestMethod.POST)
     public Iterable<DtoOffer> getOfferPage(@RequestBody GetOfferPageRequestBody requestBody, @PathVariable int pageNumber) {
-        return service.getOfferPage(requestBody.getQuery(), pageNumber - 1, requestBody.getSelectedOfferCategory(),null);
+        return service.getOfferPage(requestBody.getQuery(), pageNumber - 1, requestBody.getSelectedOfferCategory(), null);
     }
 
     @RequestMapping(value = "/my/page/{pageNumber}", method = RequestMethod.POST)
     public Iterable<DtoOffer> getMyOfferPage(@RequestBody GetOfferPageRequestBody requestBody, @PathVariable int pageNumber) {
 
         Company loggedCompany = companyService.getLoggedCompany();
-        if(loggedCompany==null)
+        if (loggedCompany == null)
             return null;
-        return service.getOfferPage(requestBody.getQuery(), pageNumber - 1, requestBody.getSelectedOfferCategory(),loggedCompany);
+        return service.getOfferPage(requestBody.getQuery(), pageNumber - 1, requestBody.getSelectedOfferCategory(), loggedCompany);
     }
 
     @RequestMapping(value = "/page/count", method = RequestMethod.POST)
     public LongWraper getOfferPageCount(@RequestBody GetOfferPageRequestBody requestBody) {
         LongWraper longWraper = new LongWraper();
-        longWraper.value = service.getOfferPageCount(requestBody.getQuery(), requestBody.getSelectedOfferCategory(),null);
+        longWraper.value = service.getOfferPageCount(requestBody.getQuery(), requestBody.getSelectedOfferCategory(), null);
         return longWraper;
     }
 
-    @RequestMapping(value = "/page/my/count", method = RequestMethod.POST)
+    @RequestMapping(value = "/my/page/count", method = RequestMethod.POST)
     public LongWraper getMyOfferPageCount(@RequestBody GetOfferPageRequestBody requestBody) {
         LongWraper longWraper = new LongWraper();
         Company loggedCompany = companyService.getLoggedCompany();
-        longWraper.value = service.getOfferPageCount(requestBody.getQuery(), requestBody.getSelectedOfferCategory(),loggedCompany);
+        longWraper.value = service.getOfferPageCount(requestBody.getQuery(), requestBody.getSelectedOfferCategory(), loggedCompany);
         return longWraper;
     }
 

@@ -6,11 +6,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 import pl.trainingCompany.model.dbo.Order;
-import pl.trainingCompany.model.dto.DtoOffer;
 import pl.trainingCompany.model.dto.DtoOrder;
 import pl.trainingCompany.service.OrderService;
-
-import java.util.List;
 
 /**
  * Created by Sebastian on 2016-03-25.
@@ -18,6 +15,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/order")
 public class OrderController extends AbstractController<Order, DtoOrder, OrderService> {
+
 
     @RequestMapping("/offers")
     public Iterable<DtoOrder> getAllOfferFromOrder(Long idBasket){
@@ -39,5 +37,6 @@ public class OrderController extends AbstractController<Order, DtoOrder, OrderSe
     public Iterable<DtoOrder> getOrdersFromLoggedAccount(){
         return service.getOrdersFromLoggedAccount();
     }
+
 
 }

@@ -25,7 +25,8 @@
     "font-awesome": "fontawesome#^4.6.1",
     "form.validation": "*",
     "bootstrap-formhelpers": "bootstrap-form-helpers#^2.3.0",
-    "AngularJS-Toaster": "angularjs-toaster#^2.0.0"
+    "AngularJS-Toaster": "angularjs-toaster#^2.0.0",
+    "angular-google-chart": "0.1.0"
   },
   "resolutions": {
     "angular": "1.5.5"
