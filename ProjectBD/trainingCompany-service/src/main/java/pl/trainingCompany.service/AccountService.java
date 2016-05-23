@@ -22,9 +22,9 @@ public class AccountService extends AbstractService<Account, DTOAccount, Account
     @Autowired
     UserService userService;
 
-    public boolean save(MultiValueMap<String, String> data) {
+    public boolean saveUser(MultiValueMap<String, String> data) {
 
-        if (findAccountIdByUsername(data.getFirst("username")) != -1L) {
+        if (findAccountIdByUsername(data.getFirst("username")) != -1) {
             return false;
         }
         DTOAccount dtoAccount = new DTOAccount();
@@ -39,9 +39,6 @@ public class AccountService extends AbstractService<Account, DTOAccount, Account
 
         repo.save(mapper.convertToDBO(dtoAccount));
         userService.save(data.getFirst("username"), data.getFirst("password"), data.getFirst("email"));
-        if (findAccountIdByUsername(dtoAccount.getUsername()) != -1L) {
-            return false;
-        }
 
         if ((data.getFirst("companyName").length() != 0) && (data.getFirst("companyDesc").length() != 0)) {
             Long accountId = findAccountIdByUsername(data.getFirst("username"));

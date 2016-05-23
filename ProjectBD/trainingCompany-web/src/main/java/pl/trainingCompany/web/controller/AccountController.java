@@ -33,7 +33,7 @@ public class AccountController extends AbstractController<Account, DTOAccount, A
     @RequestMapping(value = "/register", method = RequestMethod.POST, consumes = "application/x-www-form-urlencoded")
     public ModelAndView register(@RequestBody final MultiValueMap<String, String> data) {
 
-        if (!service.save(data)) {
+        if (!service.saveUser(data)) {
             return new ModelAndView("redirect:http://localhost:8080/#/error/userExisted");
         }
 
