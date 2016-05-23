@@ -133,11 +133,11 @@
                 <button class="button" style="text-align: left" ng-click="redirectToOfferPage(order)">{{order.offerName}}</button>
             </td>
             <td>
-                <input type="number" value="1" min="1" max="{{order.offerQuantity}}" ng-model="order.amount">
+                <input type="number" value="1" min="1" max="{{order.amount}}" ng-model="order.offerQuantity">
             </td>
             <td>
                 <label style="color: black">
-                    {{order.offerPrice*order.amount}} zł
+                    {{order.offerPrice*order.offerQuantity}} zł
                 </label>
             </td>
         </tr>

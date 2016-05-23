@@ -24,7 +24,7 @@ basketControllers.controller('BasketController',
                 $scope.totalCostAllOrders = 0;
                 angular.forEach($scope.allOrders, function (order) {
                         if(!order.datePayment) {
-                            $scope.totalCostAllOrders += order.offerPrice * order.amount;
+                            $scope.totalCostAllOrders += order.offerPrice * order.offerQuantity;
                         }
                 });
                 return $scope.totalCostAllOrders;
@@ -34,7 +34,7 @@ basketControllers.controller('BasketController',
                 $scope.totalAmountAllOrders = 0;
                 angular.forEach($scope.allOrders, function (order) {
                     if(!order.datePayment) {
-                        $scope.totalAmountAllOrders += order.amount;
+                        $scope.totalAmountAllOrders += order.offerQuantity;
                     }
                 });
                 return $scope.totalAmountAllOrders;
