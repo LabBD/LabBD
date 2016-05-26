@@ -40,7 +40,7 @@ offerDetailsServices.factory('OfferDetailsService', [
             ,
             addComment:{
                 method: 'POST',
-                url: 'comment/add'
+                url: '../comment/add'
             }
         });
     }]);
