@@ -116,6 +116,18 @@
         margin-top: 20px;
     }
 
+    .animated {
+        -webkit-transition: height 0.2s;
+        -moz-transition: height 0.2s;
+        transition: height 0.2s;
+    }
+
+    .stars {
+        margin: 20px 0;
+        font-size: 24px;
+        color: #d17581;
+    }
+
 </style>
 <div class="container">
 
@@ -226,9 +238,33 @@
 
             <!-- komentarze -->
 
-            <div style="position: relative">
+            <div id="comment-adding" class="container" ng-hide="notLogged">
+                <div align="center">
+                    <a style="width: 50%;" class="btn btn-primary" id="open-review-box">Leave a Comment</a>
+                </div>
+                <div class="row" id="post-review-box" style="display:none; margin-top:40px;">
+                    <div class="col-md-12">
+                        <input id="ratings-hidden" name="rating" type="hidden">
+                                        <textarea ng-trim=10 ng-model="commentContent" class="form-control animated" cols="50"
+                                                  id="new-review" name="comment"
+                                                  placeholder="Enter your review here..." rows="5"></textarea>
+                        <div class="text-right">
+                            <div class="stars starrr" data-rating="0"></div>
+                            <a class="btn btn-danger btn-sm" id="close-review-box"
+                               style="display:none; margin-right: 10px;">
+                                <span class="glyphicon glyphicon-remove"></span>Cancel</a>
+                            <button class="btn btn-success btn-lg" ng-click="addComment()">Save</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="comment-displaying" style="position: relative">
                 <div id="commentsHeader" ng-hide="!comments.length">
                     <h2>Comments:</h2>
+                </div>
+                <div id="noCommentsInfo" ng-show="!comments.length">
+                    <h2>There are no comments yet</h2>
                 </div>
 
                 <div id="comments"
@@ -244,9 +280,9 @@
                             <div class="panel-heading">
                                 <strong> {{comment.authorName}}</strong>
                                 <span class="text-muted">commented {{getCommentDate(comment)}} </span>
-                            <span ng-hide="!comment.rate" style="float: right;" class="glyphicon glyphicon-star"
+                            <span ng-hide="!comment.rate" ng-repeat="n in [] | range:comment.rate" style="float: right;"
+                                  class="glyphicon glyphicon-star"
                                   aria-hidden="true"></span>
-                                <span style="float: right;">{{comment.rate}}</span>
                             </div>
                             <div class="panel-body">
                                 {{comment.text}}
@@ -256,7 +292,7 @@
                 </div>
             </div>
 
-            <div id="pagination" style="margin-top:50px">
+            <div id="comment-pagination" style="margin-top:50px">
                 <nav>
                     <ul class="pager">
                         <li class="previous" ng-hide="currentPage >= comments.length/pageSize - 1"
@@ -310,13 +346,14 @@
 
                         </tr>
                     </table>
-                    <p ng-show = false ng-init="tooBigQuantity"></p>
-                    <p ng-show = false ng-init="getUsername"></p>
-                    <p ng-show = false ng-init="canBuy"></p>
+                    <p ng-show=false ng-init="tooBigQuantity"></p>
+                    <p ng-show=false ng-init="getUsername"></p>
+                    <p ng-show=false ng-init="canBuy"></p>
                     <p ng-show="tooBigQuantity()">There is not enough available courses</p>
                     <p ng-show="notLogged">Please log in to add this course to your basket</p>
                     <div class="modal-footer">
-                        <button type="button" ng-show="canBuy" class="btn btn-default" ng-click="addToBasket()" data-dismiss="modal">
+                        <button type="button" ng-show="canBuy" class="btn btn-default" ng-click="addToBasket()"
+                                data-dismiss="modal">
                             Buy
                         </button>
                         <button type="button" class="btn btn-default" data-dismiss="modal">Back</button>

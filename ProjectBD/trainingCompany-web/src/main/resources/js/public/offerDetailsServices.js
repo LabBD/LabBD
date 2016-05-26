@@ -37,5 +37,10 @@ offerDetailsServices.factory('OfferDetailsService', [
                 params: {offerId: "@OfferId"},
                 isArray: true
             }
+            ,
+            addComment:{
+                method: 'POST',
+                url: 'comment/add'
+            }
         });
     }]);
