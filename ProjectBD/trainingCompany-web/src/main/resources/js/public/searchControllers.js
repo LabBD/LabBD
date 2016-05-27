@@ -5,6 +5,8 @@ searchControllers.controller('SearchController', ['$scope', '$routeParams', 'Sea
     $scope.offers = [];
     $scope.categoryIsLoaded=false;
     $scope.offersIsLoaded=false;
+    $scope.isMyOfferPanel = false;
+
 
     if ($routeParams.pageNumber === undefined || $routeParams.pageNumber === null) {
         $scope.actualPageNmber = 1;
@@ -86,6 +88,11 @@ searchControllers.controller('SearchController', ['$scope', '$routeParams', 'Sea
         SearchService.lastPageNumber = $scope.actualPageNmber;
         $location.url($location.path());
         $location.path('/offer/'+ offer.id);
+    }
+
+    $scope.redirectToEditOffer = function(id) {
+        $location.url($location.path());
+        $location.path('/editOffer/'+id);
     }
 
     $scope.searchPhrase = function (phrase) {

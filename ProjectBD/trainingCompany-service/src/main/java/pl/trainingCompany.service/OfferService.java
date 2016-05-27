@@ -46,6 +46,19 @@ public class OfferService extends AbstractService<Offer, DtoOffer, OfferRepo, Of
         return offer.getId();
     }
 
+    public long save(DtoOffer offer,OfferCategory category) {
+        Offer of = new Offer();
+        of.setId(offer.getId());
+        of.setName(offer.getName());
+        of.setQuantity(offer.getQuantity());
+        of.setPrice(offer.getPrice());
+        of.setEndDate(offer.getEndDate());
+        of.setOfferCategory(category);
+        of.setDescription(offer.getDescription());
+        repo.save(of);
+        return offer.getId();
+    }
+
     public Iterable<Offer> getOfferPageDBO(String namedQuery, int pageNumber, List<DtoOfferCategory> selectedDtoOfferCategory,Company company) {
         if (pageNumber < 0)
             return null;

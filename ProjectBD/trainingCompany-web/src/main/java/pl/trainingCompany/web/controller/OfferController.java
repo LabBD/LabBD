@@ -2,24 +2,23 @@ package pl.trainingCompany.web.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import pl.trainingCompany.model.GetOfferPageRequestBody;
+import pl.trainingCompany.model.SaveOfferRequestBody;
 import pl.trainingCompany.model.dbo.Company;
 import pl.trainingCompany.model.dbo.Offer;
 import pl.trainingCompany.model.dbo.OfferCategory;
 import pl.trainingCompany.model.dto.DtoOffer;
 import pl.trainingCompany.repo.OfferCategoryRepo;
+import pl.trainingCompany.repo.OfferRepo;
 import pl.trainingCompany.service.CompanyService;
 import pl.trainingCompany.service.GuestService;
 import pl.trainingCompany.service.OfferCategoryService;
 import pl.trainingCompany.service.OfferService;
 
 import javax.servlet.http.HttpServletRequest;
-import java.text.DateFormat;
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -46,6 +45,9 @@ public class OfferController extends AbstractController<Offer, DtoOffer, OfferSe
 
     @Autowired
     private CompanyService companyService;
+
+    @Autowired
+    private OfferRepo offerRepo;
 
     @RequestMapping("/init")
     public void init() {
@@ -138,31 +140,48 @@ public class OfferController extends AbstractController<Offer, DtoOffer, OfferSe
     }
 
     @RequestMapping(method = RequestMethod.POST, value = "/saveNew")
-    public ModelAndView saveNewOffer(@RequestParam("title") String title,
-                                     @RequestParam("description") String description,
-                                     @RequestParam("price") Double price,
-                                     @RequestParam("quantity") Long quantity,
-                                     @RequestParam("endDate") String endDate,
-                                     @RequestParam("category") String categoryName,
-                                     @RequestParam("name") String attchName,
-                                     @RequestParam("attachmentType") String attchType,
-                                     @RequestParam("file") MultipartFile file,
-                                     RedirectAttributes redirectAttributes) throws ParseException {
-
-        DateFormat dateFormat = new SimpleDateFormat("yyyy-mm-dd");
-        Date date = dateFormat.parse(endDate);
-        final OfferCategory category = offerCategoryRepo.findByname(categoryName);
-        if (category != null) {
-            Long offerId = service.save(title, description, price, quantity, date, category);
-            if (offerId != null) {
-                redirectAttributes.addFlashAttribute("message", "Offer added properly.");
-                boolean isAtchAdded = attachmentController.handleFileUpload(attchName, attchType, offerId, file, redirectAttributes);
-                return isAtchAdded ? new ModelAndView("redirect:http://localhost:8080/user/#/addOffer") : new ModelAndView("redirect:http://localhost:8080/#/error/attachmentError");
+    public @ResponseBody RspWrapper saveNewOffer(@RequestBody SaveOfferRequestBody reqBody) throws ParseException {
+        RspWrapper rsp = new RspWrapper();
+        int duration = reqBody.getDuration() == null ? SaveOfferRequestBody.DEFAULT_DURATION : Integer.parseInt(reqBody.getDuration().split(" ")[0]);
+        LocalDate today = LocalDate.now();
+        Date endDate = Date.from(today.plusDays(duration).atStartOfDay(ZoneId.systemDefault()).toInstant());
+        final OfferCategory category = offerCategoryRepo.findByname(reqBody.getCategoryName());
+        if(category!=null) {
+            Long offerId = service.save(reqBody.getTitle(), reqBody.getDescription(), reqBody.getPrice(),reqBody.getQuantity(),endDate,category);
+            if(offerId!=null||offerId!=-1) {
+                rsp.offerId = offerId;
+                rsp.message = "Offer added properly.";
+                rsp.isOfferAdded = true;
             } else {
-                return new ModelAndView("redirect:http://localhost:8080/#/error/addOfferError");
+                rsp.message = "Some problem occured wgile adding offer. Offer was not added. Please try again.";
+                rsp.isOfferAdded = false;
             }
+            return rsp;
         }
-        return new ModelAndView("redirect:http://localhost:8080/#/error/addOfferError");
+        rsp.message = "Could not get given offer's category. Offer was not added. Please try again.";
+        rsp.isOfferAdded = false;
+        return rsp;
+    }
+
+    @RequestMapping(method = RequestMethod.POST, value = "/update")
+    public @ResponseBody RspWrapper updateOffer(@RequestBody SaveOfferRequestBody reqBody) throws ParseException {
+        RspWrapper rsp = new RspWrapper();
+        int duration = reqBody.getDuration() == null ? SaveOfferRequestBody.DEFAULT_DURATION : Integer.parseInt(reqBody.getDuration().split(" ")[0]);
+        LocalDate today = LocalDate.now();
+        Date endDate = Date.from(today.plusDays(duration).atStartOfDay(ZoneId.systemDefault()).toInstant());
+        DtoOffer updatedOffer = service.findOne(reqBody.getId());
+        OfferCategory category = offerCategoryRepo.findByname(reqBody.getCategoryName());
+        updatedOffer.setId(reqBody.getId());
+        updatedOffer.setName(reqBody.getTitle());
+        updatedOffer.setQuantity(reqBody.getQuantity());
+        updatedOffer.setPrice(reqBody.getPrice());
+        updatedOffer.setOfferCategoryName(category.getName());
+        updatedOffer.setEndDate(endDate);
+        updatedOffer.setDescription(reqBody.getDescription());
+        service.save(updatedOffer,category);
+        rsp.message = "Offer properly updated.";
+        rsp.isOfferAdded = true;
+        return rsp;
     }
 
     @Override
@@ -206,5 +225,12 @@ public class OfferController extends AbstractController<Offer, DtoOffer, OfferSe
     class LongWraper {
         public Long value;
     }
+
+    class RspWrapper {
+        public boolean isOfferAdded;
+        public Long offerId;
+        public String message;
+    }
+
 
 }

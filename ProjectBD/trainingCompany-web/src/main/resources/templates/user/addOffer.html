@@ -20,41 +20,6 @@
 <body>
 
 <style>
-    #inputs {
-        margin-left: 5%;
-        margin-top: 5%;
-        margin-right: 0%;
-    }
-
-    #input-title {
-        width: 40%;
-        padding: 0;
-    }
-
-    #category {
-        float: left;
-        padding: 0;
-    }
-
-    #input-price {
-        margin-left: 5%;
-        float: left;
-        width: 17%;
-        padding: 0;
-    }
-
-    #input-quantity {
-        margin-right: 60%;
-        width: 17%;
-        padding: 0;
-        float:right;
-        margin-top: -8%;
-    }
-
-    #desc {
-        width: 85%;
-        height: 250px;
-    }
 
     #preview-button {
         margin-left: 70%;
@@ -89,129 +54,188 @@
         margin-left: 21%;
     }
 
+    #rspModal {
+        margin-top: 20%;
+        margin-right: 25%;
+        width: 50%;
+    }
 
 </style>
 <div class="header">
     <i class="fa fa-plus fa-2x" style="float:left;"></i>
     <h3 style="margin-left:3%;">Fill offer details</h3>
 </div>
-<div class="container" style="clear:both;">
-    <form id="offerForm" name="offerForm" method="POST" enctype="multipart/form-data" action="/offer/saveNew">
-        <div id="inputs">
-            <div id="input-title">
-                <h4>Offer title:</h4>
-                <input name="title" class="form-control" ng-model="title" ng-required="true"
-                       aria-describedby="basic-addon2">
-            </div>
-            <div class="dropdown">
-                <div id="category">
-                    <h4>Category:</h4>
-                    <div class="form-group">
-                        <select class="form-control" id="sel1" name="category">
-                            <option ng-repeat="category in allCategory" value="{{category.name}}">{{category.name}}
-                            </option>
-                        </select>
-                    </div>
-                </div>
-            </div>
-            <div id="input-price">
-                <h4>Price:</h4>
-                <input type="number" class="form-control" name="price" min="0" ng-model="price" ng-required="true"
-                       ng-pattern="/^\d*[1-9]\d*$/" aria-describedby="basic-addon2">
-            </div>
-            <div class="end_date" style="clear:both;margin-top:10%;">
-                <h4>End date:</h4>
-            </div>
-            <div class="row">
-                <div class='col-sm-6'>
-                    <input type='date' style="width:40%;" class="form-control" name="endDate" ng-model="endDate"
-                           max="2099-12-31" min="{{minDate}}"
-                           ng-required="true">
-                </div>
-            </div>
-            <div id="input-quantity">
-                <h4>Quantity:</h4>
-                <input type="number" class="form-control" name="quantity" min="0" step="1" data-bind="value:replyNumber"
-                       ng-model="quantity" ng-required="true" ng-pattern="/^\d*[1-9]\d*$/">
-            </div>
-            <!--<div id="Carousel" style="margin-left:50%;margin-top:-5%;" class="carousel slide" ng-if="attachments.length!==0">-->
-                    <!--<ol class="carousel-indicators">-->
-                        <!--<li ng-repeat-start="attachment in attachments" ng-if="$first" data-target="Carousel"-->
-                            <!--data-slide-to="0"-->
-                            <!--class="active"></li>-->
-                        <!--<li ng-repeat-end ng-if="!$first" data-target="Carousel" data-slide-to="$index"></li>-->
+<div class="container">
+    <form name="offer">
+        <table style="margin-left:7%;margin-top:2%">
+            <div id="inputs">
+                <tr>
+                    <td>
+                        <div id="input-title" style="width:200%">
+                            <h4>Offer title:</h4>
+                            <input name="title" class="form-control" ng-model="title" ng-required="true"
+                                   aria-describedby="basic-addon2">
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <div id="input-quantity">
+                            <h4>Quantity:</h4>
+                            <input type="number" class="form-control" name="quantity" min="0" step="1"
+                                   data-bind="value:replyNumber"
+                                   ng-model="quantity" ng-required="true" ng-pattern="/^\d*[1-9]\d*$/">
+                        </div>
+                    </td>
+                    <td>
+                        <div id="input-price">
+                            <h4>Price:</h4>
+                            <input type="number" class="form-control" name="price" min="0" ng-model="price"
+                                   ng-required="true"
+                                   ng-pattern="/^\d*[1-9]\d*$/" aria-describedby="basic-addon2">
+                        </div>
+                    </td>
+                </tr>
+                <tr style="margin-left:10%;">
+                    <td>
+                        <div class="dropdown">
+                            <h4>Category:</h4>
+                            <div class="form-group">
+                                <select class="form-control" id="sel1" ng-model="categorySel">
+                                    <option ng-repeat="category in allCategory" value="{{category.name}}">
+                                        {{category.name}}
+                                    </option>
+                                </select>
+                            </div>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="dropdown">
+                            <h4>Offer duration:</h4>
+                            <div class="form-group">
+                                <select class="form-control" id="sel2" name="dateSel" ng-model="duration">
+                                    <option value="3">3 days</option>
+                                    <option value="7">7 days</option>
+                                    <option value="14">14 days</option>
+                                    <option value="30">30 days</option>
+                                </select>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+                <!--<div id="Carousel" style="margin-left:50%;margin-top:-5%;" class="carousel slide" ng-if="attachments.length!==0">-->
+                <!--<ol class="carousel-indicators">-->
+                <!--<li ng-repeat-start="attachment in attachments" ng-if="$first" data-target="Carousel"-->
+                <!--data-slide-to="0"-->
+                <!--class="active"></li>-->
+                <!--<li ng-repeat-end ng-if="!$first" data-target="Carousel" data-slide-to="$index"></li>-->
 
-                    <!--</ol>-->
-                    <!--<div class="carousel-inner">-->
-                        <!--<div ng-repeat-start="attachment in attachments" ng-if="$first" class="item active">-->
-                            <!--<img src="attachment/files/{{attachment.offerId}}/{{attachment.name}}"-->
-                                 <!--class="img-responsive">-->
-                        <!--</div>-->
-
-                        <!--<div ng-repeat-end ng-if="!$first" class="item">-->
-                            <!--<img src="attachment/files/{{attachment.offerId}}/{{attachment.name}}"-->
-                                 <!--class="img-responsive">-->
-                        <!--</div>-->
-                    <!--</div>-->
-                <!--<span class="left carousel-control" data-target="#Carousel" data-slide="prev">-->
-                    <!--<span class="glyphicon glyphicon-chevron-left"></span>-->
-                <!--</span>-->
-                <!--<span class="right carousel-control" data-target="#Carousel" data-slide="next">-->
-                    <!--<span class="glyphicon glyphicon-chevron-right"></span>-->
-                <!--</span>-->
+                <!--</ol>-->
+                <!--<div class="carousel-inner">-->
+                <!--<div ng-repeat-start="attachment in attachments" ng-if="$first" class="item active">-->
+                <!--<img src="attachment/files/{{attachment.offerId}}/{{attachment.name}}"-->
+                <!--class="img-responsive">-->
                 <!--</div>-->
 
-                    <table style="margin-right:10%;margin-top:-10%;float:right;">
-                        <tr>
-                            <td>File to upload:</td>
-                            <td><input type="file"  name="file" class="form-control"/></td>
-                        </tr>
-                        <tr>
-                            <td>Name:</td>
-                            <td><input type="text" name="name" class="form-control"/></td>
-                        </tr>
-                        <tr>
-                            <td>Attachment Type</td>
-                            <td>
-                                <select name="attachmentType" class="form-control">
-                                    <option name="PHOTO">PHOTO</option>
-                                    <option name="MOVIE">MOVIE</option>
-                                    <option name="DOCUMENT">DOCUMENT</option>
-                                </select>
-                            </td>
-                        </tr>
-                    </table>
-            <h4>Description:</h4>
-            <div class="form-group">
-                <textarea class="form-control" style="resize:none;width:90%" rows="5" id="desc" class="form-control" name="description" min="0"
+                <!--<div ng-repeat-end ng-if="!$first" class="item">-->
+                <!--<img src="attachment/files/{{attachment.offerId}}/{{attachment.name}}"-->
+                <!--class="img-responsive">-->
+                <!--</div>-->
+                <!--</div>-->
+                <!--<span class="left carousel-control" data-target="#Carousel" data-slide="prev">-->
+                <!--<span class="glyphicon glyphicon-chevron-left"></span>-->
+                <!--</span>-->
+                <!--<span class="right carousel-control" data-target="#Carousel" data-slide="next">-->
+                <!--<span class="glyphicon glyphicon-chevron-right"></span>-->
+                <!--</span>-->
+                <!--</div>-->
+                <table style="margin-right:8%;margin-top:-15%;float:right;">
+                    <tr>
+
+                        <td>File to upload:<input type="file" name="attachment" file-model="attachment"
+                                                  class="form-control"/></td>
+                    </tr>
+                    <tr>
+                        <td>Name:<input type="text" name="attachmentName" ng-model="attachmentName"
+                                        class="form-control"/></td>
+                    </tr>
+                    <tr>
+                        <td>
+                            Attachment Type
+                            <select ng-model="attachmentType" name="attachmentType" class="form-control">
+                                <option name="PHOTO">PHOTO</option>
+                                <option name="MOVIE">MOVIE</option>
+                                <option name="DOCUMENT">DOCUMENT</option>
+                            </select>
+                        </td>
+                    </tr>
+                </table>
+                <tr>
+                    <td>
+                        <h4 style="margin-left:7%;">Description:</h4>
+                        <div class="form-group">
+                <textarea class="form-control" style="resize:none;width:85%;margin-left:7%;" rows="10" id="desc"
+                          class="form-control"
+                          name="description" min="0"
                           max="255" step="1" data-bind="value:replyNumber"
                           ng-model="description" ng-required="true" aria-describedby="basic-addon2">
                 </textarea>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <div class="buttons">
+                        <td>
+                            <button class="btn btn-success" data-toggle="modal" data-target="#login-modal">Preview
+                            </button>
+                        </td>
+                        <td>
+                            <button class="btn btn-success" ng-hide="isEditMode"
+                                    ng-click="offer.title.$valid && offer.price.$valid && offer.quantity.$valid && offer.description.$valid && saveNewOffer()">
+                                Add offer
+                            </button>
+                            <button class="btn btn-success" ng-hide="!isEditMode"
+                                    ng-click="offer.title.$valid && offer.price.$valid && offer.quantity.$valid && offer.description.$valid && updateOffer()">
+                                Update offer
+                            </button>
+                        </td>
+                        <br><br>
+                    </div>
+                </tr>
             </div>
-        </div>
-        <div class="buttons">
-            <button type="button" class="btn btn-success" data-toggle="modal" data-target="#myModal">Preview</button>
-            <button type="submit" class="btn btn-success">Add offer</button>
-            <br><br>
-        </div>
+        </table>
     </form>
 </div>
-<div class="modal fade" id="myModal" role="dialog">
-    <div class="modal-dialog modal-lg">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal">&times;</button>
-                <h4 class="modal-title">Offer preview</h4>
-            </div>
-            <div class="modal-body">
-                <label>Title: {{title}}</label>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+<div class="modal fade" id="rspModal" role="dialog"
+     aria-labelledby="myModalLabel"
+     aria-hidden="true">
+    <div class="vertical-alignment-helper">
+        <div class="modal-dialog vertical-align-center">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <label>{{responseMsg}}</label>
+                </div>
             </div>
         </div>
     </div>
 </div>
-
+<div class="container">
+    <div class="modal fade" id="rspM" role="dialog">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">Offer preview</h4>
+                </div>
+                <div class="modal-body">
+                    <label>Title: {{title}}</label>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 </body>
 </html>

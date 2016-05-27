@@ -28,6 +28,11 @@ mainApp.config(['$routeProvider', function ($routeProvider) {
             controller: 'MyOffersController'
         }).
 
+        when('/editOffer/:offerId', {
+            templateUrl: '/templates/user/addOffer.html',
+            controller: 'AddOfferController'
+        }).
+
         when('/statistic', {
             templateUrl: '/templates/user/statisticPage.html',
             controller: 'StatisticController'

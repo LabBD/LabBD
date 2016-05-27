@@ -139,4 +139,43 @@ public class Offer {
     public void setCompany(Company company) {
         this.company = company;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Offer offer = (Offer) o;
+
+        if (id != offer.id) return false;
+        if (name != null ? !name.equals(offer.name) : offer.name != null) return false;
+        if (company != null ? !company.equals(offer.company) : offer.company != null) return false;
+        if (description != null ? !description.equals(offer.description) : offer.description != null) return false;
+        if (price != null ? !price.equals(offer.price) : offer.price != null) return false;
+        if (quantity != null ? !quantity.equals(offer.quantity) : offer.quantity != null) return false;
+        if (endDate != null ? !endDate.equals(offer.endDate) : offer.endDate != null) return false;
+        if (attachments != null ? !attachments.equals(offer.attachments) : offer.attachments != null) return false;
+        if (orders != null ? !orders.equals(offer.orders) : offer.orders != null) return false;
+        if (guests != null ? !guests.equals(offer.guests) : offer.guests != null) return false;
+        if (comments != null ? !comments.equals(offer.comments) : offer.comments != null) return false;
+        return offerCategory != null ? offerCategory.equals(offer.offerCategory) : offer.offerCategory == null;
+
+    }
+
+    @Override
+    public int hashCode() {
+        int result = (int) (id ^ (id >>> 32));
+        result = 31 * result + (name != null ? name.hashCode() : 0);
+        result = 31 * result + (company != null ? company.hashCode() : 0);
+        result = 31 * result + (description != null ? description.hashCode() : 0);
+        result = 31 * result + (price != null ? price.hashCode() : 0);
+        result = 31 * result + (quantity != null ? quantity.hashCode() : 0);
+        result = 31 * result + (endDate != null ? endDate.hashCode() : 0);
+        result = 31 * result + (attachments != null ? attachments.hashCode() : 0);
+        result = 31 * result + (orders != null ? orders.hashCode() : 0);
+        result = 31 * result + (guests != null ? guests.hashCode() : 0);
+        result = 31 * result + (comments != null ? comments.hashCode() : 0);
+        result = 31 * result + (offerCategory != null ? offerCategory.hashCode() : 0);
+        return result;
+    }
 }

@@ -6,6 +6,7 @@ myOffersControllers.controller('MyOffersController', ['$scope', '$routeParams', 
     $scope.title="My offers:";
     $scope.categoryIsLoaded=false;
     $scope.offersIsLoaded=false;
+    $scope.isMyOfferPanel = true;
 
     if ($routeParams.pageNumber === undefined || $routeParams.pageNumber === null) {
         $scope.actualPageNmber = 1;

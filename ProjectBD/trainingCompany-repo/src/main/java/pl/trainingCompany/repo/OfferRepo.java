@@ -1,6 +1,8 @@
 package pl.trainingCompany.repo;
 
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
+import org.springframework.data.jpa.repository.Modifying;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import pl.trainingCompany.model.dbo.Offer;
 
@@ -10,4 +12,5 @@ import pl.trainingCompany.model.dbo.Offer;
 public interface OfferRepo extends CrudRepository<Offer,Long>, JpaSpecificationExecutor {
 
     public Offer getOfferByName(String name);
+
 }

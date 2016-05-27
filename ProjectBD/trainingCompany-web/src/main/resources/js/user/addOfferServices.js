@@ -13,7 +13,11 @@ addOfferServices.factory('AddOfferServiceRepo', [
             saveOffer: {
                 method: 'POST',
                 url: '/offer/saveNew'
-             }
+            },
+            updateOffer: {
+                method: 'POST',
+                url: '/offer/update'
+            }
 
         });
     }]);
@@ -29,4 +33,5 @@ addOfferServices.service('AddOfferService', function () {
         return allCategory;
     };
 
- });
+})
+;
