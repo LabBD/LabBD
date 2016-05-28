@@ -90,6 +90,11 @@ myOffersControllers.controller('MyOffersController', ['$scope', '$routeParams', 
         $location.path('/offer/'+ offer.id);
     }
 
+    $scope.redirectToEditOffer = function(id) {
+        $location.url($location.path());
+        $location.path('/editOffer/'+id);
+    }
+    
     $scope.searchPhrase = function (phrase) {
         if (typeof phrase === 'undefined') {
             $location.path('/myOffers/1');

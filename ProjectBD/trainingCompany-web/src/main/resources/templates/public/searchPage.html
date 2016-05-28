@@ -198,6 +198,8 @@
                 <h3 class="element-with-border-radius" style="margin-right: 2px">
                     {{offer.price}}
                 </h3>
+                <button class="btn btn-success" style = "margin-left: 226%;margin-bottom:5%;" ng-click="redirectToEditOffer(offer.id)" ng-hide="!isMyOfferPanel">Edit offer</button>
+                <br>
             </div>
             <div class="col-sm-7">
                 <h3 align="center" class="element-with-border-radius-without-margin" >
@@ -205,7 +207,6 @@
                 </h3>
                 {{offer.description}}
             </div>
-            <button class="btn btn-success" ng-click="redirectToEditOffer(offer.id)" ng-hide="!isMyOfferPanel">Edit offer</button>
         </label>
         <!--
                 <label ng-init="home='element-with-border-radius'" ng-class="home"

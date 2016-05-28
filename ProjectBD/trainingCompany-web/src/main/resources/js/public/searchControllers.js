@@ -90,11 +90,6 @@ searchControllers.controller('SearchController', ['$scope', '$routeParams', 'Sea
         $location.path('/offer/'+ offer.id);
     }
 
-    $scope.redirectToEditOffer = function(id) {
-        $location.url($location.path());
-        $location.path('/editOffer/'+id);
-    }
-
     $scope.searchPhrase = function (phrase) {
         if (typeof phrase === 'undefined') {
             $location.path('/search/1');

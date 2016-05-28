@@ -42,6 +42,7 @@ public class OfferService extends AbstractService<Offer, DtoOffer, OfferRepo, Of
         offer.setQuantity(quantity);
         offer.setEndDate(endDate);
         offer.setOfferCategory(offerCategoryId);
+        offer.setCompany(companyService.getLoggedCompany());
         repo.save(offer);
         return offer.getId();
     }
@@ -55,6 +56,7 @@ public class OfferService extends AbstractService<Offer, DtoOffer, OfferRepo, Of
         of.setEndDate(offer.getEndDate());
         of.setOfferCategory(category);
         of.setDescription(offer.getDescription());
+        of.setCompany(companyService.getLoggedCompany());
         repo.save(of);
         return offer.getId();
     }
