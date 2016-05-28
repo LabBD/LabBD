@@ -1,8 +1,8 @@
 var addOfferControllers = angular.module(
     'AddOfferControllers', []);
 
-addOfferControllers.controller('AddOfferController', ['$scope', '$routeParams', '$http', '$location', 'AddOfferService', 'OfferDetailsService', 'AddOfferServiceRepo',
-    function ($scope, $routeParams, $http, $location, AddOfferService, OfferDetailsService, AddOfferServiceRepo) {
+addOfferControllers.controller('AddOfferController', ['$scope', '$routeParams', '$http', '$location', 'AddOfferService', 'OfferDetailsService', 'AddOfferServiceRepo', 'MyOffersServiceRepo',
+    function ($scope, $routeParams, $http, $location, AddOfferService, OfferDetailsService, AddOfferServiceRepo, MyOffersServiceRepo) {
         $scope.allCategory = [];
         $scope.duration = "3";
         $scope.isEditMode = false;
@@ -20,6 +20,12 @@ addOfferControllers.controller('AddOfferController', ['$scope', '$routeParams', 
         var url = $location.path();
         if (url.indexOf("/editOffer") > -1) {
             $scope.offerIdNum = $routeParams.offerId;
+            MyOffersServiceRepo.checkIfOfferOwner({offerId: $scope.offerIdNum}, function (rsp) {
+                if (rsp.value == 1) {
+                    $location.url($location.path());
+                    $location.path('/');
+                }
+            });
             $scope.isEditMode = true;
             OfferDetailsService.getOfferDetails({offerId: $scope.offerIdNum}, function (offerModel) {
                 $scope.offerDetails = offerModel;
@@ -59,7 +65,7 @@ addOfferControllers.controller('AddOfferController', ['$scope', '$routeParams', 
                 duration: $scope.duration,
                 description: $scope.description
             };
-            
+
             AddOfferServiceRepo.updateOffer(offerReqBody, function (rsp) {
                 $scope.responseMsg = rsp.message;
                 $scope.detectedRsp(rsp);
@@ -83,5 +89,5 @@ addOfferControllers.controller('AddOfferController', ['$scope', '$routeParams', 
                 }, 3000);
             }
         }
-        
+
     }]);

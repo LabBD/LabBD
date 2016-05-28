@@ -20,6 +20,12 @@ myOffersServices.factory('MyOffersServiceRepo', [
             getMyOfferPageCount: {
                 method: 'POST',
                 url: '/offer/my/page/count'
+            },
+            
+            checkIfOfferOwner: {
+                method: 'GET',
+                params: {offerId: '@offerId'},
+                url: '/offer/my/:offerId'
             }
 
         });

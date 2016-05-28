@@ -1,5 +1,6 @@
 package pl.trainingCompany.web.controller;
 
+import org.hibernate.annotations.LazyToOne;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import pl.trainingCompany.model.GetOfferPageRequestBody;
@@ -23,6 +24,9 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Random;
+import java.util.function.Supplier;
+import java.util.stream.Collectors;
+import java.util.stream.StreamSupport;
 
 /**
  * Created by Kamil S on 2016-03-24.
@@ -140,15 +144,17 @@ public class OfferController extends AbstractController<Offer, DtoOffer, OfferSe
     }
 
     @RequestMapping(method = RequestMethod.POST, value = "/saveNew")
-    public @ResponseBody RspWrapper saveNewOffer(@RequestBody SaveOfferRequestBody reqBody) throws ParseException {
+    public
+    @ResponseBody
+    RspWrapper saveNewOffer(@RequestBody SaveOfferRequestBody reqBody) throws ParseException {
         RspWrapper rsp = new RspWrapper();
         int duration = reqBody.getDuration() == null ? SaveOfferRequestBody.DEFAULT_DURATION : Integer.parseInt(reqBody.getDuration().split(" ")[0]);
         LocalDate today = LocalDate.now();
         Date endDate = Date.from(today.plusDays(duration).atStartOfDay(ZoneId.systemDefault()).toInstant());
         final OfferCategory category = offerCategoryRepo.findByname(reqBody.getCategoryName());
-        if(category!=null) {
-            Long offerId = service.save(reqBody.getTitle(), reqBody.getDescription(), reqBody.getPrice(),reqBody.getQuantity(),endDate,category);
-            if(offerId!=null||offerId!=-1) {
+        if (category != null) {
+            Long offerId = service.save(reqBody.getTitle(), reqBody.getDescription(), reqBody.getPrice(), reqBody.getQuantity(), endDate, category);
+            if (offerId != null || offerId != -1) {
                 rsp.offerId = offerId;
                 rsp.message = "Offer added properly.";
                 rsp.isOfferAdded = true;
@@ -164,7 +170,9 @@ public class OfferController extends AbstractController<Offer, DtoOffer, OfferSe
     }
 
     @RequestMapping(method = RequestMethod.POST, value = "/update")
-    public @ResponseBody RspWrapper updateOffer(@RequestBody SaveOfferRequestBody reqBody) throws ParseException {
+    public
+    @ResponseBody
+    RspWrapper updateOffer(@RequestBody SaveOfferRequestBody reqBody) throws ParseException {
         RspWrapper rsp = new RspWrapper();
         int duration = reqBody.getDuration() == null ? SaveOfferRequestBody.DEFAULT_DURATION : Integer.parseInt(reqBody.getDuration().split(" ")[0]);
         LocalDate today = LocalDate.now();
@@ -178,7 +186,7 @@ public class OfferController extends AbstractController<Offer, DtoOffer, OfferSe
         updatedOffer.setOfferCategoryName(category.getName());
         updatedOffer.setEndDate(endDate);
         updatedOffer.setDescription(reqBody.getDescription());
-        service.save(updatedOffer,category);
+        service.save(updatedOffer, category);
         rsp.message = "Offer properly updated.";
         rsp.isOfferAdded = true;
         return rsp;
@@ -230,6 +238,21 @@ public class OfferController extends AbstractController<Offer, DtoOffer, OfferSe
         public boolean isOfferAdded;
         public Long offerId;
         public String message;
+    }
+
+    @RequestMapping(value = "/my/{offerId}", method = RequestMethod.GET)
+    public LongWraper validateIfOfferOwner(@PathVariable("offerId") Long offerId) {
+        LongWraper wrp = new LongWraper();
+        final Company company = companyService.getLoggedCompany();
+        Iterable<Offer> offers = offerRepo.getOfferByCompany(company);
+        for(Offer o: offers) {
+            if(o.getId() == offerId) {
+                wrp.value = 0L;
+                return wrp;
+            }
+        }
+        wrp.value = 1L;
+        return wrp;
     }
 
 
