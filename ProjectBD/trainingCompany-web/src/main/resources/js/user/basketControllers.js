@@ -93,6 +93,12 @@ basketControllers.controller('BasketController',
                 }
             });
         }
+        
+
+        $scope.validateInput = function(order){
+            if ( order.offerQuantity > order.amount ) order.offerQuantity = order.amount;
+            else if (order.offerQuantity < 0) order.offerQuantity = 1;
+        }
 
         $scope.remove = function(order) {
             var index = $scope.allOrders.indexOf(order);
