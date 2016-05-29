@@ -8,7 +8,9 @@ import pl.trainingCompany.model.SaveOfferRequestBody;
 import pl.trainingCompany.model.dbo.Company;
 import pl.trainingCompany.model.dbo.Offer;
 import pl.trainingCompany.model.dbo.OfferCategory;
+import pl.trainingCompany.model.dbo.Order;
 import pl.trainingCompany.model.dto.DtoOffer;
+import pl.trainingCompany.model.dto.DtoOrder;
 import pl.trainingCompany.repo.OfferCategoryRepo;
 import pl.trainingCompany.repo.OfferRepo;
 import pl.trainingCompany.service.CompanyService;
@@ -240,6 +242,11 @@ public class OfferController extends AbstractController<Offer, DtoOffer, OfferSe
         public String message;
     }
 
+    @RequestMapping(value = "/reduceQuantity", method = RequestMethod.POST)
+    public void reduceQuantity(@RequestBody DtoOrder dtoOrder){
+        service.reduceOfferQuantity(dtoOrder.getOfferQuantity(),dtoOrder.getOfferId());
+    }
+
     @RequestMapping(value = "/my/{offerId}", method = RequestMethod.GET)
     public LongWraper validateIfOfferOwner(@PathVariable("offerId") Long offerId) {
         LongWraper wrp = new LongWraper();
@@ -254,6 +261,5 @@ public class OfferController extends AbstractController<Offer, DtoOffer, OfferSe
         wrp.value = 1L;
         return wrp;
     }
-
 
 }

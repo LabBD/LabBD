@@ -8,6 +8,7 @@ basketControllers.controller('BasketController',
     ['$scope','$routeParams','BasketService', '$location', function($scope, $routeParams, BasketService, $location) {
 
         $scope.allOrders = BasketService.getAllOrders();
+        $scope.allOrdersFromAllUsers = BasketService.getAllOrdersFromAllUsers();
 
         $scope.selectAll = function () {
             if ($scope.checkAll) {
@@ -57,8 +58,38 @@ basketControllers.controller('BasketController',
         $scope.pay = function(){
             angular.forEach($scope.allOrders, function (order) {
                 if(order.check){
-                    order.datePayment = new Date();
-                    BasketService.saveOrder(order);
+                    if(order.amount > 0) {
+                        order.datePayment = new Date();
+                        BasketService.reduceQuantity(order);
+                        angular.forEach($scope.allOrdersFromAllUsers, function (orderFromAll) {
+                            if (order.offerId == orderFromAll.offerId)
+                            {
+                                orderFromAll.amount = orderFromAll.amount - order.offerQuantity;
+                                if ( orderFromAll.amount == 0)
+                                {
+                                    orderFromAll.offerQuantity = 0;
+                                }
+                                else if (orderFromAll.amount < orderFromAll.offerQuantity)
+                                {
+                                    orderFromAll.offerQuantity = orderFromAll.amount;
+                                }
+                            }
+                            if (order.id != orderFromAll.id)
+                            {
+                                BasketService.saveOrder(orderFromAll);
+                            }
+                            else
+                            {
+                                BasketService.saveOrder(order);
+                            }
+                        $scope.paymentInformation = "Your transaction is correct. Payment was accepted.";
+                        });
+                    } else {
+                        // Jeśli nie ma już ofert
+                        $scope.paymentInformation = "We don't have more offerts to buy. Sorry.";
+                    }
+                } else {
+                    $scope.paymentInformation = "Check order to pay."
                 }
             });
         }
@@ -66,6 +97,10 @@ basketControllers.controller('BasketController',
         $scope.remove = function(order) {
             var index = $scope.allOrders.indexOf(order);
             $scope.allOrders.splice(index, 1);
+        }
+        
+        $scope.reloadPage = function(){
+            window.location.reload();
         }
 
     }]);

@@ -133,7 +133,8 @@
                 <button class="button" style="text-align: left" ng-click="redirectToOfferPage(order)">{{order.offerName}}</button>
             </td>
             <td>
-                <input type="number" value="1" min="1" max="{{order.amount}}" ng-model="order.offerQuantity">
+                <input type="number" value="1" min="1" max="{{order.amount}}" ng-model="order.offerQuantity" ng-if="order.amount > 0">
+                <label ng-if="order.amount == 0" style="color: black">BRAK</label>
             </td>
             <td>
                 <label style="color: black">
@@ -169,13 +170,13 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal">&times;</button>
-                    <h4 class="modal-title">Pay accepted</h4>
+                    <h4 class="modal-title">Payment</h4>
                 </div>
                 <div class="modal-body">
-                    <p>Your transaction is correct. Payment was accepted.</p>
+                    <p>{{paymentInformation}}</p>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="reloadPage()">Close</button>
                 </div>
             </div>
         </div>

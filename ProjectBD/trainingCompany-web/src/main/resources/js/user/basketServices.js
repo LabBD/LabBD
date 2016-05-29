@@ -19,6 +19,15 @@ basketServices.factory('BasketService', [
             saveOrder: {
                 method: 'POST',
                 url: '../order/save'
+            },
+            reduceQuantity: {
+                method: 'POST',
+                url: '../offer/reduceQuantity'
+            },
+            getAllOrdersFromAllUsers: {
+                method: 'GET',
+                url: '../order/all',
+                isArray: true
             }
             //           getSection: { //nazwa metody
             //               params: {id: "@id"}, // parametry
