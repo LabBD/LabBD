@@ -13,6 +13,7 @@ public class Comment {
     @GeneratedValue
     private Long id;
 
+    @Column(columnDefinition="varchar(500)")
     private String text;
 
     private Date date;

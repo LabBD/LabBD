@@ -72,24 +72,32 @@ offerDetailsControllers.controller('OfferDetailsController',
         });
 
         $scope.addComment = function () {
-            $scope.DtoComment = {};
-            $scope.DtoComment.offerName = $scope.offerDetails.name;
-            $scope.DtoComment.rate = $scope.rating;
-            $scope.DtoComment.text = $scope.commentContent;
+            if ($scope.commentContent.length < 5 || $scope.commentContent.length >= 500) {
+                toaster.pop({
+                    type: 'warning',
+                    title: 'Wrong length of comment',
+                    body: 'Your comment must have 5-500 signs',
+                    timeout: 3000
+                });
+            } else {
+                $scope.DtoComment = {};
+                $scope.DtoComment.offerName = $scope.offerDetails.name;
+                $scope.DtoComment.rate = $scope.rating;
+                $scope.DtoComment.text = $scope.commentContent;
 
-            OfferDetailsService.addComment($scope.DtoComment, function () {
-            });
+                OfferDetailsService.addComment($scope.DtoComment);
 
-            var reviewBox = $('#post-review-box');
-            var closeReviewBtn = $('#close-review-box');
-            reviewBox.slideUp(300);
-            closeReviewBtn.hide();
+                var reviewBox = $('#post-review-box');
+                var closeReviewBtn = $('#close-review-box');
+                reviewBox.slideUp(300);
+                closeReviewBtn.hide();
 
-            toaster.pop({
-                type: 'success',
-                title: 'Comment added',
-                timeout: 5000
-            });
+                toaster.pop({
+                    type: 'success',
+                    title: 'Comment added',
+                    timeout: 5000
+                });
+            }
         };
 
         $scope.addToBasket = function () {
