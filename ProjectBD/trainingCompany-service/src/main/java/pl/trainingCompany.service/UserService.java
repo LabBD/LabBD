@@ -15,7 +15,7 @@ import pl.trainingCompany.service.mappers.UserMapper;
 @Service
 public class UserService extends AbstractService<User,DtoUser,UserRepo,UserMapper> {
 
-    @Autowired
+   @Autowired
     UserRoleRepo userRoleRepo;
 
     public void save (String username, String password, String email) {
@@ -32,5 +32,13 @@ public class UserService extends AbstractService<User,DtoUser,UserRepo,UserMappe
 
         repo.save(user);
         userRoleRepo.save(userRole);
+    }
+
+    public void update (String oldUsername, String username, String password) {
+        User user = repo.findByusername(oldUsername);
+        user.setUsername(username);
+        user.setPassword(password);
+
+        repo.save(user);
     }
 }

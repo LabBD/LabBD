@@ -2,7 +2,7 @@ var mainApp = angular.module("mainApp", ['ngRoute', 'ngAnimate','toaster','Index
     'AngularDemoControllers', 'AngularDemoServices', 'ErrorControllers', 'BasketControllers', 'BasketServices'
     , 'AddOfferControllers', 'AddOfferServices', 'SearchServices', 'SearchControllers', 'ui.grid', 'ui.grid.pagination',
     'OfferDetailsServices', 'OfferDetailsControllers','MyOffersServices','MyOffersControllers'
-    , 'StatisticServices', 'StatisticControllers','googlechart']);
+    , 'StatisticServices', 'StatisticControllers','googlechart','AccountDetailsControllers', 'AccountDetailsServices']);
 
 
 mainApp.config(['$routeProvider', function ($routeProvider) {
@@ -66,6 +66,11 @@ mainApp.config(['$routeProvider', function ($routeProvider) {
         when('/basket', {
             templateUrl: '/templates/user/basket.html',
             controller: 'BasketController'
+        }).
+		
+		when('/accountDetails', {
+            templateUrl: '/templates/user/accountDetails.html',
+            controller: 'AccountDetailsController'
         }).
 
         otherwise({

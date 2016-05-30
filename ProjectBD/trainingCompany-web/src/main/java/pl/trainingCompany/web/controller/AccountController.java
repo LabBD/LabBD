@@ -49,4 +49,17 @@ public class AccountController extends AbstractController<Account, DTOAccount, A
         }
         return new ValueWrapper<Boolean>(false);
     }
+	
+	@RequestMapping(value = "/details", method = RequestMethod.POST)
+    public @ResponseBody DTOAccount getAccountDetails() {
+        DTOAccount account = service.getMapper().convertToDTO(service.getLoggedAccount());
+        return account;
+    }
+
+    @RequestMapping(value = "/update", method = RequestMethod.POST, consumes = "application/json;charset=UTF-8")
+    public void updateAccountDetails( @RequestBody DTOAccount dtoAccount) {
+        service.save(dtoAccount);
+        
+        userService.update(service.getLoggedAccountName(),dtoAccount.getUsername(),dtoAccount.getPassword());
+    }
 }

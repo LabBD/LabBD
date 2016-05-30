@@ -1,0 +1,124 @@
+<toaster-container></toaster-container>
+
+<form id="updateForm" name="updateForm" class="form-horizontal" ng-submit="update()" novalidate>
+
+    <div class="form-group">
+        <label class="col-xs-3 control-label">Username</label>
+
+        <div class="col-xs-8">
+            <input type="text" class="form-control" id="username" ng-init="accountDetails.username"
+                   name="username" ng-model="accountDetails.username" readonly/>
+        </div>
+    </div>
+
+    <div class="form-group" ng-class="{ 'has-error' : updateForm.firstName.$invalid}">
+        <label class="col-xs-3 control-label">First name</label>
+
+        <div class="col-xs-8">
+            <input type="text" class="form-control" name="firstName" ng-pattern="normalText"
+                   ng-model="accountDetails.firstName" required/>
+        </div>
+        <p ng-show="updateForm.firstName.$invalid" class="help-block">First name could not be empty and contains special characters.</p>
+    </div>
+
+    <div class="form-group" ng-class="{ 'has-error' : updateForm.lastName.$invalid}">
+        <label class="col-xs-3 control-label">Last name</label>
+
+        <div class="col-xs-8">
+            <input type="text" class="form-control" name="lastName" ng-model="accountDetails.lastName"
+                   ng-pattern="normalText" required/>
+        </div>
+        <p ng-show="updateForm.lastName.$invalid" class="help-block">Last name name could not be empty and contains special characters.</p>
+    </div>
+
+    <div class="form-group" ng-class="{ 'has-error' : updateForm.email.$invalid}">
+        <label class="col-xs-3 control-label">Email</label>
+
+        <div class="col-xs-8">
+            <input type="text" class="form-control" name="email" ng-model="accountDetails.email" ng-pattern="emailRegex" required/>
+        </div>
+        <p ng-show="updateForm.email.$invalid" class="help-block">Wrong email</p>
+    </div>
+
+    <div class="form-group" ng-class="{ 'has-error' : updateForm.password.$invalid}">
+        <label class="col-xs-3 control-label">Password</label>
+
+        <div class="col-xs-8">
+            <input type="password" class="form-control" id="password" name="password"
+                   required ng-model="accountDetails.password"/>
+        </div>
+        <p ng-show="updateForm.password.$invalid" class="help-block">Wrong password</p>
+    </div>
+
+    <div class="form-group" ng-class="{ 'has-error' : updateForm.password_c.$invalid}">
+        <label class="col-xs-3 control-label">Retype password</label>
+
+        <div class="col-xs-8">
+            <input type="password" class="form-control" id="repeatPassword" name="repeatPassword"
+                   ng-model="repeatPassword" required repeat-password="password"/>
+
+        </div>
+        <p ng-show="updateForm.repeatPassword.$invalid" class="help-block">Must be the same like typed password</p>
+    </div>
+
+    <div class="form-group"  ng-class="{ 'has-error' : updateForm.phone.$invalid}">
+        <label class="col-xs-3 control-label">Phone number</label>
+
+        <div class="col-xs-8">
+            <input type="text" name="phone"
+                   class=" form-control" id="phone" ng-model="accountDetails.phoneNumber"
+                   ng-pattern="phoneNumberRegex" required/>
+        </div>
+        <p ng-show="updateForm.phone.$invalid" class="help-block">Wrong phone number (corect format 111 111 111)</p>
+    </div>
+
+    <div class="form-group"  ng-class="{ 'has-error' : updateForm.city.$invalid}">
+        <label class="col-xs-3 control-label">City</label>
+
+        <div class="col-xs-8">
+            <input type="text" class="form-control" name="city" ng-model="accountDetails.city"
+                   ng-pattern="normalText" required/>
+        </div>
+        <p ng-show="updateForm.city.$invalid" class="help-block">City could not be empty and contains special characters</p>
+    </div>
+
+    <div class="form-group" ng-class="{ 'has-error' : updateForm.address.$invalid}">
+        <label class="col-xs-3 control-label">Address</label>
+
+        <div class="col-xs-8">
+            <input type="text" class="form-control" name="address" ng-model="accountDetails.address"
+                   ng-pattern="normalText" required/>
+        </div>
+        <p ng-show="updateForm.address.$invalid" class="help-block">Type correct address</p>
+    </div>
+
+    <div class="companyDetails" ng-if="ifCompany">
+        <div id="companyName" class="form-group"  ng-class="{ 'has-error' : updateForm.companyName.$invalid}">
+            <label class="col-xs-3 control-label">Company name</label>
+
+            <div class="col-xs-8">
+                <input type="text" class="form-control" id="inputCompanyName" name="companyName"
+                       ng-model="companyDetails.nameCompany" ng-pattern="normalText" ng-required="ifCompany"/>
+            </div>
+            <p ng-show="updateForm.companyName.$invalid" class="help-block">Type correct company name</p>
+        </div>
+        <div id="companyDesc" class="form-group" ng-class="{ 'has-error' : updateForm.companyDesc.$invalid}">
+            <label class="col-xs-3 control-label">Company description</label>
+
+            <div class="col-xs-8">
+                                <textarea class="form-control" id="inputCompanyDesc" rows="8"
+                                          name="companyDesc" ng-model="companyDetails.description"
+                                          ng-pattern="normalText" ng-required="ifCompany"></textarea>
+            </div>
+            <p ng-show="updateForm.companyDesc.$invalid" class="help-block">Type correct company details</p>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <div class="col-xs-5 col-xs-offset-3">
+            <button type="submit" class="btn btn-primary" ng-disabled="updateForm.$invalid">Update</button>
+            <button type="reset" class="btn btn-default" data-dismiss="modal">Back</button>
+        </div>
+    </div>
+
+</form>

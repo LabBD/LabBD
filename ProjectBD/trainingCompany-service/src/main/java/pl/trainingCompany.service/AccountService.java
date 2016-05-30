@@ -86,4 +86,9 @@ public class AccountService extends AbstractService<Account, DTOAccount, Account
         return repo.findByUsername(username);
     }
 
+	
+    public void update(DTOAccount dtoAccount) {
+        Account account = repo.findOne(dtoAccount.getId());
+        account = mapper.convertToDBO(dtoAccount);
+    }
 }

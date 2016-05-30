@@ -52,5 +52,26 @@ public class CompanyService extends AbstractService<Company, DtoCompany, Company
             return null;
         return company.getCompanyName();
     }
+	
+	   public DtoCompany getDetails() {
+        Company company = getLoggedCompany();
+        if (company != null) {
+            DtoCompany dtoCompany = mapper.convertToDTO(company);
+            return dtoCompany;
+        } else {
+            DtoCompany dtoCompany = new DtoCompany();
+            dtoCompany.setId(-1);
+            dtoCompany.setAccountId(-1);
+            dtoCompany.setNameCompany("-1");
+            dtoCompany.setDescription("-1");
+            return dtoCompany;
+        }
+
+    }
+
+    public void update(DtoCompany dtoCompany) {
+        Company company = repo.findOne(dtoCompany.getId());
+        company = mapper.convertToDBO(dtoCompany);
+    }
 
 }

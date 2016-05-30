@@ -13,5 +13,6 @@ import pl.trainingCompany.service.UserService;
 @RestController
 @RequestMapping("/user")
 public class UserController extends AbstractController<User,DtoUser,UserService> {
-
+	
+	
 }
