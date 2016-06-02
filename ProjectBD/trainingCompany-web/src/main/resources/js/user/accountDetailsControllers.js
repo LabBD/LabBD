@@ -8,8 +8,10 @@ accountDetailsControllers.controller('AccountDetailsController',
         function ($scope, $log, $routeParams, AccountDetailsService, toaster) {
 
     $scope.normalText = /^[a-zA-Z0-9_]+$/i;
-            $scope.emailRegex = /^[a-zA-Z0-9_]+@[a-zA-Z0-9]+\.[a-zA-Z0-9]+$/i;
-            $scope.phoneNumberRegex = /^\d{3,3} \d{3,3} \d{3,3}$/i;
+    $scope.emailRegex = /^[a-zA-Z0-9_]+@[a-zA-Z0-9]+\.[a-zA-Z0-9]+$/i;
+    $scope.phoneNumberRegex = /^\d{3,3} \d{3,3} \d{3,3}$/i;
+    $scope.textWithSpaces = /^[a-zA-Z0-9_ ]+$/i;
+    $scope.passwordRegex = /^\S+$/i;
     $scope.accountDetails = {};
     $scope.companyDetails = {};
     $scope.ifCompany = false;
